@@ -8,6 +8,7 @@
     "outDir": "dist",
     "strict": true,
     "resolveJsonModule": true,
+    "esModuleInterop" : true,
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"],
@@ -19,7 +20,7 @@
   "include": [
     "src/**/*.ts",
     "test/**/*.ts"
-  ],
+, "test/jest.config.js"  ],
   "exclude": [
     "./node_modules/*",
     "dist"
