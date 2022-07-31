@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "start": "npm run build && node -r dotenv/config dist/src/main/server.js",
-    "start:dev": "npm run lint && ts-node-dev -r dotenv/config src/main/server.ts",
+    "start:dev": "npm run lint && npm run style:fix && ts-node-dev -r dotenv/config src/main/server.ts",
     "test:functional": "jest --projects ./test --runInBand",
     "style:fix" : "prettier --write src/**/*.ts test/**/*.ts ",
     "lint": "eslint ./src ./test --ext .ts",
