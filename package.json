@@ -9,9 +9,9 @@
   "scripts": {
     "build": "tsc",
     "start": "npm run build && node -r dotenv/config dist/src/main/server.js",
-    "start:dev": "npm run lint && npm run style:fix && ts-node-dev -r dotenv/config src/main/server.ts",
+    "start:dev": "npm run lint && ts-node-dev -r dotenv/config src/main/server.ts",
     "test:functional": "jest --projects ./test --runInBand",
-    "style:fix" : "prettier --write src/**/*.ts test/**/*.ts ",
+    "style:fix": "prettier --write src/**/*.ts test/**/*.ts ",
     "lint": "eslint ./src ./test --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix"
   },
@@ -24,6 +24,7 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "module-alias": "^2.2.2",
+    "mongoose": "^6.5.1",
     "prettier": "^2.7.1"
   },
   "devDependencies": {
