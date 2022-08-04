@@ -2,14 +2,12 @@ import AppExpress from './config/appExpress';
 
 (async () => {
   try {
-    const app = await AppExpress.init();
+      
+    await AppExpress.init();
+    await AppExpress.start();
 
-    app.listen(process.env.PORT, () => {
-      console.log(process.env.PORT);
-
-      console.log('Rodouuu');
-    });
   } catch (erro) {
+    await AppExpress.close();
     console.error('Error', erro);
   }
 })();

@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
 export default (router: Router): void => {
-  router.post('/company/register', (req, res) => {
+  router.post('/register', (req, res) => {
     res.json({ ok: 1 });
   });
-  router.get('/company/access', (req, res) => {
+  router.get('/access', (req, res) => {
     res.json({ ok: 1 });
   });
 };

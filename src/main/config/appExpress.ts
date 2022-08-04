@@ -16,15 +16,26 @@ class AppExpress {
     readdirSync(join(__dirname, '../routes'))
       .filter((file) => !file.endsWith('.map'))
       .map(async (file) => {
+        const prefix_route = file.split('.')[0];
         (await import(`../routes/${file}`)).default(router);
+        this.app.use(`/api/${prefix_route}`, router);
       });
-
-    this.app.use('/api', router);
   }
 
   private setupMiddlewares(): void {
     this.app.use(json());
   }
+
+  public async start(){
+    this.app.listen(process.env.PORT, () => {
+      console.log(`Server Running !! In ${process.env.PORT}`);
+    })
+  }
+
+  public async close(){
+    return;
+  }
+  
 }
 
 export default new AppExpress();
