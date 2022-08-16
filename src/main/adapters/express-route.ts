@@ -1,4 +1,4 @@
-import { Controller } from '@src/application/controllers/contracts/controller';
+import { Controller } from '@src/application/contracts';
 import { RequestHandler } from 'express';
 
 type Adapter = (controller: Controller) => RequestHandler;
