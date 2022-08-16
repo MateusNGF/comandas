@@ -1,13 +1,9 @@
-import { Controller } from '@src/application/contracts';
-import { HttpResponse } from '@src/application/helpers/http-request';
-import { AuthenticationCompany } from '@src/domain/usecases/company/authentication.usecase';
+import { Controller } from "src/application/contracts";
+import { HttpResponse } from "src/application/helpers/http-request";
 
 export class AccessCompanyController implements Controller {
-  constructor(
-    // private authentication : AuthenticationCompany
-  ){}
 
-  exec(): Promise<HttpResponse> {
-    return Promise.resolve({ status: 2, data: {} });
+  async exec(): Promise<HttpResponse> {
+    return Promise.resolve({ status: 200, data: {} });
   }
 }

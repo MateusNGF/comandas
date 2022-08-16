@@ -1,29 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es2019",
-    "moduleResolution": "node",
-    "module": "commonjs",
-    "lib": ["es2019"],
-    "sourceMap": true,
     "outDir": "dist",
-    "rootDir": ".",
-    "strict": true,
-    "resolveJsonModule": true,
-    "esModuleInterop" : true,
+    "module": "commonjs",
+    "target": "es2019",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "rootDirs": ["src", "tests"],
     "baseUrl": ".",
-    "paths": {
-      "@src/*": ["src/*"],
-      "@test/*": ["test/*"]
-    },
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
   },
   "include": [
-    "src/**/*.ts",
-    "test/**/*.ts"
-, "test/jest.config.js"  ],
-  "exclude": [
-    "./node_modules/*",
-    "dist"
-  ]
+    "src",
+    "tests",
+    "tests/jest.config.js"
+  ],
+  "exclude": ["./node_modules/*", "dist"]
 }
