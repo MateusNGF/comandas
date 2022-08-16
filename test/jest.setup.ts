@@ -5,3 +5,8 @@ beforeAll(async () => {
   const app = await AppExpress.init();
   global.testRequest = supertest(app);
 });
+
+
+afterAll(async () => {
+  await AppExpress.close()
+})

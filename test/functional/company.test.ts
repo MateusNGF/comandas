@@ -1,4 +1,4 @@
-describe('Beach forecast functional test', () => {
+describe('Company access functional test', () => {
   it('should return a forecast with just a few times', async () => {
     const { body, status } = await global.testRequest.get(
       '/api/company/access'

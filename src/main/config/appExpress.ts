@@ -33,7 +33,7 @@ class AppExpress {
     });
   }
 
-  public async close() {
+  public async close() : Promise<void> {
     if (this.server) this.server.close()
     return;
   }
