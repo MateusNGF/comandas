@@ -3,7 +3,7 @@ import { Server } from 'http';
 import { readdirSync } from 'fs';
 import express, { Express, json, Router } from 'express';
 
-import { Database } from '../../infra/database/mongodb/contracts';
+import { Database } from '../../infra/database/contracts';
 import { MongoDB } from '../../infra/database/mongodb';
 
 

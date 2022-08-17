@@ -1,8 +1,7 @@
 import { Collection, MongoClient } from "mongodb";
-import { Database } from "./contracts";
+import { Database } from "../contracts";
 
-class MongoDriver extends Database {
-
+class MongoDriver implements Database{
   private client : MongoClient | null = null;
 
   public async connect() : Promise<void> {
