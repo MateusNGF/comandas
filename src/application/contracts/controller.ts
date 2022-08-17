@@ -1,7 +1,7 @@
 import { HttpResponse } from '@src/application/helpers/http-request';
 
 export abstract class Controller {
-  abstract exec(HttpRequest: any): Promise<HttpResponse>;
+  abstract exec<T=any>(HttpRequest: any): Promise<HttpResponse<T>>;
 
   protected sendError(error: any): HttpResponse<{ message: string }> {
     return {
