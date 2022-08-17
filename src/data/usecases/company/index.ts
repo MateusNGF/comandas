@@ -1,1 +1,1 @@
-export * from './authentication.data'
+export * from './authentication.data';

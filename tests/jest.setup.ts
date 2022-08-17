@@ -6,7 +6,6 @@ beforeAll(async () => {
   global.testRequest = supertest(app);
 });
 
-
 afterAll(async () => {
-  await AppExpress.close()
-})
+  await AppExpress.close();
+});

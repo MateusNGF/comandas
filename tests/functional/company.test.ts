@@ -5,6 +5,6 @@ describe('Company access functional test', () => {
     );
 
     expect(status).toBe(200);
-    expect(body).toEqual({ token: "valid token" });
+    expect(body).toEqual({ token: 'valid token' });
   });
 });

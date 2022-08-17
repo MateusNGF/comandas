@@ -1,9 +1,12 @@
-import { Controller } from "src/application/contracts";
-import { HttpResponse } from "src/application/helpers/http-request";
+import { Controller } from 'src/application/contracts';
+import { HttpResponse } from 'src/application/helpers/http-request';
 
-export class AccessCompanyController implements Controller {
-
+export class AccessCompanyController extends Controller {
   async exec(): Promise<HttpResponse> {
-    return Promise.resolve({ status: 200, data: { token : "valid token"} });
+    try {
+      return Promise.resolve(this.sendSucess(200, { token: 'valid token' }));
+    } catch (error) {
+      return this.sendError(error);
+    }
   }
 }
