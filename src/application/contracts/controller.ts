@@ -13,7 +13,7 @@ export abstract class Controller {
   protected sendSucess(status: 200 | 204, data: any): HttpResponse<any> {
     return {
       status: status || 200,
-      data: data || null,
+      data: { ok : 1, ...data} || null,
     };
   }
 }
