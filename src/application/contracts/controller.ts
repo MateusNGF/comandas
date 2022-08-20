@@ -1,4 +1,4 @@
-import { HttpResponse } from '@src/application/helpers/http-request';
+import { HttpResponse } from "../helpers/http-request";
 
 export abstract class Controller {
   abstract exec<T=any>(HttpRequest: any): Promise<HttpResponse<T>>;
