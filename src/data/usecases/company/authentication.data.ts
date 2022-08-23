@@ -1,6 +1,7 @@
-import { AuthenticationCompany } from '@src/domain/usecases/company/authentication.usecase';
+import { AuthenticationCompany } from "@/src/domain/usecases/company";
 
 export class AuthenticationCompanyData implements AuthenticationCompany {
+
   auth(
     input: AuthenticationCompany.inputCredentials
   ): Promise<AuthenticationCompany.AccessCredentials> {
