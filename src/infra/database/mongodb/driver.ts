@@ -1,11 +1,12 @@
 import { Collection, MongoClient } from 'mongodb';
-import { Database } from '../contracts';
+import { iDatabase } from '../contracts';
 
-class MongoDriver implements Database {
+class MongoDriver implements iDatabase {
   private client: MongoClient | null = null;
 
   public async connect(): Promise<void> {
     if (!this.client) {
+      console.log("teste");
       this.client = await MongoClient.connect(process.env.MONGO_URI as string);
     }
   }

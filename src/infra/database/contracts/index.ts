@@ -1,1 +1,2 @@
-export * from './database';
+export * from './iDatabase';
+export * from './iMongodb'

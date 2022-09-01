@@ -1,11 +1,11 @@
 import { RequestHandler } from 'express';
-import { Controller } from '../../application/contracts';
+import { iController } from '../../application/contracts';
 
-type Adapter = (controller: Controller) => RequestHandler;
+type Adapter = (controller: iController) => RequestHandler;
 
 export const adaptExpressRoute: Adapter =
-  (controller: Controller) => async (req, res) => {
-    const { data, status } = await controller.exec({ ...req.body });
+  (controller: iController) => async (req, res) => {
+    const { data, status } = await controller.exec({ body : req.body, params : req.params});
     const json = [200, 204].includes(status) ? data : { error: data.message };
     res.status(status).json(json);
   };

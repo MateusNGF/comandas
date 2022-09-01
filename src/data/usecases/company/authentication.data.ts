@@ -1,12 +1,34 @@
-import { AuthenticationCompany } from "@/src/domain/usecases/company";
+import { iAuthenticationCompany } from '@/src/domain/usecases/company';
+import {
+  iHashAdapter,
+  iTokenAdapter,
+} from '@/src/infra/cryptography/contracts';
+import { iCompanyRepository } from '@/src/infra/database/contracts/repositorys';
 
-export class AuthenticationCompanyData implements AuthenticationCompany {
+export class AuthenticationCompanyData implements iAuthenticationCompany {
+  constructor(
+    private readonly repository: iCompanyRepository,
+    private readonly tokenAdapter: iTokenAdapter,
+    private readonly hashAdapter: iHashAdapter
+  ) {}
+  async exec(
+    input: iAuthenticationCompany.inputCredentials
+  ): Promise<iAuthenticationCompany.AccessCredentials> {
+    let companyFounded = await this.repository.findByEmail(input?.email);
+    if (!companyFounded)
+      companyFounded = await this.repository.findByCNPJ(input?.cnpj);
+    if (!companyFounded) throw new Error('Nenhuma conta encontrada.');
 
-  auth(
-    input: AuthenticationCompany.inputCredentials
-  ): Promise<AuthenticationCompany.AccessCredentials> {
-    return Promise.resolve({
-      token: input.email,
-    });
+    const accessReleased = await this.hashAdapter.compare(
+      input.password,
+      companyFounded.password
+    );
+    if (!accessReleased) throw new Error('Senha invalida!');
+
+    return {
+      token: await this.tokenAdapter.sing(
+        JSON.stringify({ name: companyFounded.name_fantasy })
+      ),
+    };
   }
 }

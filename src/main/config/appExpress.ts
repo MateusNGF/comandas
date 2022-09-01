@@ -3,16 +3,16 @@ import { Server } from 'http';
 import { readdirSync } from 'fs';
 import express, { Express, json, Router } from 'express';
 
-import { Database } from '../../infra/database/contracts';
+import { iDatabase } from '../../infra/database/contracts';
 import { MongoDB } from '../../infra/database/mongodb';
 
 class AppExpress {
   private app: Express = express();
   private server: Server | null = null;
-  private database: Database | null = null;
+  private database: iDatabase | null = null;
 
   async init(): Promise<Express> {
-    this.setupDatabase();
+    await this.setupDatabase();
     this.setupMiddlewares();
     this.setupRoutes();
     return this.app;
@@ -32,23 +32,24 @@ class AppExpress {
     this.app.use(json());
   }
 
-  private setupDatabase() {
+  private async setupDatabase() {
     if (!this.database) {
-      this.database = MongoDB;
+      try{
+
+        this.database = MongoDB;
+        await this.database.connect()
+
+      }catch(e){
+        throw new Error('Database not has configurated.');
+      }
     }
   }
 
   public async start(): Promise<void> {
-    if (this.database) {
-      return this.database.connect().then(() => {
-        console.log(`Connection success at database !!`);
-        this.server = this.app.listen(process.env.PORT, () => {
-          console.log(`Server Running at ${process.env.PORT}`);
-        });
-      });
-    }
+    this.server = this.app.listen(process.env.PORT, () => {
+      console.log(`Server Running at ${process.env.PORT}`);
+    });
 
-    throw new Error('Database not has configurated.');
   }
 
   public async close(): Promise<void> {

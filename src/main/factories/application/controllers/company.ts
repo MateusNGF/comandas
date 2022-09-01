@@ -1,10 +1,13 @@
-import { Controller } from '../../../../application/contracts';
+import { iController } from '../../../../application/contracts';
 import { AccessCompanyController, RegisterCompanyController } from '../../../../application/controllers/company';
+import { makeUseCaseAuthenticationCompany, makeUseCaseRegistrationCompany } from '../usecases/company';
 
-export const makeAccessCompanyController = (): Controller => {
-  return new AccessCompanyController();
+export const makeAccessCompanyController = (): iController => {
+  const usecaseAuthenticationCompany = makeUseCaseAuthenticationCompany()
+  return new AccessCompanyController(usecaseAuthenticationCompany);
 };
 
-export const makeRegisterCompanyController = (): Controller => {
-  return new RegisterCompanyController()
+export const makeRegisterCompanyController = (): iController => {
+  const usecaseRegistrationCompany = makeUseCaseRegistrationCompany()
+  return new RegisterCompanyController(usecaseRegistrationCompany)
 }
