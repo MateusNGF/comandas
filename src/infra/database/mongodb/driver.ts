@@ -6,7 +6,6 @@ class MongoDriver implements iDatabase {
 
   public async connect(): Promise<void> {
     if (!this.client) {
-      console.log("teste");
       this.client = await MongoClient.connect(process.env.MONGO_URI as string);
     }
   }
