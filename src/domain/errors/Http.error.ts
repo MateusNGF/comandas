@@ -10,13 +10,13 @@ export class UnauthorizedError extends HttpError {
   name = "Unauthorized Error"
   code = 401
 
-  constructor(menssage : string){
+  constructor(menssage : string = "Access Denied."){
     super();
     this.message = menssage
   }
 }
 
-export class BadRequest extends HttpError {
+export class BadRequestError extends HttpError {
   name = "BadRequest Error"
   code = 400
 

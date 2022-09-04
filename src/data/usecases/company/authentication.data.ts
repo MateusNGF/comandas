@@ -1,3 +1,4 @@
+import { BadRequestError, UnauthorizedError } from '../../../../src/domain/errors';
 import { iAuthenticationCompany } from '@/src/domain/usecases/company';
 import {
   iHashAdapter,
@@ -15,15 +16,20 @@ export class AuthenticationCompanyData implements iAuthenticationCompany {
     input: iAuthenticationCompany.inputCredentials
   ): Promise<iAuthenticationCompany.AccessCredentials> {
     let companyFounded = await this.repository.findByEmail(input?.email);
-    if (!companyFounded)
-      companyFounded = await this.repository.findByCNPJ(input?.cnpj);
-    if (!companyFounded) throw new Error('Nenhuma conta encontrada.');
+
+    if (!companyFounded){
+      companyFounded = await this.repository.findByCNPJ(input?.cnpj)
+    }
+    if (!companyFounded) {
+      throw new BadRequestError('Account not found.')
+    }
 
     const accessReleased = await this.hashAdapter.compare(
       input.password,
       companyFounded.password
     );
-    if (!accessReleased) throw new Error('Senha invalida!');
+    
+    if (!accessReleased) throw new UnauthorizedError();
 
     return {
       token: await this.tokenAdapter.sing(

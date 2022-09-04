@@ -8,7 +8,8 @@ export abstract class iAuthenticationCompany implements iUsecase {
 
 export namespace iAuthenticationCompany {
   export interface inputCredentials {
-    [key : string ]: string;
+    email ?: string;
+    cnpj ?: string;
     password: string;
   }
 

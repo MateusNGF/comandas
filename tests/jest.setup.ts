@@ -1,4 +1,4 @@
-import AppExpress from '@src/main/config/appExpress';
+import AppExpress from '@/src/main/config/appExpress';
 import supertest from 'supertest';
 
 beforeAll(async () => {

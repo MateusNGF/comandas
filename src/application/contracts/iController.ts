@@ -1,4 +1,4 @@
-import { HttpError } from "../errors";
+import { HttpError } from "../../../src/domain/errors";
 import { HttpResponse } from "../helpers/http-request";
 
 export abstract class iController {
