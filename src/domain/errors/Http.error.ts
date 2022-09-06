@@ -1,4 +1,4 @@
-import { CustomError } from "./Custom.error";
+import { CustomError } from "./custom.error";
 
 
 export abstract class HttpError extends CustomError {

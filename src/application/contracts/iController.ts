@@ -5,22 +5,12 @@ export abstract class iController {
   abstract exec<T=any>(HttpRequest: any): Promise<HttpResponse<T>>;
 
   protected sendError(error: any): HttpResponse<{ message: string }> {
-    if (error instanceof HttpError){
-      return {
-        status: error.code ? error.code : 500,
-        data: {
-          message : error.message
-        }
-      };
+    if (error instanceof HttpError) {
+      return makeBodyResponseError(error.code ? error.code : 400, error.message);
+    }else{
+      console.error(error)
+      return makeBodyResponseError(500, "Internal Error. try later.")
     }
-
-    console.log(error)
-    return {
-      status: 500,
-      data: {
-        message : "Unknown error, come back later."
-      }
-    };
   }
 
   protected sendSucess(status: 200 | 204, data: any): HttpResponse<any> {
@@ -29,4 +19,9 @@ export abstract class iController {
       data: { ok : 1, ...data} || null,
     };
   }
+}
+
+
+const makeBodyResponseError = (status : any, message:any) => {
+  return {status: status,data : { message }}
 }

@@ -11,7 +11,7 @@
     "start": "npm run build && node -r dotenv/config dist/src/main/server.js",
     "start:dev": "npm run lint && ts-node-dev -r dotenv/config src/main/server.ts",
     "test:functional": "jest --projects ./tests --runInBand",
-    "test:unit" : "jest --projects ./src --runInBand",
+    "test:unit" : "jest --projects ./src --runInBand --watch",
     "style:fix": "prettier --write src/**/*.ts tests/**/*.ts ",
     "lint": "eslint ./src ./tests --ext .ts",
     "lint:fix": "eslint ./src ./tests --ext .ts --fix"
