@@ -1,4 +1,3 @@
-import { UnauthorizedError } from '../../../src/domain/errors';
 import jwt from 'jsonwebtoken';
 import { iTokenAdapter } from './contracts';
 
