@@ -10,7 +10,7 @@ export class CreationEventController extends iController {
   async exec(request: HttpRequest): Promise<HttpResponse> {
     try {
       const newEvent = await this.usecase.exec({
-        company_id: request.headers?._id,
+        companyId: request.headers?._id,
         event: request.body,
       });
       if (!newEvent)

@@ -7,7 +7,7 @@ export abstract class iCreationEvent implements iUsecase {
 
 export namespace iCreationEvent {
   export type input = {
-    company_id: string;
+    companyId: string;
     event: Event;
   };
   export type output = {

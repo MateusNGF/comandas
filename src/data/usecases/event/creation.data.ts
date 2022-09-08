@@ -16,16 +16,17 @@ export class CreationEventData implements iCreationEvent {
     private readonly eventRepository: iEventRepository
   ) {}
   async exec(input: iCreationEvent.input): Promise<iCreationEvent.output> {
-    if (!input.company_id) throw new UnauthorizedError('Token required.');
+    if (!input.companyId) throw new UnauthorizedError('CompanyId required.');
     if (!input.event) throw new MissingParamError('Missing event.');
-
-    if (!(await this.companyRepository.findById(input.company_id)))
+    
+    ObjectManager.hasKeys(['name', 'startData', 'endData'], input.event);
+    
+    if (!(await this.companyRepository.findById(input.companyId)))
       throw new UnauthorizedError('Company not found.');
 
-    ObjectManager.hasKeys(['name', 'startData', 'endData'], input.event, false);
 
     const event = new Event({
-      company_id: input.company_id,
+      company_id: input.companyId,
       ...input.event,
     });
 
@@ -33,7 +34,7 @@ export class CreationEventData implements iCreationEvent {
 
     if (createdEvent) {
       return {
-        _id: input.company_id,
+        _id: input.companyId,
         createdAt: input.event.createAt,
       };
     }

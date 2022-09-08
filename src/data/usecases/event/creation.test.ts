@@ -44,20 +44,20 @@ describe('Creation Event', () => {
     };
 
     fakeBody = {
-      company_id: 'any_id_company',
+      companyId: 'any_id_company',
       event: fakeEvent,
     };
   });
 
-  it('Deve dar erro se não tiver company_id', async () => {
-    delete fakeBody.company_id;
+  it('Should return error if companyId has missing.', async () => {
+    delete fakeBody.companyId;
     const response = sut.exec(fakeBody);
     await expect(response).rejects.toThrow(
-      new UnauthorizedError('Token required.')
+      new UnauthorizedError('CompanyId required.')
     );
   });
 
-  it('Deve dar erro se não tiver um evento.', async () => {
+  it('Should return error if event is missing.', async () => {
     delete fakeBody.event;
     const response = sut.exec(fakeBody);
     await expect(response).rejects.toThrow(
@@ -65,7 +65,7 @@ describe('Creation Event', () => {
     );
   });
 
-  it('Deve dar erro se o id dentro do token não for valido.', async () => {
+  it('Should return error if companyId not has registered.', async () => {
     companyRepositorySpy.findById.mockResolvedValue(null);
     const response = sut.exec(fakeBody);
 

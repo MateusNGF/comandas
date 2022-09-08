@@ -14,7 +14,7 @@ export class ObjectManager extends Object {
   static hasKeys(
     requireds: Array<String>,
     object: Object,
-    security: boolean = true
+    security: boolean = false
   ) {
     if (typeof object != 'object')
       throw new TypeError('segundo parametro precisa ser um objeto.');
