@@ -1,8 +1,8 @@
 import { HttpError } from "../../../src/domain/errors";
-import { HttpResponse } from "../helpers/http-request";
+import { HttpResponse } from "../helpers/http";
 
 export abstract class iController {
-  abstract exec<T=any>(HttpRequest: any): Promise<HttpResponse<T>>;
+  abstract exec<T=any>(request: any): Promise<HttpResponse<T>>;
 
   protected sendError(error: any): HttpResponse<{ message: string }> {
     if (error instanceof HttpError) {

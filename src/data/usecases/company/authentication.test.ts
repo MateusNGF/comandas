@@ -87,7 +87,7 @@ describe('Authenticate Company', () => {
 
     hashAdapterSpy.compare.mockResolvedValue(true);
 
-    tokenAdapterSpy.sing.mockResolvedValue('any_token');
+    tokenAdapterSpy.createAccessToken.mockResolvedValue('any_token');
 
     const response = await sut.exec(fakeInputCredentials);
 

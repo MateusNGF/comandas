@@ -32,9 +32,7 @@ export class AuthenticationCompanyData implements iAuthenticationCompany {
     if (!accessReleased) throw new UnauthorizedError();
 
     return {
-      token: await this.tokenAdapter.sing(
-        JSON.stringify({ _id: companyFounded._id.toString() })
-      ),
+      token: await this.tokenAdapter.createAccessToken({ _id: companyFounded._id })
     };
   }
 }

@@ -20,7 +20,7 @@ export class BadRequestError extends HttpError {
   name = "BadRequest Error"
   code = 400
 
-  constructor(menssage : string){
+  constructor(menssage : string = "Request Failed."){
     super();
     this.message = menssage
   }

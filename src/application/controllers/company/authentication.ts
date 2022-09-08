@@ -1,7 +1,7 @@
 import { UnauthorizedError } from "../../../../src/domain/errors";
 import { iAuthenticationCompany } from "@/src/domain/usecases/company";
 import { iController } from "../../contracts";
-import { HttpRequest, HttpResponse } from "../../helpers/http-request";
+import { HttpRequest, HttpResponse } from "../../helpers/http";
 
 export class AccessCompanyController extends iController {
 

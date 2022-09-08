@@ -1,6 +1,6 @@
 import { iRegistrationCompany } from "../../../domain/usecases/company";
 import { iController } from "../../contracts";
-import { HttpRequest, HttpResponse } from "../../helpers/http-request";
+import { HttpRequest, HttpResponse } from "../../helpers/http";
 
 export class RegisterCompanyController extends iController {
 

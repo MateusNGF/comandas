@@ -2,28 +2,18 @@ import { AuthenticationCompanyData, RegistrationCompanyData } from "../../../../
 import { iAuthenticationCompany, iRegistrationCompany } from "../../../../domain/usecases/company";
 import { MongoDB } from "../../../../infra/database/mongodb";
 import { Company } from "../../../../domain/entities";
-import { iHashAdapter, iTokenAdapter } from "../../../../infra/cryptography/contracts";
-import { BcryptAdapter, JWTAdapter } from "../../../../infra/cryptography";
 import { CompanyRepository } from "../../../../infra/database/mongodb/repositorys";
+import { makeHashAdapter, makeTokenAdapter } from "../../infra/cryptography";
 
-function makeRepository() : any {
+export function makeCompanyRepository() : any {
   const collection = MongoDB.colletion<Company>('companies')
   const repository = new CompanyRepository(collection)
   return repository
 }
 
-
-function makeHashAdapter() : iHashAdapter{
-  return new BcryptAdapter(4)
-}
-
-function makeTokenAdapter() : iTokenAdapter {
-  return new JWTAdapter()
-}
-
 export const makeUseCaseAuthenticationCompany = (): iAuthenticationCompany => {
   return new AuthenticationCompanyData(
-    makeRepository(),
+    makeCompanyRepository(),
     makeTokenAdapter(),
     makeHashAdapter()
   );
@@ -31,7 +21,7 @@ export const makeUseCaseAuthenticationCompany = (): iAuthenticationCompany => {
 
 export const makeUseCaseRegistrationCompany = () : iRegistrationCompany => {
   return new RegistrationCompanyData(
-    makeRepository(),
+    makeCompanyRepository(),
     makeTokenAdapter(),
     makeHashAdapter()
   )
