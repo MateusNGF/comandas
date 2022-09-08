@@ -1,5 +1,5 @@
 import { Company } from "@/src/domain/entities";
-import { BadRequestError, UnauthorizedError } from "../../../../src/domain/errors";
+import { UnauthorizedError } from "../../../../src/domain/errors";
 import { iRegistrationCompany } from "@/src/domain/usecases/company";
 import { iHashAdapter, iTokenAdapter } from "@/src/infra/cryptography/contracts";
 import { iCompanyRepository } from "@/src/infra/database/contracts/repositorys"
@@ -68,8 +68,8 @@ describe("Registration Company", () => {
 
     repositorySpy.register.mockResolvedValue(null)
 
-    const response = sut.exec(fakeNewCompany)
+    const response = await sut.exec(fakeNewCompany)
 
-    await expect(response).rejects.toThrow(new BadRequestError("It was not possible to register, try later."))
+    expect(response).toBe(undefined)
   })
 })

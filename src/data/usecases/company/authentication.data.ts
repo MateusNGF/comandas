@@ -33,7 +33,7 @@ export class AuthenticationCompanyData implements iAuthenticationCompany {
 
     return {
       token: await this.tokenAdapter.sing(
-        JSON.stringify({ name: companyFounded.name_fantasy })
+        JSON.stringify({ _id: companyFounded._id.toString() })
       ),
     };
   }

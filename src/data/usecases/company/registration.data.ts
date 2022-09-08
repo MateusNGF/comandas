@@ -3,7 +3,7 @@ import { iRegistrationCompany } from "../../../domain/usecases/company";
 import { iHashAdapter, iTokenAdapter } from "../../../infra/cryptography/contracts";
 import { Company } from "./../../../domain/entities";
 import { ObjectManager } from "../../../domain/utils";
-import { BadRequestError, UnauthorizedError } from "../../../../src/domain/errors";
+import { UnauthorizedError } from "../../../../src/domain/errors";
 
 export class RegistrationCompanyData extends iRegistrationCompany {
 
@@ -36,12 +36,10 @@ export class RegistrationCompanyData extends iRegistrationCompany {
 
     if (registeredCompany) {
       return {
-        token: await this.tokenAdapter.sing(registeredCompany.id),
+        token: await this.tokenAdapter.sing(registeredCompany._id),
         createdAt: new Date().toISOString()
       }
     }
-
-    throw new BadRequestError("It was not possible to register, try later.")
   }
 
   private async checkRecordEmailOrCnpj(email : string, cnpj : string = null) {

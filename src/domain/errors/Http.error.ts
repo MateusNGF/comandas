@@ -10,7 +10,7 @@ export class UnauthorizedError extends HttpError {
   name = "Unauthorized Error"
   code = 401
 
-  constructor(menssage : string = "Access Denied."){
+  constructor(menssage : string = "Request Denied."){
     super();
     this.message = menssage
   }
