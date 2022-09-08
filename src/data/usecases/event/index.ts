@@ -1,1 +1,1 @@
-export * from './creation.data'
+export * from './creation.data';

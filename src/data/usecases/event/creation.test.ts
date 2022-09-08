@@ -6,7 +6,10 @@ import {
 import { iCreationEvent } from '@/src/domain/usecases/events';
 import { CreationEventData } from './creation.data';
 import { mock, MockProxy } from 'jest-mock-extended';
-import { iCompanyRepository, iEventRepository } from '@/src/infra/database/contracts/repositorys';
+import {
+  iCompanyRepository,
+  iEventRepository,
+} from '@/src/infra/database/contracts/repositorys';
 
 describe('Creation Event', () => {
   let sut: iCreationEvent;
@@ -14,8 +17,7 @@ describe('Creation Event', () => {
   let companyRepositorySpy: MockProxy<iCompanyRepository>;
   let eventRepositorySpy: MockProxy<iEventRepository>;
 
-
-  let fakeCompany : Company;
+  let fakeCompany: Company;
   let fakeEvent: Event;
   let fakeBody: iCreationEvent.input;
 
@@ -24,10 +26,7 @@ describe('Creation Event', () => {
     eventRepositorySpy = mock();
   });
   beforeEach(() => {
-    sut = new CreationEventData(
-      companyRepositorySpy,
-      eventRepositorySpy
-    );
+    sut = new CreationEventData(companyRepositorySpy, eventRepositorySpy);
 
     fakeEvent = {
       name: 'fake_event',
@@ -37,7 +36,7 @@ describe('Creation Event', () => {
     };
 
     fakeCompany = {
-      _id : "any_id",
+      _id: 'any_id',
       name_fantasy: 'any_name',
       cnpj: 'any_cnpj',
       email: 'any_email',
@@ -53,7 +52,9 @@ describe('Creation Event', () => {
   it('Deve dar erro se não tiver company_id', async () => {
     delete fakeBody.company_id;
     const response = sut.exec(fakeBody);
-    await expect(response).rejects.toThrow(new UnauthorizedError("Token required."));
+    await expect(response).rejects.toThrow(
+      new UnauthorizedError('Token required.')
+    );
   });
 
   it('Deve dar erro se não tiver um evento.', async () => {
@@ -73,12 +74,12 @@ describe('Creation Event', () => {
     );
   });
 
-  it('Should returun undefined if register event failed.', async () => {    
+  it('Should returun undefined if register event failed.', async () => {
     companyRepositorySpy.findById.mockResolvedValue(fakeCompany);
-    eventRepositorySpy.register.mockResolvedValue(null)
+    eventRepositorySpy.register.mockResolvedValue(null);
 
-    const response = await sut.exec(fakeBody)
+    const response = await sut.exec(fakeBody);
 
-    expect(response).toBe(undefined)
-  })
+    expect(response).toBe(undefined);
+  });
 });

@@ -1,1 +1,1 @@
-export * from './ObjectManager'
+export * from './ObjectManager';

@@ -1,2 +1,2 @@
 export * from './authentication.data';
-export * from './registration.data'
+export * from './registration.data';

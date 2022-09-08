@@ -1,27 +1,26 @@
-import { CustomError } from "./custom.error";
-
+import { CustomError } from './custom.error';
 
 export abstract class HttpError extends CustomError {
-  code : number
-  message : string
+  code: number;
+  message: string;
 }
 
 export class UnauthorizedError extends HttpError {
-  name = "Unauthorized Error"
-  code = 401
+  name = 'Unauthorized Error';
+  code = 401;
 
-  constructor(menssage : string = "Request Denied."){
+  constructor(menssage: string = 'Request Denied.') {
     super();
-    this.message = menssage
+    this.message = menssage;
   }
 }
 
 export class BadRequestError extends HttpError {
-  name = "BadRequest Error"
-  code = 400
+  name = 'BadRequest Error';
+  code = 400;
 
-  constructor(menssage : string = "Request Failed."){
+  constructor(menssage: string = 'Request Failed.') {
     super();
-    this.message = menssage
+    this.message = menssage;
   }
-} 
+}

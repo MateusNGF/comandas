@@ -34,12 +34,10 @@ class AppExpress {
 
   private async setupDatabase() {
     if (!this.database) {
-      try{
-
+      try {
         this.database = MongoDB;
-        await this.database.connect()
-
-      }catch(e){
+        await this.database.connect();
+      } catch (e) {
         throw new Error('Database not has configurated.');
       }
     }
@@ -49,7 +47,6 @@ class AppExpress {
     this.server = this.app.listen(process.env.PORT, () => {
       console.log(`Server Running at ${process.env.PORT}`);
     });
-
   }
 
   public async close(): Promise<void> {

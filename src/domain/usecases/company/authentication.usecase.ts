@@ -1,4 +1,4 @@
-import { iUsecase } from "../../contracts";
+import { iUsecase } from '../../contracts';
 
 export abstract class iAuthenticationCompany implements iUsecase {
   abstract exec(
@@ -8,8 +8,8 @@ export abstract class iAuthenticationCompany implements iUsecase {
 
 export namespace iAuthenticationCompany {
   export interface inputCredentials {
-    email ?: string;
-    cnpj ?: string;
+    email?: string;
+    cnpj?: string;
     password: string;
   }
 

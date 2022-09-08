@@ -1,2 +1,2 @@
-export * from './iHashAdapter'
-export * from './iTokenAdapter'
+export * from './iHashAdapter';
+export * from './iTokenAdapter';

@@ -35,13 +35,13 @@ describe('Authenticate Company', () => {
       hashAdapterSpy
     );
 
-     fakeCompany = {
+    fakeCompany = {
       name_fantasy: 'any_name',
       cnpj: 'any_cnpj',
       email: 'any_email',
       password: 'any_password',
     };
-  
+
     fakeInputCredentials = {
       password: 'any_password',
       cnpj: 'any_cnpj',
@@ -77,9 +77,7 @@ describe('Authenticate Company', () => {
 
     const response = sut.exec(fakeInputCredentials);
 
-    await expect(response).rejects.toThrow(
-      new UnauthorizedError()
-    );
+    await expect(response).rejects.toThrow(new UnauthorizedError());
   });
 
   it('Should return valid token when access is valid.', async () => {

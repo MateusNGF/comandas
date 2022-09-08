@@ -16,7 +16,7 @@ export class AuthenticationMiddleware extends iMiddleware {
       return this.sendSucess(payload);
     } catch (e) {
       console.log(e);
-      
+
       return this.sendError(new UnauthorizedError(e.message));
     }
   }
