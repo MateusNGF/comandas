@@ -28,14 +28,16 @@ export class CreationEventData implements iCreationEvent {
     const event = new Event({
       company_id: input.companyId,
       ...input.event,
+      createAt : new Date().toISOString(),
+      updateAt : new Date().toISOString()
     });
 
     const createdEvent = await this.eventRepository.register(event);
 
     if (createdEvent) {
       return {
-        _id: input.companyId,
-        createdAt: input.event.createAt,
+        _id: createdEvent._id,
+        createdAt: event.createAt,
       };
     }
   }

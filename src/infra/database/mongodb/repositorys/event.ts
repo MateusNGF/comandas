@@ -8,13 +8,10 @@ export class EventRepository implements iEventRepository {
     return this.Colletion.findOne(new ObjectId(_id));
   }
 
-  async register(event: Event): Promise<{ _id: string; createdAt: string }> {
+  async register(event: Event): Promise<{ _id: string}> {
     const response = await this.Colletion.insertOne(event);
     if (response.insertedId) {
-      return {
-        _id: response.insertedId,
-        createdAt: new Date().toISOString(),
-      };
+      return {_id: response.insertedId};
     }
   }
 }
