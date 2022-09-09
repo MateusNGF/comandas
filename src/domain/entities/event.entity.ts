@@ -9,6 +9,7 @@ export class Event implements iEntity {
   public readonly description?: string = undefined;
   public readonly startData: string = undefined;
   public readonly endData: string = undefined;
+  public readonly archived: boolean = false;
 
   public readonly createAt?: string = undefined;
   public readonly updateAt?: string = undefined;
