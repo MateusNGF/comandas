@@ -15,9 +15,9 @@ export class EventRepository implements iEventRepository {
     }
   }
 
-  async archive(event_id: string): Promise<boolean> {
+  async archive(eventId:string, companyId:string): Promise<boolean> {
     const response = await this.Colletion.updateOne(
-      { _id: event_id },
+      { _id: eventId, company_id : companyId},
       { $set : {archived: true}}
     );
 
