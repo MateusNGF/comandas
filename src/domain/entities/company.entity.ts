@@ -9,8 +9,8 @@ export class Company implements iEntity {
   public readonly cnpj: string = undefined;
   public readonly password: string = undefined;
 
-  public readonly createAt?: string = undefined;
-  public readonly updateAt?: string = undefined;
+  public readonly create_at?: string = undefined;
+  public readonly update_at?: string = undefined;
 
   constructor(company: Company) {
     ObjectManager.assing(this, company);

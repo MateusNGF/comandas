@@ -31,8 +31,8 @@ describe('Creation Event', () => {
     fakeEvent = {
       name: 'fake_event',
       description: 'fake_description',
-      startData: 'any_data',
-      endData: 'any_data',
+      start_data: 'any_data',
+      end_data: 'any_data',
     };
 
     fakeCompany = {
@@ -49,23 +49,23 @@ describe('Creation Event', () => {
     };
   });
 
-  it('Should return error if companyId has missing.', async () => {
+  it('Should return MissingParamError if companyId is missing.', async () => {
     delete fakeBody.companyId;
     const response = sut.exec(fakeBody);
     await expect(response).rejects.toThrow(
-      new UnauthorizedError('CompanyId required.')
+      new MissingParamError('companyId')
     );
   });
 
-  it('Should return error if event is missing.', async () => {
+  it('Should return MissingParamError if event is missing.', async () => {
     delete fakeBody.event;
     const response = sut.exec(fakeBody);
     await expect(response).rejects.toThrow(
-      new MissingParamError('Missing event.')
+      new MissingParamError('event')
     );
   });
 
-  it('Should return error if companyId not has registered.', async () => {
+  it('Should return UnauthorizedError if companyId not has registered.', async () => {
     companyRepositorySpy.findById.mockResolvedValue(null);
     const response = sut.exec(fakeBody);
 

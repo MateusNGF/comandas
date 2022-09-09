@@ -49,7 +49,7 @@ describe('Authenticate Company', () => {
     };
   });
 
-  it('Should return BadRequet when email not was find.', async () => {
+  it('Should return BadRequestError when email not was find.', async () => {
     repositorySpy.findByEmail.mockResolvedValue(undefined);
     const response = sut.exec(fakeInputCredentials);
 
@@ -58,7 +58,7 @@ describe('Authenticate Company', () => {
     );
   });
 
-  it('Should return BadRequest when CNPJ not was find.', async () => {
+  it('Should return BadRequestError when CNPJ not was find.', async () => {
     repositorySpy.findByCNPJ.mockResolvedValue(undefined);
     const response = sut.exec(fakeInputCredentials);
 

@@ -30,7 +30,7 @@ export class RegistrationCompanyData extends iRegistrationCompany {
     );
 
     if (hasRecord) {
-      throw new UnauthorizedError('Email or Cnpj already registered.');
+      throw new UnauthorizedError('Email or cnpj already registered.');
     }
 
     const registeredCompany = await this.repository.register({

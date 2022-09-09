@@ -46,25 +46,25 @@ describe('Registration Company', () => {
     };
   });
 
-  it('Should return error when Email has registraded.', async () => {
+  it('Should return UnauthorizedError when Email has registraded.', async () => {
     repositorySpy.findByEmail.mockResolvedValue(fakeCompany);
     const response = sut.exec(fakeNewCompany);
 
     await expect(response).rejects.toThrow(
-      new UnauthorizedError('Email or Cnpj already registered.')
+      new UnauthorizedError('Email or cnpj already registered.')
     );
   });
 
-  it('Should return error when CNPJ has registraded.', async () => {
+  it('Should return UnauthorizedError when CNPJ has registraded.', async () => {
     repositorySpy.findByCNPJ.mockResolvedValue(fakeCompany);
     const response = sut.exec(fakeNewCompany);
 
     await expect(response).rejects.toThrow(
-      new UnauthorizedError('Email or Cnpj already registered.')
+      new UnauthorizedError('Email or cnpj already registered.')
     );
   });
 
-  it('Should return error when database failed.', async () => {
+  it('Should return undefined when database failed.', async () => {
     repositorySpy.findByCNPJ.mockResolvedValue(null);
     repositorySpy.findByEmail.mockResolvedValue(null);
 
