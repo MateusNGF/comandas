@@ -1,4 +1,4 @@
-import { UnauthorizedError } from '../../../../src/domain/errors';
+import { UnauthorizedError } from '../../../domain/errors';
 import { iAuthenticationCompany } from '@/src/domain/usecases/company';
 import { iController } from '../../contracts';
 import { HttpRequest, HttpResponse } from '../../helpers/http';

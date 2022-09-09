@@ -1,5 +1,5 @@
-import { BadRequestError } from '../../../../src/domain/errors';
-import { iCreationEvent } from '../../../../src/domain/usecases/events';
+import { BadRequestError } from '../../../domain/errors';
+import { iCreationEvent } from '../../../domain/usecases/events';
 import { iController } from '../../contracts';
 import { HttpRequest, HttpResponse } from '../../helpers/http';
 

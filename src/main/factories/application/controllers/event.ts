@@ -1,5 +1,5 @@
 import { iController } from '../../../../../src/application/contracts';
-import { CreationEventController } from '../../../../../src/application/controllers/event/creation';
+import { CreationEventController } from '../../../../application/controllers/event/creation.controller';
 import { makeUsecaseCreationEvent } from '../usecases/event.factory';
 
 export const makeCreationEventController = (): iController => {
