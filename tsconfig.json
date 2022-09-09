@@ -3,24 +3,27 @@
     "target": "es2019",
     "moduleResolution": "node",
     "module": "commonjs",
-    "lib": ["es2019"],
+    "lib": [
+      "es2019"
+    ],
     "sourceMap": true,
     "outDir": "dist",
-    "strict": true,
+    // "strict": true,
     "resolveJsonModule": true,
-    "esModuleInterop" : true,
+    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["src/*"],
-      "@test/*": ["test/*"]
+      "@/*" : ["*"],
+      "@tests/*": ["tests/*"]
     },
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
   "include": [
     "src/**/*.ts",
-    "test/**/*.ts"
-, "test/jest.config.js"  ],
+    "tests/**/*.ts",
+    "tests/jest.config.js"
+  ],
   "exclude": [
     "./node_modules/*",
     "dist"
