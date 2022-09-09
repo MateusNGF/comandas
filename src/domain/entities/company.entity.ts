@@ -2,7 +2,7 @@ import { iEntity } from '.';
 import { ObjectManager } from '../utils';
 
 export class Company implements iEntity {
-  public readonly _id?: string = undefined;
+  public readonly _id?: any = undefined;
 
   public readonly name_fantasy: string = undefined;
   public readonly email: string = undefined;

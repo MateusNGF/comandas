@@ -2,7 +2,7 @@ import { iEntity } from '.';
 import { ObjectManager } from '../utils';
 
 export class Event implements iEntity {
-  public readonly _id?: string = undefined;
+  public readonly _id?: any = undefined;
 
   public readonly name: string = undefined;
   public readonly company_id?: string = undefined;

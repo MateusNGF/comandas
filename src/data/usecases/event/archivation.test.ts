@@ -1,4 +1,4 @@
-import { MissingParamError, UnauthorizedError } from "../../../../src/domain/errors"
+import { MissingParamError } from "../../../../src/domain/errors"
 import { iArchivationEvent } from "../../../../src/domain/usecases/events"
 import { iEventRepository } from "../../../../src/infra/database/contracts/repositorys"
 import { mock, MockProxy } from "jest-mock-extended"
@@ -23,20 +23,44 @@ describe("Archived event", () => {
   
     fakeRequest = {
       companyId : "any_companyId",
-      eventId : "any_eventId"
-    }
-
-    fakeResponse = {
-      archived : false
+      eventId : "any_eventId",
+      action : "archive"
     }
 
   })
 
-  it("Should return undefined if update document failed.", async () => {
-    eventRepository.archive.mockResolvedValue(null)
+  it("Should return false if archive document failed.", async () => {
+    eventRepository.archive.mockResolvedValue(undefined)
 
     const response = await sut.exec(fakeRequest)
-    expect(response).toBe(undefined)
+    expect(response).toBe(false)
+  })
+
+  it("Should return false if unarchive document failed.", async () => {
+    fakeRequest.action = "unarchive"
+
+    eventRepository.unarchive.mockResolvedValue(undefined)
+
+    const response = await sut.exec(fakeRequest)
+    expect(response).toBe(false)
+  })
+
+  it("Should return true if unarchive document success.", async () => {
+    fakeRequest.action = "unarchive"
+
+    eventRepository.unarchive.mockResolvedValue(true)
+
+    const response = await sut.exec(fakeRequest)
+    expect(response).toBe(true)
+  })
+
+  it("Should return true if archive document success.", async () => {
+    fakeRequest.action = "archive"
+
+    eventRepository.archive.mockResolvedValue(true)
+
+    const response = await sut.exec(fakeRequest)
+    expect(response).toBe(true)
   })
 
   it("Should return MissingParamError if companyId is missing.", async () => {
@@ -56,6 +80,16 @@ describe("Archived event", () => {
 
     await expect(response).rejects.toThrow(
       new MissingParamError("eventId")
+    );
+  })
+
+  it("Should return MissingParamError if action is missing.", async () => {
+    delete fakeRequest.action
+
+    const response = sut.exec(fakeRequest)
+
+    await expect(response).rejects.toThrow(
+      new MissingParamError("action")
     );
   })
 })

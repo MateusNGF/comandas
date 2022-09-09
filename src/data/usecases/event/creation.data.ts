@@ -1,5 +1,4 @@
 import {
-  MissingParamError,
   UnauthorizedError,
 } from '../../../../src/domain/errors';
 import { iCreationEvent } from '@/src/domain/usecases/events';

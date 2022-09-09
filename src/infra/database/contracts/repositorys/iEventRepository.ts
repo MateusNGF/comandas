@@ -3,7 +3,8 @@ import { iBaseRepository } from '.';
 
 export interface iEventRepository extends iBaseRepository<Event> {
   register(event: Event): Promise<{
-    _id: string;
+    _id: any;
   }>;
-  archive(eventId : string, companyId : string) : Promise<boolean>
+  archive(eventId : string, company_id : string) : Promise<boolean>
+  unarchive(eventId : string, company_id : string) : Promise<boolean>
 }
