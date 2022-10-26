@@ -1,5 +1,7 @@
 import {
+  EmptyParamError,
   MissingParamError,
+  TypeParamError,
   UnexpectedParamError,
 } from '../errors/validation.error';
 
@@ -12,31 +14,31 @@ export class ObjectManager extends Object {
    * @param security true para deixar apenas os required no objeto, false verifica se tem pelo menos os requireds.
    */
   static hasKeys(
-    requireds: Array<String>,
+    requireds: Array<string>,
     object: Object,
     security: boolean = false
   ) {
-    if (typeof object != 'object')
-      throw new TypeError('segundo parametro precisa ser um objeto.');
     if (security) {
-      requireds.forEach((element: any) => {
-        if (!(element in object)) {
-          throw new MissingParamError(element);
-        }
-      });
-
-      for (const key in object) {
-        if (!requireds.find((element) => element == key)) {
-          throw new UnexpectedParamError(key);
-        }
-      }
+      ObjectManager.hasTheseProperties(requireds, object)
+      ObjectManager.justTheseProperties(requireds, object)
     } else {
-      requireds.forEach((element: any) => {
-        if (!(element in object)) {
-          throw new MissingParamError(element);
-        }
-      });
+      ObjectManager.hasTheseProperties(requireds, object)
     }
+  }
+
+  static justTheseProperties(requireds : Array<string>, object : object){
+    for (const key in object) {
+      if (!requireds.find((element) => element == key)) {
+        throw new UnexpectedParamError(key);
+      }
+    }
+  }
+
+  static hasTheseProperties(requireds : Array<string>, object : object){
+    requireds.forEach((element: any) => {
+      if (!(element in object))  throw new MissingParamError(element);
+      if (!object[element]) throw new EmptyParamError(element);
+    });
   }
 
   /**

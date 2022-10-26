@@ -3,7 +3,7 @@ import { iTokenAdapter } from './contracts';
 
 export class JWTAdapter implements iTokenAdapter {
   constructor(
-    private readonly secrectKey: string = process.env.JWT_PW_DEFAULT
+    private readonly secrectKey: string = process.env.JWT_PW_TOKEN_AUTH
   ) {}
 
   sing(text: string): Promise<string> {

@@ -5,7 +5,6 @@ import {
   iTokenAdapter,
 } from '../../../infra/cryptography/contracts';
 import { Company } from './../../../domain/entities';
-import { ObjectManager } from '../../../domain/utils';
 import { UnauthorizedError } from '../../../../src/domain/errors';
 
 export class RegistrationCompanyData extends iRegistrationCompany {
@@ -20,16 +19,13 @@ export class RegistrationCompanyData extends iRegistrationCompany {
   async exec(
     input: iRegistrationCompany.input
   ): Promise<iRegistrationCompany.output> {
-    ObjectManager.hasKeys(['name_fantasy', 'email', 'cnpj', 'password'], input);
-
+    
     const company = new Company(input);
 
-    const hasRecord = await this.checkRecordEmailOrCnpj(
-      company.email,
-      company.cnpj
-    );
-
-    if (hasRecord) {
+    if (
+      await this.repository.findByEmail(company.email) ??
+      await this.repository.findByCNPJ(company.cnpj)
+    ) {
       throw new UnauthorizedError('Email or cnpj already registered.');
     }
 
@@ -44,14 +40,5 @@ export class RegistrationCompanyData extends iRegistrationCompany {
         createdAt: new Date().toISOString(),
       };
     }
-  }
-
-  private async checkRecordEmailOrCnpj(email: string, cnpj: string = null) {
-    return !!(
-      await Promise.all([
-        this.repository.findByEmail(email),
-        this.repository.findByCNPJ(cnpj),
-      ])
-    ).filter((account) => account).length;
   }
 }
