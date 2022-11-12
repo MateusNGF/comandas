@@ -15,8 +15,6 @@ export class AuthenticationMiddleware extends iMiddleware {
       const payload = await this.tokenAdapter.verify(token);
       return this.sendSucess(payload);
     } catch (e) {
-      console.log(e);
-
       return this.sendError(new UnauthorizedError(e.message));
     }
   }

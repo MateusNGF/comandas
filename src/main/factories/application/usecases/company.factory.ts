@@ -1,5 +1,4 @@
 import {
-  AuthenticationCompanyData,
   RegistrationCompanyData,
 } from '../../../../data/usecases/company';
 import {
@@ -16,14 +15,6 @@ export function makeCompanyRepository(): any {
   const repository = new CompanyRepository(collection);
   return repository;
 }
-
-export const makeUseCaseAuthenticationCompany = (): iAuthenticationCompany => {
-  return new AuthenticationCompanyData(
-    makeCompanyRepository(),
-    makeTokenAdapter(),
-    makeHashAdapter()
-  );
-};
 
 export const makeUseCaseRegistrationCompany = (): iRegistrationCompany => {
   return new RegistrationCompanyData(

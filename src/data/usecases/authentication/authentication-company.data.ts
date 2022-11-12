@@ -13,14 +13,14 @@ import { Auth } from '../../../../src/domain/entities';
 
 export class AuthenticationCompanyData implements iAuthenticationCompany {
     constructor(
-        private readonly repository: iAuthenticationRepository,
+        private readonly authenticationRepository: iAuthenticationRepository,
         private readonly tokenAdapter: iTokenAdapter,
         private readonly hashAdapter: iHashAdapter
     ) { }
     async exec(
         input: iAuthenticationCompany.input
     ): Promise<iAuthenticationCompany.output> {
-        let auth : Auth = await this.repository.getAuth({
+        const auth : Auth = await this.authenticationRepository.getAuth({
             email: input?.email,
             cnpj: input?.cnpj
         })

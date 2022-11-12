@@ -9,7 +9,7 @@ import { UnauthorizedError } from '../../../../src/domain/errors';
 
 export class RegistrationCompanyData extends iRegistrationCompany {
   constructor(
-    private readonly repository: iCompanyRepository,
+    private readonly companyRepository: iCompanyRepository,
     private readonly tokenAdapter: iTokenAdapter,
     private readonly hashAdapter: iHashAdapter
   ) {
@@ -23,13 +23,13 @@ export class RegistrationCompanyData extends iRegistrationCompany {
     const company = new Company(input);
 
     if (
-      await this.repository.findByEmail(company.email) ??
-      await this.repository.findByCNPJ(company.cnpj)
+      await this.companyRepository.findByEmail(company.email) ??
+      await this.companyRepository.findByCNPJ(company.cnpj)
     ) {
       throw new UnauthorizedError('Email or cnpj already registered.');
     }
 
-    const registeredCompany = await this.repository.register({
+    const registeredCompany = await this.companyRepository.register({
       ...company,
       password: await this.hashAdapter.encrypt(company.password),
     });
