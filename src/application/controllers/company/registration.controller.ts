@@ -9,7 +9,7 @@ export class RegisterCompanyController extends iController {
   }
   async exec(request: HttpRequest): Promise<HttpResponse> {
     try {
-      let incomingCompany = request.body
+      const incomingCompany = request.body
 
       const propsRequiredAndNotNull = ['name_fantasy', 'email', 'cnpj', 'password']
       ObjectManager.hasKeys(propsRequiredAndNotNull, incomingCompany);

@@ -13,7 +13,7 @@ import { makeHashAdapter, makeTokenAdapter } from '../../infra/cryptography';
 
 export function makeCompanyRepository(): any {
   const collection = MongoDB.colletion<Company>('companies');
-  const repository = new CompanyRepository(collection, MongoDB.createTransaction());
+  const repository = new CompanyRepository(collection);
   return repository;
 }
 
