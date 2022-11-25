@@ -1,5 +1,6 @@
-import { Event } from '@/src/domain/entities';
-import { iBaseRepository } from '.';
+import { Event } from "@/src/domain/entities/event.entity";
+import { iBaseRepository } from "./iBaseRepository";
+
 
 export interface iEventRepository extends iBaseRepository<Event> {
   register(event: Event): Promise<{

@@ -1,7 +1,7 @@
 import { Collection, MongoClient } from 'mongodb';
 import { iDatabase } from '../contracts';
 
-class MongoDriver implements iDatabase {
+class Mongo implements iDatabase {
   private client: MongoClient | null = null;
 
   public async connect(): Promise<void> {
@@ -23,4 +23,4 @@ class MongoDriver implements iDatabase {
   }
 }
 
-export const MongoDB = new MongoDriver();
+export const MongoDB = new Mongo();

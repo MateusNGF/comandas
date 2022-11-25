@@ -1,5 +1,6 @@
-import { Company } from '@/src/domain/entities';
-import { iBaseRepository } from '.';
+import { Company } from "@/src/domain/entities/company.entity";
+import { iBaseRepository } from "./iBaseRepository";
+
 
 export interface iCompanyRepository extends iBaseRepository<Company> {
   findByCNPJ(cnpj: string): Promise<Company>;

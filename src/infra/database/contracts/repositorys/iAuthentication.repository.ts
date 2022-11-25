@@ -1,4 +1,4 @@
-import { Auth } from "@/src/domain/entities";
+import { Auth } from "@/src/domain/entities/auth.entity";
 
 
 export interface iAuthenticationRepository {
