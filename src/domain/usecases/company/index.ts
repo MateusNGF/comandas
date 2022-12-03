@@ -1,2 +1,2 @@
-export * from './authentication.usecase';
-export * from './registration.usecase';
+export * from './iAuthentication.usecase';
+export * from './iRegistration.usecase';

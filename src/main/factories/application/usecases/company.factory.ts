@@ -7,8 +7,8 @@ import {
 } from '../../../../domain/usecases/company';
 import { MongoDB } from '../../../../infra/database/mongodb';
 import { Company } from '../../../../domain/entities';
-import { CompanyRepository } from '../../../../infra/database/mongodb/repositorys';
 import { makeHashAdapter, makeTokenAdapter } from '../../infra/cryptography';
+import { CompanyRepository } from '../../../../infra/database/mongodb/repositorys/company.repository';
 
 export function makeCompanyRepository(): any {
   const collection = MongoDB.colletion<Company>('companies');

@@ -20,11 +20,14 @@ export class AuthenticationCompanyData implements iAuthenticationCompany {
     async exec(
         input: iAuthenticationCompany.input
     ): Promise<iAuthenticationCompany.output> {
+        console.log(input);
+        
         const auth : Auth = await this.authenticationRepository.getAuth({
             email: input?.email,
             cnpj: input?.cnpj
         })
 
+        console.log(auth)
         if (!auth) throw new BadRequestError('Account not found.')
         
         const accessReleased = await this.hashAdapter.compare(

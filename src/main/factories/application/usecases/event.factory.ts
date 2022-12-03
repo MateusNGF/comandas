@@ -2,9 +2,9 @@ import { CreationEventData } from '../../../../data/usecases/event';
 import { Event } from '../../../../../src/domain/entities';
 import { iArchivationEvent, iCreationEvent } from '../../../../../src/domain/usecases/events';
 import { MongoDB } from '../../../../infra/database/mongodb';
-import { EventRepository } from '../../../../infra/database/mongodb/repositorys';
 import { makeCompanyRepository } from './company.factory';
 import { ArchivationEventData } from '../../../../../src/data/usecases/event/archivation.data';
+import { EventRepository } from '../../../../../src/infra/database/mongodb/repositorys/event.repository';
 
 export function makeEventRepository() {
   const collection = MongoDB.colletion<Event>('events');
