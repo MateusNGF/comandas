@@ -9,8 +9,8 @@ import { iAuthenticationRepository } from '@/src/infra/database/contracts/reposi
 import { mock, MockProxy } from 'jest-mock-extended';
 import {
   BadRequestError, UnauthorizedError,
-} from '../../../../src/domain/errors';
-import { AuthenticationCompanyData } from './authentication-company.data';
+} from '../../../domain/errors';
+import { AuthenticateAndReturnTokenCompanyData } from './AuthenticateAndReturnToken-company.data';
 
 describe('Authenticate Company', () => {
   let sut: iAuthenticationCompany;
@@ -28,7 +28,7 @@ describe('Authenticate Company', () => {
   });
 
   beforeEach(() => {
-    sut = new AuthenticationCompanyData(
+    sut = new AuthenticateAndReturnTokenCompanyData(
       AuthenticationRepositorySpy,
       tokenAdapterSpy,
       hashAdapterSpy

@@ -1,17 +1,17 @@
 import {
     BadRequestError,
     UnauthorizedError,
-} from '../../../../src/domain/errors';
+} from '../../../domain/errors';
 import { iAuthenticationCompany } from '@/src/domain/usecases/authentication';
 import {
     iHashAdapter,
     iTokenAdapter,
 } from '@/src/infra/cryptography/contracts';
 import { iAuthenticationRepository } from '@/src/infra/database/contracts/repositorys';
-import { Auth } from '../../../../src/domain/entities';
+import { Auth } from '../../../domain/entities';
 
 
-export class AuthenticationCompanyData implements iAuthenticationCompany {
+export class AuthenticateAndReturnTokenCompanyData implements iAuthenticationCompany {
     constructor(
         private readonly authenticationRepository: iAuthenticationRepository,
         private readonly tokenAdapter: iTokenAdapter,

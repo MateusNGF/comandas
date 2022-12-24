@@ -1,5 +1,5 @@
 import { AuthenticationRepository } from "../../../../../src/infra/database/mongodb/repositorys/authentication.repository";
-import { AuthenticationCompanyData } from "../../../../../src/data/usecases/authentication/authentication-company.data";
+import { AuthenticateAndReturnTokenCompanyData } from "../../../../data/usecases/authentication/AuthenticateAndReturnToken-company.data";
 import { Auth } from "../../../../../src/domain/entities";
 import { iAuthenticationCompany } from "../../../../../src/domain/usecases/authentication";
 import { MongoDB } from "../../../../../src/infra/database/mongodb";
@@ -14,7 +14,7 @@ export function makeAuthenticationRepository(): any {
 
 
 export function makeAuthenticationCompanyUsecase(): iAuthenticationCompany {
-    return new AuthenticationCompanyData(
+    return new AuthenticateAndReturnTokenCompanyData(
         makeAuthenticationRepository(),
         makeTokenAdapter(),
         makeHashAdapter()
