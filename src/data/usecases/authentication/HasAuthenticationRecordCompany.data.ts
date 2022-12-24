@@ -1,7 +1,7 @@
-import { Auth } from "@/src/domain/entities";
-import { UnauthorizedError } from "@/src/domain/errors";
-import { iHasAuthenticationRecordCompany } from "@/src/domain/usecases/authentication";
-import { iAuthenticationRepository } from "@/src/infra/database/contracts/repositorys";
+import { Auth } from "../../../../src/domain/entities";
+import { UnauthorizedError } from "../../../../src/domain/errors";
+import { iHasAuthenticationRecordCompany } from "../../../../src/domain/usecases/authentication";
+import { iAuthenticationRepository } from "../../../../src/infra/database/contracts/repositorys";
 
 export class HasAuthenticationRecordCompanyData implements iHasAuthenticationRecordCompany {
     constructor(
