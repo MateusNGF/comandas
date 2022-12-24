@@ -38,7 +38,7 @@ class AppExpress {
         this.database = MongoDB;
         await this.database.connect();
       } catch (e) {
-        throw new Error('Database not has configurated.');
+        throw new Error('Database not has configurated or database is down.');
       }
     }
   }
