@@ -1,1 +1,2 @@
-export * from './authentication-company.usecase';
+export * from './iAuthenticateAndReturnTokenCompany';
+export * from './iHasAuthenticationRecordCompany.usecase';

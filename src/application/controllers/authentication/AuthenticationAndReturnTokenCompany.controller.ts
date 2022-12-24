@@ -1,10 +1,10 @@
 import { UnauthorizedError } from '../../../domain/errors';
-import { iAuthenticationCompany } from '@/src/domain/usecases/authentication';
+import { iAuthenticationAndReturnTokenCompany } from '@/src/domain/usecases/authentication';
 import { iController } from '../../contracts';
 import { HttpRequest, HttpResponse } from '../../helpers/http';
 
-export class AuthenticationCompanyController extends iController {
-  constructor(private readonly authenticationCompanyUsercase: iAuthenticationCompany) {
+export class AuthenticateAndReturnTokenCompanyController extends iController {
+  constructor(private readonly authenticationCompanyUsercase: iAuthenticationAndReturnTokenCompany) {
     super();
   }
   async exec(request: HttpRequest): Promise<HttpResponse> {

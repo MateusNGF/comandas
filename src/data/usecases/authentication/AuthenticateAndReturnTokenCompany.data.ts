@@ -2,7 +2,7 @@ import {
     BadRequestError,
     UnauthorizedError,
 } from '../../../domain/errors';
-import { iAuthenticationCompany } from '@/src/domain/usecases/authentication';
+import { iAuthenticationAndReturnTokenCompany } from '@/src/domain/usecases/authentication';
 import {
     iHashAdapter,
     iTokenAdapter,
@@ -11,15 +11,15 @@ import { iAuthenticationRepository } from '@/src/infra/database/contracts/reposi
 import { Auth } from '../../../domain/entities';
 
 
-export class AuthenticateAndReturnTokenCompanyData implements iAuthenticationCompany {
+export class AuthenticateAndReturnTokenCompanyData implements iAuthenticationAndReturnTokenCompany {
     constructor(
         private readonly authenticationRepository: iAuthenticationRepository,
         private readonly tokenAdapter: iTokenAdapter,
         private readonly hashAdapter: iHashAdapter
     ) { }
     async exec(
-        input: iAuthenticationCompany.input
-    ): Promise<iAuthenticationCompany.output> {
+        input: iAuthenticationAndReturnTokenCompany.input
+    ): Promise<iAuthenticationAndReturnTokenCompany.output> {
         console.log(input);
         
         const auth : Auth = await this.authenticationRepository.getAuth({

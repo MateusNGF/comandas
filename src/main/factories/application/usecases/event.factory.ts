@@ -7,7 +7,7 @@ import { ArchivationEventData } from '../../../../../src/data/usecases/event/arc
 import { EventRepository } from '../../../../../src/infra/database/mongodb/repositorys/event.repository';
 
 export function makeEventRepository() {
-  const collection = MongoDB.colletion<Event>('events');
+  const collection = MongoDB.colletion<Event>(process.env.COLLECTIONS_NAMES_EVENTS as string);
   const repository = new EventRepository(collection);
   return repository;
 }

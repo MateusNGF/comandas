@@ -1,5 +1,5 @@
 import { Auth } from '@/src/domain/entities';
-import { iAuthenticationCompany } from '@/src/domain/usecases/authentication';
+import { iAuthenticationAndReturnTokenCompany } from '@/src/domain/usecases/authentication';
 import {
   iHashAdapter,
   iTokenAdapter,
@@ -10,16 +10,16 @@ import { mock, MockProxy } from 'jest-mock-extended';
 import {
   BadRequestError, UnauthorizedError,
 } from '../../../domain/errors';
-import { AuthenticateAndReturnTokenCompanyData } from './AuthenticateAndReturnToken-company.data';
+import { AuthenticateAndReturnTokenCompanyData } from './AuthenticateAndReturnTokenCompany.data';
 
 describe('Authenticate Company', () => {
-  let sut: iAuthenticationCompany;
+  let sut: iAuthenticationAndReturnTokenCompany;
   let AuthenticationRepositorySpy: MockProxy<iAuthenticationRepository>;
   let tokenAdapterSpy: MockProxy<iTokenAdapter>;
   let hashAdapterSpy: MockProxy<iHashAdapter>;
 
   let fakeValidDataAuth: Auth;
-  let fakeInputCredentials: iAuthenticationCompany.input;
+  let fakeInputCredentials: iAuthenticationAndReturnTokenCompany.input;
 
   beforeAll(() => {
     AuthenticationRepositorySpy = mock();
@@ -35,11 +35,11 @@ describe('Authenticate Company', () => {
     );
 
     fakeValidDataAuth = {
-      _id : "01",
-      email : "any_email@gmail.com",
-      cnpj : "any_cnpj",
-      password : "any_passowrd",
-      associeteded_id : "12"
+      _id: "01",
+      email: "any_email@gmail.com",
+      cnpj: "any_cnpj",
+      password: "any_passowrd",
+      associeteded_id: "12"
     };
 
     fakeInputCredentials = {
@@ -71,7 +71,7 @@ describe('Authenticate Company', () => {
 
   it('Should return UnauhtorizedError when password incorret.', async () => {
     AuthenticationRepositorySpy.getAuth.mockResolvedValue(fakeValidDataAuth);
-    
+
     fakeInputCredentials.password = 'incorret_password';
     hashAdapterSpy.compare.mockResolvedValue(
       fakeValidDataAuth.password === fakeInputCredentials.password // always false

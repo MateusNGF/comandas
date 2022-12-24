@@ -1,1 +1,1 @@
-export * from './authentication-company.controller'
+export * from './AuthenticationAndReturnTokenCompany.controller'

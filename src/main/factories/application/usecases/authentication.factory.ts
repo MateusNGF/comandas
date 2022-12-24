@@ -1,19 +1,19 @@
-import { AuthenticationRepository } from "../../../../../src/infra/database/mongodb/repositorys/authentication.repository";
-import { AuthenticateAndReturnTokenCompanyData } from "../../../../data/usecases/authentication/AuthenticateAndReturnToken-company.data";
-import { Auth } from "../../../../../src/domain/entities";
-import { iAuthenticationCompany } from "../../../../../src/domain/usecases/authentication";
-import { MongoDB } from "../../../../../src/infra/database/mongodb";
+import { AuthenticationRepository } from "../../../../infra/database/mongodb/repositorys/authentication.repository";
+import { AuthenticateAndReturnTokenCompanyData } from "../../../../data/usecases/authentication/AuthenticateAndReturnTokenCompany.data";
+import { Auth } from "../../../../domain/entities";
+import { iAuthenticationAndReturnTokenCompany } from "../../../../domain/usecases/authentication";
+import { MongoDB } from "../../../../infra/database/mongodb";
 import { makeHashAdapter, makeTokenAdapter } from "../../infra/cryptography";
 
 
 export function makeAuthenticationRepository(): any {
-    const collection = MongoDB.colletion<Auth>('authentication');
+    const collection = MongoDB.colletion<Auth>(process.env.COLLECTIONS_NAMES_AUTHENTICATIONS as string);
     const repository = new AuthenticationRepository(collection);
     return repository;
 }
 
 
-export function makeAuthenticationCompanyUsecase(): iAuthenticationCompany {
+export function makeAuthenticatieAndReturnTokenCompanyUsecase(): iAuthenticationAndReturnTokenCompany {
     return new AuthenticateAndReturnTokenCompanyData(
         makeAuthenticationRepository(),
         makeTokenAdapter(),

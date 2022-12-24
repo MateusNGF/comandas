@@ -1,9 +1,9 @@
 import { iController } from "../../../../../src/application/contracts";
-import { AuthenticationCompanyController } from "../../../../../src/application/controllers/authentication";
-import { makeAuthenticationCompanyUsecase } from "../usecases/authentication.factory";
+import { AuthenticateAndReturnTokenCompanyController } from "../../../../../src/application/controllers/authentication";
+import { makeAuthenticatieAndReturnTokenCompanyUsecase } from "../usecases/authentication.factory";
 
 
-export const makeAuthenticationCompanyController = (): iController => {
-    const usecaseAuthenticationCompany = makeAuthenticationCompanyUsecase();
-    return new AuthenticationCompanyController(usecaseAuthenticationCompany);
+export const makeAuthenticateAndReturnTokenCompanyController = (): iController => {
+    const usecaseAuthenticationCompany = makeAuthenticatieAndReturnTokenCompanyUsecase();
+    return new AuthenticateAndReturnTokenCompanyController(usecaseAuthenticationCompany);
 };
