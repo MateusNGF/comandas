@@ -20,14 +20,11 @@ export class AuthenticateAndReturnTokenCompanyData implements iAuthenticationAnd
     async exec(
         input: iAuthenticationAndReturnTokenCompany.input
     ): Promise<iAuthenticationAndReturnTokenCompany.output> {
-        console.log(input);
-        
         const auth : Auth = await this.authenticationRepository.getAuth({
             email: input?.email,
             cnpj: input?.cnpj
         })
 
-        console.log(auth)
         if (!auth) throw new BadRequestError('Account not found.')
         
         const accessReleased = await this.hashAdapter.compare(

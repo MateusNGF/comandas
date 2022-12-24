@@ -9,7 +9,6 @@ export class AuthenticationRepository implements iAuthenticationRepository {
     ) { }
     async getAuth(credentials: { email: string; cnpj: string; password: string; }): Promise<Auth> {
         const a = await this.Colletion.find({})
-        console.log(a)
         return this.Colletion.findOne({
             $or : [
                 { email : credentials?.email },
