@@ -1,5 +1,5 @@
 import { Company } from '@/src/domain/entities';
-import { ClientSession, Collection, ObjectId } from 'mongodb';
+import { Collection, ObjectId } from 'mongodb';
 import { iCompanyRepository } from '../../contracts/repositorys';
 
 export class CompanyRepository implements iCompanyRepository {

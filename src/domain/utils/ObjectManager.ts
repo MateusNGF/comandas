@@ -1,7 +1,6 @@
 import {
   EmptyParamError,
   MissingParamError,
-  TypeParamError,
   UnexpectedParamError,
 } from '../errors/validation.error';
 

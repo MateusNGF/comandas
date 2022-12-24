@@ -2,7 +2,6 @@ import {
   RegistrationCompanyData,
 } from '../../../../data/usecases/company';
 import {
-  iAuthenticationCompany,
   iRegistrationCompany,
 } from '../../../../domain/usecases/company';
 import { MongoDB } from '../../../../infra/database/mongodb';
