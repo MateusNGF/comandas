@@ -65,7 +65,7 @@ describe('Has Authentication record for company', () => {
     })
 
     it("Should return UnauthorizedError when cnpj is record", async () => {
-        delete fakeInputCredentials.cnpj
+        delete fakeInputCredentials.email
         AuthenticationRepositorySpy.getAuth.mockResolvedValue(fakeValidDataAuth);
 
         const response = sut.exec(fakeInputCredentials);
