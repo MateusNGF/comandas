@@ -8,7 +8,7 @@ export abstract class iRegistrationCompany implements iUsecase {
 }
 
 export namespace iRegistrationCompany {
-  export type input = Company;
+  export type input = Company & {password : string};
 
   export type output = {
     token: string;

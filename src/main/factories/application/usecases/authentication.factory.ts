@@ -1,17 +1,19 @@
 import { AuthenticationRepository } from "../../../../infra/database/mongodb/repositorys/authentication.repository";
 import { AuthenticateAndReturnTokenCompanyData } from "../../../../data/usecases/authentication/AuthenticateAndReturnTokenCompany.data";
 import { Auth } from "../../../../domain/entities";
-import { iAuthenticationAndReturnTokenCompany } from "../../../../domain/usecases/authentication";
+import { iAuthenticationAndReturnTokenCompany, iCreateAuthenticateForCompanyUsecase, iHasAuthenticationRecordCompany } from "../../../../domain/usecases/authentication";
 import { MongoDB } from "../../../../infra/database/mongodb";
 import { makeHashAdapter, makeTokenAdapter } from "../../infra/cryptography";
+import { CreateAuthenticateForCompany } from "../../../../../src/data/usecases/authentication/CreateAuthenticateForCompany.data";
+import { HasAuthenticationRecordCompanyData } from "../../../../../src/data/usecases/authentication/HasAuthenticationRecordCompany.data";
 
 
 export function makeAuthenticationRepository(): any {
     const collection = MongoDB.colletion<Auth>(process.env.COLLECTIONS_NAMES_AUTHENTICATIONS as string);
-    const repository = new AuthenticationRepository(collection);
+    const hashAdapter = makeHashAdapter()
+    const repository = new AuthenticationRepository(collection, hashAdapter);
     return repository;
 }
-
 
 export function makeAuthenticatieAndReturnTokenCompanyUsecase(): iAuthenticationAndReturnTokenCompany {
     return new AuthenticateAndReturnTokenCompanyData(
@@ -19,4 +21,17 @@ export function makeAuthenticatieAndReturnTokenCompanyUsecase(): iAuthentication
         makeTokenAdapter(),
         makeHashAdapter()
     );
-} 
+}
+
+export function makeHasAuthenticationRecordCompany() : iHasAuthenticationRecordCompany {
+    return new HasAuthenticationRecordCompanyData(
+        makeAuthenticationRepository()
+    )
+}
+
+export function makeCreateAuthenticateForCompanyUsecase() : iCreateAuthenticateForCompanyUsecase {
+    return new CreateAuthenticateForCompany(
+        makeAuthenticationRepository(),
+        makeHasAuthenticationRecordCompany()
+    )
+}

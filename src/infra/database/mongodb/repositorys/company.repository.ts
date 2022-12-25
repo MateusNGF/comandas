@@ -24,6 +24,10 @@ export class CompanyRepository implements iCompanyRepository {
     return this.Colletion.findOne(new ObjectId(_id));
   }
 
+  generateId(){
+    return new ObjectId().toHexString()
+  }
+
   async register(company: Company): Promise<{ _id: string }> {
 
     const _company: Company = {

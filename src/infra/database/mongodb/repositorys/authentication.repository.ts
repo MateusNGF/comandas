@@ -23,7 +23,8 @@ export class AuthenticationRepository implements iAuthenticationRepository {
         auth = {
             ...auth,
             password : await this.hashAdapter.encrypt(auth.password),
-            create_at : new Date().toISOString()
+            create_at : new Date().toISOString(),
+            update_at  :new Date().toISOString()
         }
 
         const result  = await this.Colletion.insertOne(auth)

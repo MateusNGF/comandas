@@ -15,7 +15,6 @@ export class JWTAdapter implements iTokenAdapter {
   }
 
   createAccessToken(data: any): Promise<string> {
-    const { _id } = data;
-    return this.sing(JSON.stringify({ _id }));
+    return this.sing(JSON.stringify(data));
   }
 }
