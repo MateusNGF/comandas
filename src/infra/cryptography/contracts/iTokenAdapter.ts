@@ -1,5 +1,7 @@
+import { PayloadToken } from "@/src/domain/types";
+
 export interface iTokenAdapter {
   sing(text: string): Promise<any>;
-  verify(hash: string): Promise<any>;
-  createAccessToken(data: any): Promise<string>;
+  verify<T=any>(hash: string): Promise<T>;
+  createAccessToken(data: PayloadToken): Promise<string>;
 }

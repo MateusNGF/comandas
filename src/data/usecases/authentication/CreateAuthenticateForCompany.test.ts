@@ -4,13 +4,14 @@ import { iCreateAuthenticateForCompanyUsecase, iHasAuthenticationRecordCompany }
 import { iAuthenticationRepository } from "../../../../src/infra/database/contracts/repositorys";
 import { mock, MockProxy } from "jest-mock-extended";
 import { CreateAuthenticateForCompany } from "./CreateAuthenticateForCompany.data";
-import { HasAuthenticationRecordCompanyData } from "./HasAuthenticationRecordCompany.data";
+import { iTokenAdapter } from "@/src/infra/cryptography/contracts";
 
 describe('Create Authentication for company', () => {
 
     let sut : iCreateAuthenticateForCompanyUsecase;
+    
+    let tokenAdapter : MockProxy<iTokenAdapter>
     let hasAuthenticationRecordCompanyUsecaseMock : MockProxy<iHasAuthenticationRecordCompany>
-
     let authenticationRepositoryMock: MockProxy<iAuthenticationRepository>
 
     let fakeValidDataAuth : Auth;
@@ -20,6 +21,7 @@ describe('Create Authentication for company', () => {
 
     beforeAll(() => {
         authenticationRepositoryMock = mock()
+        tokenAdapter = mock();
         hasAuthenticationRecordCompanyUsecaseMock = mock()
     })
 
@@ -28,6 +30,7 @@ describe('Create Authentication for company', () => {
 
         sut = new CreateAuthenticateForCompany(
             authenticationRepositoryMock,
+            tokenAdapter,
             hasAuthenticationRecordCompanyUsecaseMock
         )
 
@@ -72,12 +75,19 @@ describe('Create Authentication for company', () => {
         );
     })
 
-    it("Should return a Auth valid and registrated with id.", async () => {
+    it('Should return token when record sucess company.', async () => {
+        let tokenMockado = "token_mockado"
 
         hasAuthenticationRecordCompanyUsecaseMock.exec.mockResolvedValue(undefined)
-        authenticationRepositoryMock.create.mockResolvedValue(fakeValidDataAuth)
+        tokenAdapter.createAccessToken.mockResolvedValue(tokenMockado)
 
+        authenticationRepositoryMock.create.mockResolvedValue(fakeValidDataAuth);
+    
         const response = await sut.exec(fakeInputCredentials);
-        expect(response).toEqual(expect.objectContaining(fakeValidDataAuth))
-    })
+    
+        expect(response).toEqual(expect.objectContaining({
+          authId : fakeValidDataAuth._id,
+          token : tokenMockado
+        }));
+      });
 });

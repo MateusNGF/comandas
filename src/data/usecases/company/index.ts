@@ -1,1 +1,1 @@
-export * from './registration.data';
+export * from './RegistrationCompany.data';

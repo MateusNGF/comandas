@@ -32,6 +32,7 @@ export function makeHasAuthenticationRecordCompany() : iHasAuthenticationRecordC
 export function makeCreateAuthenticateForCompanyUsecase() : iCreateAuthenticateForCompanyUsecase {
     return new CreateAuthenticateForCompany(
         makeAuthenticationRepository(),
+        makeTokenAdapter(),
         makeHasAuthenticationRecordCompany()
     )
 }

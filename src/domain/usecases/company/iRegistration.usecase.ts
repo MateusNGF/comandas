@@ -12,6 +12,5 @@ export namespace iRegistrationCompany {
 
   export type output = {
     token: string;
-    createdAt: string;
   };
 }

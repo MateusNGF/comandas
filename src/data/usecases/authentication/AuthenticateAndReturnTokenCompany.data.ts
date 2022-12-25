@@ -36,7 +36,7 @@ export class AuthenticateAndReturnTokenCompanyData implements iAuthenticationAnd
 
         return {
             token: await this.tokenAdapter.createAccessToken({
-                _id: auth.associeteded_id,
+                companyId : auth.associeteded_id,
             }),
         };
     }

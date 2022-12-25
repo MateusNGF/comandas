@@ -40,7 +40,6 @@ describe('Creation Event', () => {
       name_fantasy: 'any_name',
       cnpj: 'any_cnpj',
       email: 'any_email',
-      password: 'any_password',
     };
 
     fakeBody = {

@@ -15,5 +15,8 @@ export namespace iCreateAuthenticateForCompanyUsecase {
         password : string
     }
 
-    export type output = Auth
+    export type output = {
+        authId : string,
+        token : string
+    }
 }
