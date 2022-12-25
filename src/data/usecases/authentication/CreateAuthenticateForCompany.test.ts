@@ -76,7 +76,7 @@ describe('Create Authentication for company', () => {
     })
 
     it('Should return token when record sucess company.', async () => {
-        let tokenMockado = "token_mockado"
+        const tokenMockado = "token_mockado"
 
         hasAuthenticationRecordCompanyUsecaseMock.exec.mockResolvedValue(undefined)
         tokenAdapter.createAccessToken.mockResolvedValue(tokenMockado)

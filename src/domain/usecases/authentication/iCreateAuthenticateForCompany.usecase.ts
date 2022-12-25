@@ -1,6 +1,4 @@
 import { iUsecase } from "../../contracts";
-import { Auth } from "../../entities";
-
 
 export abstract class iCreateAuthenticateForCompanyUsecase implements iUsecase {
     abstract exec(input: iCreateAuthenticateForCompanyUsecase.input): Promise<iCreateAuthenticateForCompanyUsecase.output>

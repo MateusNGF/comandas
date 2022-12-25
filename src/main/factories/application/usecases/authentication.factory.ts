@@ -15,7 +15,7 @@ export function makeAuthenticationRepository(): any {
     return repository;
 }
 
-export function makeAuthenticatieAndReturnTokenCompanyUsecase(): iAuthenticationAndReturnTokenCompany {
+export function makeUsecaseAuthenticatieAndReturnTokenCompany(): iAuthenticationAndReturnTokenCompany {
     return new AuthenticateAndReturnTokenCompanyData(
         makeAuthenticationRepository(),
         makeTokenAdapter(),
@@ -23,16 +23,16 @@ export function makeAuthenticatieAndReturnTokenCompanyUsecase(): iAuthentication
     );
 }
 
-export function makeHasAuthenticationRecordCompany() : iHasAuthenticationRecordCompany {
+export function makeUsecaseHasAuthenticationRecordCompany() : iHasAuthenticationRecordCompany {
     return new HasAuthenticationRecordCompanyData(
         makeAuthenticationRepository()
     )
 }
 
-export function makeCreateAuthenticateForCompanyUsecase() : iCreateAuthenticateForCompanyUsecase {
+export function makeUsecaseCreateAuthenticateForCompany() : iCreateAuthenticateForCompanyUsecase {
     return new CreateAuthenticateForCompany(
         makeAuthenticationRepository(),
         makeTokenAdapter(),
-        makeHasAuthenticationRecordCompany()
+        makeUsecaseHasAuthenticationRecordCompany()
     )
 }

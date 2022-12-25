@@ -1,10 +1,10 @@
 import { UnauthorizedError } from '../../../domain/errors';
-import { iAuthenticationCompany } from '@/src/domain/usecases/company';
+import { iAccessCompany } from '@/src/domain/usecases/company';
 import { iController } from '../../contracts';
 import { HttpRequest, HttpResponse } from '../../helpers/http';
 
 export class AccessCompanyController extends iController {
-  constructor(private readonly UseCase: iAuthenticationCompany) {
+  constructor(private readonly UseCase: iAccessCompany) {
     super();
   }
   async exec(request: HttpRequest): Promise<HttpResponse> {
