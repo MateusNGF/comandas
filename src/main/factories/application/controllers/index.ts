@@ -1,3 +1,3 @@
-export * from './company'
-export * from './event'
+export * from './companies.factory'
+export * from './events.factory'
 export * from './authentication'

@@ -1,6 +1,6 @@
 import { adaptExpressMiddleware } from '../adapters/express-middleware';
-import { makeMiddlewareAuthenticate } from '../factories/application/middlewares/authentication-middleware.factory';
+import { makeMiddlewareAuthentication } from '../factories/application/middlewares/authentication.middleware.factory';
 
 export function requestAuthorization() {
-  return adaptExpressMiddleware(makeMiddlewareAuthenticate());
+  return adaptExpressMiddleware(makeMiddlewareAuthentication());
 }

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { adaptExpressRoute } from '../adapters/express-route';
-import { makeArchivationEventController, makeCreationEventController } from '../factories/application/controllers/event';
+import { makeArchivationEventController, makeCreationEventController } from '../factories/application/controllers/events.factory';
 import { requestAuthorization } from '../middlewares';
 
 export default (router: Router): void => {

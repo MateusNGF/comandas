@@ -1,15 +1,15 @@
 import { UnauthorizedError } from '../../../domain/errors';
-import { iAuthenticationAndReturnTokenCompany } from '@/src/domain/usecases/authentications';
+import { iAccessCompany } from '@/src/domain/usecases/companies';
 import { iController } from '../../contracts';
 import { HttpRequest, HttpResponse } from '../../helpers/http';
 
-export class AuthenticateAndReturnTokenCompanyController extends iController {
-  constructor(private readonly authenticationCompanyUsercase: iAuthenticationAndReturnTokenCompany) {
+export class AccessCompanyController extends iController {
+  constructor(private readonly UseCase: iAccessCompany) {
     super();
   }
   async exec(request: HttpRequest): Promise<HttpResponse> {
     try {
-      const authenticatedCompany = await this.authenticationCompanyUsercase.exec(request.body);
+      const authenticatedCompany = await this.UseCase.exec(request.body);
 
       if (authenticatedCompany && authenticatedCompany.token) {
         return this.sendSucess(200, authenticatedCompany);

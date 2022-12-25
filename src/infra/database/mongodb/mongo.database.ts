@@ -16,7 +16,7 @@ class Mongo implements iDatabase {
   }
 
   public colletion<Schema>(name: string): Collection<Schema> {
-    if (!this.client) throw new Error('no has connection with database.');
+    if (!this.client) throw new Error('No has connection with database.');
     return this.client
       .db(process.env.MONGO_DATABASE as string)
       .collection<Schema>(name);
