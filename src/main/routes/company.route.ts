@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { adaptExpressRoute } from '../adapters/express-route';
-import { makeAuthenticateAndReturnTokenCompanyController } from '../factories/application/controllers/authentication';
 import {
+  makeAccessCompanyController,
   makeRegisterCompanyController,
 } from '../factories/application/controllers/companies.factory';
 
 export default (router: Router): void => {
   router.post('/register', adaptExpressRoute(makeRegisterCompanyController()));
-  router.get('/access', adaptExpressRoute(makeAuthenticateAndReturnTokenCompanyController()));
+  router.get('/access', adaptExpressRoute(makeAccessCompanyController()));
 };

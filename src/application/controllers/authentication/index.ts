@@ -1,1 +1,0 @@
-export * from './AuthenticationAndReturnTokenCompany.controller'
