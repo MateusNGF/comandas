@@ -1,13 +1,9 @@
-import {
-  UnauthorizedError,
-} from '../../../domain/errors';
 import { iCreateEvent } from '@/src/domain/usecases/events';
 import {
   iCompanyRepository,
   iEventRepository,
 } from '@/src/infra/database/contracts/repositorys';
 import { Event } from '../../../domain/entities';
-import { ObjectManager } from '../../../domain/utils';
 
 export class CreateEventData implements iCreateEvent {
   constructor(
@@ -15,21 +11,18 @@ export class CreateEventData implements iCreateEvent {
     private readonly eventRepository: iEventRepository
   ) {}
   async exec(input: iCreateEvent.input): Promise<iCreateEvent.output> {
-    // if (!input.companyId) throw new UnauthorizedError('CompanyId required.');
-    // if (!input.event) throw new MissingParamError('Missing event.');
-    
-    ObjectManager.hasKeys(['companyId', 'event'], input)
-    ObjectManager.hasKeys(['name', 'start_data', 'end_data'], input.event);
-    
-    if (!(await this.companyRepository.findById(input.companyId)))
-      throw new UnauthorizedError('Company not found.');
 
+    const newEventData = input.event
 
     const event = new Event({
       company_id: input.companyId,
-      ...input.event,
-      create_at : new Date().toISOString(),
-      update_at : new Date().toISOString()
+      name : newEventData.name,
+      start_date : newEventData.start_date,
+      end_date : newEventData.end_date,
+      description : newEventData?.description,
+      archived : false,
+      created_at : new Date().toISOString(),
+      updated_at : new Date().toISOString()
     });
 
     const createdEvent = await this.eventRepository.register(event);
@@ -37,7 +30,7 @@ export class CreateEventData implements iCreateEvent {
     if (createdEvent) {
       return {
         _id: createdEvent._id,
-        createdAt: event.create_at,
+        createdAt: event.created_at,
       };
     }
   }

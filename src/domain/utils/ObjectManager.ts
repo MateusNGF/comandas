@@ -12,8 +12,8 @@ export class ObjectManager extends Object {
    * @param object objecto de verificação
    * @param security true para deixar apenas os required no objeto, false verifica se tem pelo menos os requireds.
    */
-  static hasKeys(
-    requireds: Array<string>,
+  static hasKeys<TypeKeysRequireds=string>(
+    requireds: Array<TypeKeysRequireds>,
     object: Object,
     security: boolean = false
   ) {
@@ -25,7 +25,7 @@ export class ObjectManager extends Object {
     }
   }
 
-  static justTheseProperties(requireds : Array<string>, object : object){
+  static justTheseProperties(requireds : Array<any>, object : object){
     for (const key in object) {
       if (!requireds.find((element) => element == key)) {
         throw new UnexpectedParamError(key);
@@ -33,7 +33,7 @@ export class ObjectManager extends Object {
     }
   }
 
-  static hasTheseProperties(requireds : Array<string>, object : object){
+  static hasTheseProperties(requireds : Array<any>, object : object){
     requireds.forEach((element: any) => {
       if (!(element in object))  throw new MissingParamError(element);
       if (!object[element]) throw new EmptyParamError(element);
@@ -47,9 +47,11 @@ export class ObjectManager extends Object {
    * @returns obj
    */
   static assing(obj: object, input: object) {
+    const ignoreKeyds = ["_id", "created_at", "updated_at"]
+
     if (!obj || !input) throw new Error('Input or obj is null in assing.');
     for (const key in obj) {
-      if (input[key]) {
+      if (!ignoreKeyds[key] && input[key]) {
         obj[key] = input[key];
       }
     }
