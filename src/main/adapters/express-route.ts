@@ -8,7 +8,7 @@ export const adaptExpressRoute: Adapter =
     const { data, status } = await controller.exec({
       body: req.body,
       params: req.params,
-      headers: req.headers,
+      headers: req.headers as any,
       query : req.query
     });
     const json = [200, 204].includes(status) ? data : { error: data.message };

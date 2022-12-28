@@ -11,7 +11,7 @@ export class ArchivateEventController extends iController {
     try {
       const { action, eventId } = request.params
       const newEvent = await this.usecase.exec({
-        companyId: request.headers?._id,
+        companyId: request.headers.decodedTokenCompany.companyId,
         eventId : eventId,
         action : action
       });

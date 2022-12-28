@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 export const adaptExpressMiddleware =
   (middleware: iMiddleware) =>
   async (req: Request, res: Response, next: NextFunction) => {
-    const { status, data } = await middleware.run({ ...req });
+    const { status, data } = await middleware.run({ ...req } as any);
 
     if ([200, 202].includes(status)) {
       req.headers = {
