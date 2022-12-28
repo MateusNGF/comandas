@@ -31,13 +31,14 @@ describe('Creation Event', () => {
     fakeEvent = {
       name: 'fake_event',
       description: 'fake_description',
-      start_data: 'any_data',
-      end_data: 'any_data',
+      start_date: 'any_data',
+      end_date: 'any_data',
     };
 
     fakeCompany = {
       _id: 'any_id',
       name_fantasy: 'any_name',
+      timezone : "sao_paulo/brazilia",
       cnpj: 'any_cnpj',
       email: 'any_email',
     };

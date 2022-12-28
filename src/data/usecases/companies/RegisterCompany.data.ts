@@ -31,7 +31,8 @@ export class RegisterCompanyData extends iRegisterCompany {
       _id : company._id,
       name_fantasy : company.name_fantasy,
       cnpj : company.cnpj,
-      email  :company.email
+      email  :company.email,
+      timezone : company.timezone
     });
 
     if (recordCompany) {

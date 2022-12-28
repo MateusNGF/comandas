@@ -32,6 +32,7 @@ describe('Registration Company', () => {
     fakeCompany = {
       _id : "01",
       name_fantasy: 'any_name',
+      timezone : "sao_paulo/brazilia",
       cnpj: 'any_cnpj',
       email: 'any_email'
     };
@@ -43,6 +44,7 @@ describe('Registration Company', () => {
 
     fakeNewCompany = {
       name_fantasy: 'any_name',
+      timezone : "sao_paulo/brazilia",
       cnpj: 'any_cnpj',
       email: 'any_email',
       password: 'any_password',

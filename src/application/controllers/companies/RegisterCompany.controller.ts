@@ -11,13 +11,11 @@ export class RegisterCompanyController extends iController {
     try {
       const incomingCompany = request.body
 
-      const propsRequiredAndNotNull = ['name_fantasy', 'email', 'cnpj', 'password']
-      ObjectManager.hasKeys(propsRequiredAndNotNull, incomingCompany);
+      ObjectManager.hasKeys<keyof iRegisterCompany.input>(['name_fantasy', 'email', 'cnpj', 'timezone', 'password'], incomingCompany);
 
+      const companyRecord = await this.registrationCompanyUsercase.exec(incomingCompany);
 
-      const result = await this.registrationCompanyUsercase.exec(incomingCompany);
-
-      return this.sendSucess(200, { ...result });
+      return this.sendSucess(200, { ...companyRecord });
     } catch (error) {
       return this.sendError(error);
     }
