@@ -1,6 +1,6 @@
 import { Auth } from "../../../domain/entities";
 import { UnauthorizedError } from "../../../domain/errors";
-import { iCreateAuthenticateForCompanyUsecase, iCreateTokenForCompany, iHasAuthenticationRecordCompany } from "../../../domain/usecases/authentications";
+import { iCreateAuthenticateForCompanyUsecase, iHasAuthenticationRecordCompany } from "../../../domain/usecases/authentications";
 import { iAuthenticationRepository } from "../../../infra/database/contracts/repositorys";
 import { mock, MockProxy } from "jest-mock-extended";
 import { CreateAuthenticateForCompanyData } from "./CreateAuthenticateForCompany.data";
@@ -71,7 +71,7 @@ describe('Create Authentication for company', () => {
         );
     })
 
-    it('Should return token when record sucess company.', async () => {
+    it('Should return auth_id when record sucess create auth.', async () => {
         const tokenMockado = {token : "token_mockado"}
 
         hasAuthenticationRecordCompanyUsecaseMock.exec.mockResolvedValue(undefined)
