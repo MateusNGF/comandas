@@ -6,7 +6,7 @@ import {
 import { MongoDB } from '../../../../infra/database/mongodb';
 import { Company } from '../../../../domain/entities';
 import { CompaniesRepository } from '../../../../infra/database/mongodb/repositorys/companies.repository';
-import { makeUsecaseAuthenticatieAndReturnTokenCompany, makeUsecaseCreateAuthenticateForCompany } from './authentications.factory';
+import { makeUsecaseAuthenticatieAndReturnTokenCompany, makeUsecaseCreateAuthenticateForCompany, makeUsecaseCreateTokenForCompany } from './authentications.factory';
 import { AccessCompanyData, RegisterCompanyData } from '../../../../../src/data/usecases/companies';
 
 export function makeCompanyRepository(): any {
@@ -18,7 +18,8 @@ export function makeCompanyRepository(): any {
 export const makeUseCaseRegistrationCompany = (): iRegisterCompany => {
   return new RegisterCompanyData(
     makeCompanyRepository(),
-    makeUsecaseCreateAuthenticateForCompany()
+    makeUsecaseCreateAuthenticateForCompany(),
+    makeUsecaseCreateTokenForCompany()
   );
 };
 

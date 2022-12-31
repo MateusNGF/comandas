@@ -21,7 +21,7 @@ export class CompaniesRepository implements iCompanyRepository {
     return this.Colletion.findOne({ email });
   }
   async findById(_id: string): Promise<Company> {
-    return this.Colletion.findOne(new ObjectId(_id));
+    return this.Colletion.findOne({_id});
   }
 
   generateId(){

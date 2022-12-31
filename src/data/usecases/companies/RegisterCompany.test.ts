@@ -4,29 +4,34 @@ import { iRegisterCompany } from '../../../domain/usecases/companies';
 import { iCompanyRepository } from '../../../infra/database/contracts/repositorys';
 import { mock, MockProxy } from 'jest-mock-extended';
 import { RegisterCompanyData } from './RegisterCompany.data';
-import { iCreateAuthenticateForCompanyUsecase } from '../../../domain/usecases/authentications';
+import { iCreateAuthenticateForCompanyUsecase, iCreateTokenForCompany } from '../../../domain/usecases/authentications';
 
 describe('Registration Company', () => {
   let sut: iRegisterCompany;
 
   let repositorySpy: MockProxy<iCompanyRepository>;
+
+  let createTokenForCompany : MockProxy<iCreateTokenForCompany>
   let createAuthenticationForCompany : MockProxy<iCreateAuthenticateForCompanyUsecase>
   
   let fakeCompany: Company;
   let fakeNewCompany: iRegisterCompany.input;
   let fakeReturnCreateAuth : iCreateAuthenticateForCompanyUsecase.output
+  let fakeReturnCreateToken : iCreateTokenForCompany.output;
 
   const unauthorizedErrorInHasRecordAuth = new UnauthorizedError('This CNPJ or Email has record, try change your passwoord.')
 
   beforeAll(() => {
     repositorySpy = mock();
+    createTokenForCompany = mock();
     createAuthenticationForCompany = mock();
   });
 
   beforeEach(() => {
     sut = new RegisterCompanyData(
       repositorySpy,
-      createAuthenticationForCompany
+      createAuthenticationForCompany,
+      createTokenForCompany
     );
 
     fakeCompany = {
@@ -38,8 +43,11 @@ describe('Registration Company', () => {
     };
 
     fakeReturnCreateAuth = {
-      authId : "010202",
-      token : "token_auth_mock"
+      authId : "010202"
+    }
+
+    fakeReturnCreateToken = {
+      token : "any_token"
     }
 
     fakeNewCompany = {
@@ -72,14 +80,16 @@ describe('Registration Company', () => {
   });
 
   it('Should return token when record sucess company.', async () => {
+
     createAuthenticationForCompany.exec.mockResolvedValue(fakeReturnCreateAuth)
 
     repositorySpy.register.mockResolvedValue({_id : fakeCompany._id});
+    createTokenForCompany.exec.mockResolvedValue(fakeReturnCreateToken)
 
     const response = await sut.exec(fakeNewCompany);
 
-    expect(response).toEqual(expect.objectContaining({ 
-      token : fakeReturnCreateAuth.token
+    expect(response).toEqual(expect.objectContaining({
+      token : fakeReturnCreateToken.token
     }));
   });
 });

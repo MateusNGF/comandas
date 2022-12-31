@@ -1,4 +1,3 @@
-import { iAccessCompany } from '@/src/domain/usecases/companies';
 import { iController } from '../../../../application/contracts';
 import {
   AccessCompanyController,

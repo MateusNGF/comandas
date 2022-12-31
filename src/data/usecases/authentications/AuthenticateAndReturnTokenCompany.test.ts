@@ -1,8 +1,7 @@
 import { Auth } from '@/src/domain/entities';
-import { iAuthenticationAndReturnTokenCompany } from '@/src/domain/usecases/authentications';
+import { iAuthenticationAndReturnTokenCompany, iCreateTokenForCompany } from '@/src/domain/usecases/authentications';
 import {
   iHashAdapter,
-  iTokenAdapter,
 } from '@/src/infra/cryptography/contracts';
 import { iAuthenticationRepository } from '@/src/infra/database/contracts/repositorys';
 
@@ -14,8 +13,9 @@ import { AuthenticateAndReturnTokenCompanyData } from './AuthenticateAndReturnTo
 
 describe('Authenticate Company', () => {
   let sut: iAuthenticationAndReturnTokenCompany;
+
   let AuthenticationRepositorySpy: MockProxy<iAuthenticationRepository>;
-  let tokenAdapterSpy: MockProxy<iTokenAdapter>;
+  let createTokenForCompany : MockProxy<iCreateTokenForCompany>
   let hashAdapterSpy: MockProxy<iHashAdapter>;
 
   let fakeValidDataAuth: Auth;
@@ -23,14 +23,14 @@ describe('Authenticate Company', () => {
 
   beforeAll(() => {
     AuthenticationRepositorySpy = mock();
-    tokenAdapterSpy = mock();
+    createTokenForCompany = mock();
     hashAdapterSpy = mock();
   });
 
   beforeEach(() => {
     sut = new AuthenticateAndReturnTokenCompanyData(
       AuthenticationRepositorySpy,
-      tokenAdapterSpy,
+      createTokenForCompany,
       hashAdapterSpy
     );
 
@@ -83,13 +83,14 @@ describe('Authenticate Company', () => {
   });
 
   it('Should return valid token when access is valid.', async () => {
+    const tokenMockado = { token : "any_token"}
     AuthenticationRepositorySpy.getAuth.mockResolvedValue(fakeValidDataAuth);
 
     hashAdapterSpy.compare.mockResolvedValue(true);
-    tokenAdapterSpy.createAccessToken.mockResolvedValue('any_token');
+    createTokenForCompany.exec.mockResolvedValue(tokenMockado);
 
     const response = await sut.exec(fakeInputCredentials);
 
-    expect(response).toEqual({ token: 'any_token' });
+    expect(response).toEqual(expect.objectContaining(tokenMockado));
   });
 });

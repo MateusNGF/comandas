@@ -1,16 +1,14 @@
 import { Auth } from "../../../domain/entities";
 import { UnauthorizedError } from "../../../domain/errors";
-import { iCreateAuthenticateForCompanyUsecase, iHasAuthenticationRecordCompany } from "../../../domain/usecases/authentications";
+import { iCreateAuthenticateForCompanyUsecase, iCreateTokenForCompany, iHasAuthenticationRecordCompany } from "../../../domain/usecases/authentications";
 import { iAuthenticationRepository } from "../../../infra/database/contracts/repositorys";
 import { mock, MockProxy } from "jest-mock-extended";
-import { CreateAuthenticateForCompany } from "./CreateAuthenticateForCompany.data";
-import { iTokenAdapter } from "@/src/infra/cryptography/contracts";
+import { CreateAuthenticateForCompanyData } from "./CreateAuthenticateForCompany.data";
 
 describe('Create Authentication for company', () => {
 
     let sut : iCreateAuthenticateForCompanyUsecase;
     
-    let tokenAdapter : MockProxy<iTokenAdapter>
     let hasAuthenticationRecordCompanyUsecaseMock : MockProxy<iHasAuthenticationRecordCompany>
     let authenticationRepositoryMock: MockProxy<iAuthenticationRepository>
 
@@ -21,16 +19,14 @@ describe('Create Authentication for company', () => {
 
     beforeAll(() => {
         authenticationRepositoryMock = mock()
-        tokenAdapter = mock();
         hasAuthenticationRecordCompanyUsecaseMock = mock()
     })
 
 
     beforeEach(() => {
 
-        sut = new CreateAuthenticateForCompany(
+        sut = new CreateAuthenticateForCompanyData(
             authenticationRepositoryMock,
-            tokenAdapter,
             hasAuthenticationRecordCompanyUsecaseMock
         )
 
@@ -76,18 +72,16 @@ describe('Create Authentication for company', () => {
     })
 
     it('Should return token when record sucess company.', async () => {
-        const tokenMockado = "token_mockado"
+        const tokenMockado = {token : "token_mockado"}
 
         hasAuthenticationRecordCompanyUsecaseMock.exec.mockResolvedValue(undefined)
-        tokenAdapter.createAccessToken.mockResolvedValue(tokenMockado)
 
         authenticationRepositoryMock.create.mockResolvedValue(fakeValidDataAuth);
     
         const response = await sut.exec(fakeInputCredentials);
     
         expect(response).toEqual(expect.objectContaining({
-          authId : fakeValidDataAuth._id,
-          token : tokenMockado
+          authId : fakeValidDataAuth._id
         }));
       });
 });

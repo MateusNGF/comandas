@@ -1,12 +1,13 @@
 import { iCompanyRepository } from '../../../infra/database/contracts/repositorys';
 import { iRegisterCompany } from '../../../domain/usecases/companies';
 import { Company } from '../../../domain/entities';
-import { iCreateAuthenticateForCompanyUsecase } from '@/src/domain/usecases/authentications';
+import { iCreateAuthenticateForCompanyUsecase, iCreateTokenForCompany } from '@/src/domain/usecases/authentications';
 
 export class RegisterCompanyData extends iRegisterCompany {
   constructor(
     private readonly companyRepository: iCompanyRepository,
-    private readonly createAuthenticationForCompany : iCreateAuthenticateForCompanyUsecase
+    private readonly createAuthenticationForCompany : iCreateAuthenticateForCompanyUsecase,
+    private readonly createTokenForCompany : iCreateTokenForCompany
   ) {
     super();
   }
@@ -20,7 +21,7 @@ export class RegisterCompanyData extends iRegisterCompany {
       _id : this.companyRepository.generateId()
     });
 
-    const credentialsAccessCreated = await this.createAuthenticationForCompany.exec({
+    await this.createAuthenticationForCompany.exec({
       associeteded_id : company._id,
       email : company.email,
       cnpj : company.cnpj,
@@ -35,9 +36,11 @@ export class RegisterCompanyData extends iRegisterCompany {
       timezone : company.timezone
     });
 
+    const { token } = await this.createTokenForCompany.exec({ companyId : recordCompany._id })
+
     if (recordCompany) {
       return {
-        token: credentialsAccessCreated.token
+        token: token
       };
     }
   }

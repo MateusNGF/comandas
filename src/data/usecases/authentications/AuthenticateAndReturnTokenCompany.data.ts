@@ -2,10 +2,9 @@ import {
     BadRequestError,
     UnauthorizedError,
 } from '../../../domain/errors';
-import { iAuthenticationAndReturnTokenCompany } from '@/src/domain/usecases/authentications';
+import { iAuthenticationAndReturnTokenCompany, iCreateTokenForCompany } from '@/src/domain/usecases/authentications';
 import {
     iHashAdapter,
-    iTokenAdapter,
 } from '@/src/infra/cryptography/contracts';
 import { iAuthenticationRepository } from '@/src/infra/database/contracts/repositorys';
 import { Auth } from '../../../domain/entities';
@@ -14,7 +13,7 @@ import { Auth } from '../../../domain/entities';
 export class AuthenticateAndReturnTokenCompanyData implements iAuthenticationAndReturnTokenCompany {
     constructor(
         private readonly authenticationRepository: iAuthenticationRepository,
-        private readonly tokenAdapter: iTokenAdapter,
+        private readonly createTokenForCompany: iCreateTokenForCompany,
         private readonly hashAdapter: iHashAdapter
     ) { }
     async exec(
@@ -34,10 +33,8 @@ export class AuthenticateAndReturnTokenCompanyData implements iAuthenticationAnd
 
         if (!accessReleased) throw new UnauthorizedError();
 
-        return {
-            token: await this.tokenAdapter.createAccessToken({
-                companyId : auth.associeteded_id,
-            }),
-        };
+        const {token} = await this.createTokenForCompany.exec({companyId : auth.associeteded_id})
+
+        return {token};
     }
 }

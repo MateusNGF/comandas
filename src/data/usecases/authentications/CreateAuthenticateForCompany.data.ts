@@ -1,13 +1,11 @@
-import { iTokenAdapter } from "@/src/infra/cryptography/contracts";
 import { Auth } from "../../../domain/entities";
-import { iCreateAuthenticateForCompanyUsecase, iHasAuthenticationRecordCompany } from "../../../domain/usecases/authentications";
+import { iCreateAuthenticateForCompanyUsecase, iCreateTokenForCompany, iHasAuthenticationRecordCompany } from "../../../domain/usecases/authentications";
 import { iAuthenticationRepository } from "../../../infra/database/contracts/repositorys";
 
 
-export class CreateAuthenticateForCompany implements iCreateAuthenticateForCompanyUsecase {
+export class CreateAuthenticateForCompanyData implements iCreateAuthenticateForCompanyUsecase {
     constructor(
         private readonly authenticationRepository : iAuthenticationRepository,
-        private readonly tokenAdapter: iTokenAdapter,
         private readonly hasAuthenticationRecordCompanyUsecase : iHasAuthenticationRecordCompany
     ){}
 
@@ -25,14 +23,9 @@ export class CreateAuthenticateForCompany implements iCreateAuthenticateForCompa
         })
 
         const authRecored = await this.authenticationRepository.create(authForRecord)
-        
+
         return {
-            authId : authRecored._id,
-            token: await this.tokenAdapter.createAccessToken({
-                companyId: authRecored.associeteded_id,
-                email: authRecored?.email,
-                cnpj: authRecored?.cnpj
-            }),
+            authId : authRecored._id
         }
     }
 }

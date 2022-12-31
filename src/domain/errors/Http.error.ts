@@ -24,3 +24,13 @@ export class BadRequestError extends HttpError {
     this.message = menssage;
   }
 }
+
+
+export class InternalError extends Error {
+  name = 'InternalError'
+  code = 500
+  constructor(message:string = "Internal Error. Try later."){
+    super();
+    this.message = message
+  }
+}
