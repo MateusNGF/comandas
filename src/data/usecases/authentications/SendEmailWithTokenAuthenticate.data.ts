@@ -8,18 +8,22 @@ import { iMailProvider } from "../../../../src/infra/mail/contracts/iMailProvide
 
 export class SendEmailWithTokenAuthenticateData implements iSendEmailWithTokenAuthenticate {
 
-    private readonly SECRET_KEY = process.env.SECRET_JWT_KEY_IN_AUTHENTICATE_SEND_EMAIL as string
-
     constructor(
         private readonly tokenAdapter : iTokenAdapter,
         private readonly mailProvider : iMailProvider,
         private readonly authenticateRepository : iAuthenticationRepository,
     ){}
-    async exec(input: iSendEmailWithTokenAuthenticate.input): Promise<Boolean> {
+    async exec(
+        input: iSendEmailWithTokenAuthenticate.input, 
+        options ?: iSendEmailWithTokenAuthenticate.options 
+    ): Promise<Boolean> {
+
         const auth = await this.authenticateRepository.getAuth({ email : input.email})
         if (!auth) throw new BadRequestError("Account not found.")
 
-        const token = await this.tokenAdapter.sing<iSendEmailWithTokenAuthenticate.payloadToken>({ authId: auth._id}, this.SECRET_KEY)
+        const token = await this.tokenAdapter.sing<
+            iSendEmailWithTokenAuthenticate.payloadToken
+        >({ authId: auth._id }, options?.secretKey ?? process.env.PW_DEFAULT)
         
         const bodyEmail : iMailProvider.ContentEmail = {
             to : auth.email,

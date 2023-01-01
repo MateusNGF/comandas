@@ -26,13 +26,13 @@ export class ResetPasswordCompanyController extends iController {
 
 
     // send email
-    async stepOne(request: HttpRequest): Promise<HttpResponse> {
+    private async stepOne(request: HttpRequest): Promise<HttpResponse> {
         try{
 
             ObjectManager.hasKeys<iSendEmailWithTokenAuthenticate.input>(['email'], request.body)
     
             const { email } = request.body
-            if (await this.sendEmailWithTokenAuthenticateUsecase.exec({ email })) {
+            if (await this.sendEmailWithTokenAuthenticateUsecase.exec({ email }, { secretKey : process.env.SECRET_RESET_PASSWORD})) {
                 return this.sendSucess(HTTP_STATUS.OK, `Email sended to ${email}.`)
             } else throw new BadRequestError(`Send email to ${email} failed.`)
 
@@ -42,12 +42,12 @@ export class ResetPasswordCompanyController extends iController {
     }
 
     // change password
-    async stepTwo(request: HttpRequest) {
+    private async stepTwo(request: HttpRequest) {
         try{
             ObjectManager.hasKeys(['tokenToChangeCredentials', 'password'], request.body)
 
             const { tokenToChangeCredentials, password } = request.body
-            const { authId } = await this.tokenAdapter.verify<iSendEmailWithTokenAuthenticate.payloadToken>(tokenToChangeCredentials)
+            const { authId } = await this.tokenAdapter.verify<iSendEmailWithTokenAuthenticate.payloadToken>(tokenToChangeCredentials, process.env.SECRET_RESET_PASSWORD)
     
             if (
                 await this.updateAuthenticateUsecase.exec({ authId, password })
