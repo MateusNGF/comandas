@@ -1,5 +1,5 @@
 import { Auth } from "../../../domain/entities";
-import { iCreateAuthenticateForCompanyUsecase, iCreateTokenForCompany, iHasAuthenticationRecordCompany } from "../../../domain/usecases/authentications";
+import { iCreateAuthenticateForCompanyUsecase, iHasAuthenticationRecordCompany } from "../../../domain/usecases/authentications";
 import { iAuthenticationRepository } from "../../../infra/database/contracts/repositorys";
 
 

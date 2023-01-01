@@ -1,5 +1,5 @@
 
-export declare enum HTTP_STATUS {
+export enum HTTP_STATUS {
     CONTINUE = 100,
     SWITCHING_PROTOCOLS = 101,
     PROCESSING = 102,

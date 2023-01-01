@@ -6,8 +6,14 @@ export class JWTAdapter implements iTokenAdapter {
     private readonly secrectKey: string = process.env.JWT_PW_TOKEN_AUTH
   ) {}
 
-  sing(text: string, secret = this.secrectKey): Promise<string> {
-    return Promise.resolve(jwt.sign(text, secret));
+  sing<T=any>(content: T, secret = this.secrectKey): Promise<string> {
+    switch (typeof content) {
+      case 'string':
+        return Promise.resolve(jwt.sign(content, secret));
+      case 'object':
+        return Promise.resolve(jwt.sign(JSON.stringify(content), secret));
+    }
+    
   }
 
   verify(hash: string, secret = this.secrectKey): Promise<any> {

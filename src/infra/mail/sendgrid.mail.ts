@@ -2,7 +2,7 @@ import { iMailProvider } from "./contracts/iMailProvider";
 import SendGridProvider from '@sendgrid/mail'
 
 
-class SendGrid implements iMailProvider {
+export class SendGridMail implements iMailProvider {
 
   protected readonly API_KEY = process.env.MAIL_API_KEY as string
   protected readonly Provider: SendGridProvider.MailService
@@ -19,8 +19,6 @@ class SendGrid implements iMailProvider {
       from : process.env.EMAIL_INTERNAL as string
     } as any)
 
-    return [200, 201].includes(result[0].statusCode)
+    return [200, 201, 202].includes(result[0].statusCode)
   }
 }
-
-export const SendGridMail = new SendGrid()

@@ -1,13 +1,22 @@
 import { AuthenticationsRepository } from "../../../../infra/database/mongodb/repositorys/authentications.repository";
 import { AuthenticateAndReturnTokenCompanyData } from "../../../../data/usecases/authentications/AuthenticateAndReturnTokenCompany.data";
 import { Auth } from "../../../../domain/entities";
-import { iAuthenticationAndReturnTokenCompany, iCreateAuthenticateForCompanyUsecase, iCreateTokenForCompany, iHasAuthenticationRecordCompany } from "../../../../domain/usecases/authentications";
+import { 
+    iAuthenticationAndReturnTokenCompany, 
+    iCreateAuthenticateForCompanyUsecase, 
+    iCreateTokenForCompany, 
+    iHasAuthenticationRecordCompany, 
+    iSendEmailWithTokenAuthenticate, 
+    iUpdadeAuthenticate 
+} from "../../../../domain/usecases/authentications";
 import { MongoDB } from "../../../../infra/database/mongodb";
 import { makeHashAdapter, makeTokenAdapter } from "../../infra/cryptography";
 import { CreateAuthenticateForCompanyData } from "../../../../data/usecases/authentications/CreateAuthenticateForCompany.data";
 import { HasAuthenticationRecordCompanyData } from "../../../../data/usecases/authentications/HasAuthenticationRecordCompany.data";
 import { CreateTokenForCompany as CreateTokenForCompanyData } from "../../../../../src/data/usecases/authentications/CreateTokenForCompany.data";
 import { makeCompanyRepository } from "./companies.factory";
+import { SendEmailWithTokenAuthenticateData } from "../../../../../src/data/usecases/authentications/SendEmailWithTokenAuthenticate.data";
+import { makeMailProvider } from "../../infra/mail";
 
 
 export function makeAuthenticationRepository(): any {
@@ -43,4 +52,17 @@ export function makeUsecaseCreateTokenForCompany() : iCreateTokenForCompany {
         makeTokenAdapter(),
         makeCompanyRepository()
     )
+}
+
+
+export function makeUsecaseUpdateAuthenticate() : iUpdadeAuthenticate {
+    return;
+}
+
+export function makeUsecaseSendEmailForResentPasswordAuthenticateForCompany() : iSendEmailWithTokenAuthenticate {
+    return new SendEmailWithTokenAuthenticateData(
+        makeTokenAdapter(),
+        makeMailProvider(),
+        makeAuthenticationRepository()
+    );
 }

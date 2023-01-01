@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from '@/src/domain/types/Http.status';
+import { HTTP_STATUS } from '../../../src/domain/types/Http.status';
 import { HttpError } from '../../../src/domain/errors';
 import { HttpRequest, HttpResponse } from '../helpers/http';
 
@@ -21,6 +21,9 @@ export abstract class iController {
     status: HTTP_STATUS.OK | HTTP_STATUS.ACCEPTED | HTTP_STATUS.CREATED | HTTP_STATUS.CONTINUE,
     data?: any
   ): HttpResponse<any> {
+    if (typeof data == 'string'){
+      data = { message : data }
+    }
     return {
       status: status || 200,
       data: { ok: 1, ...data } || null,
