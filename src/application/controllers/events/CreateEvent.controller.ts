@@ -14,7 +14,7 @@ export class CreateEventController extends iController {
       const { companyId } = request.headers.decodedTokenCompany
       const event = request.body
 
-      ObjectManager.hasKeys<keyof Event>(['name', 'description', 'start_date', 'end_date'], event);
+      ObjectManager.hasKeys<Event>(['name', 'description', 'start_date', 'end_date'], event);
       
       const { _id } = await this.createEventUsecase.exec({
         companyId: companyId,

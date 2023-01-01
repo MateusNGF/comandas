@@ -11,7 +11,7 @@ export class RegisterCompanyController extends iController {
     try {
       const incomingCompany = request.body
 
-      ObjectManager.hasKeys<keyof iRegisterCompany.input>(['name_fantasy', 'email', 'cnpj', 'timezone', 'password'], incomingCompany);
+      ObjectManager.hasKeys<iRegisterCompany.input>(['name_fantasy', 'email', 'cnpj', 'timezone', 'password'], incomingCompany);
 
       const companyRecord = await this.registrationCompanyUsercase.exec(incomingCompany);
 

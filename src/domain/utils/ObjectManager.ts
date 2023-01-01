@@ -13,7 +13,7 @@ export class ObjectManager extends Object {
    * @param security true para deixar apenas os required no objeto, false verifica se tem pelo menos os requireds.
    */
   static hasKeys<TypeKeysRequireds=string>(
-    requireds: Array<TypeKeysRequireds>,
+    requireds: Array<keyof TypeKeysRequireds>,
     object: Object,
     security: boolean = false
   ) {
