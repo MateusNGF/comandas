@@ -1,10 +1,10 @@
-import { Company } from '../../../domain/entities';
-import { UnauthorizedError } from '../../../domain/errors';
-import { iRegisterCompany } from '../../../domain/usecases/companies';
-import { iCompanyRepository } from '../../../infra/database/contracts/repositorys';
+import { Company } from '../../../../domain/entities';
+import { UnauthorizedError } from '../../../../domain/errors';
+import { iRegisterCompany } from '../../../../domain/usecases/companies';
+import { iCompanyRepository } from '../../../../infra/database/contracts/repositorys';
 import { mock, MockProxy } from 'jest-mock-extended';
-import { RegisterCompanyData } from './RegisterCompany.data';
-import { iCreateAuthenticateForCompanyUsecase, iCreateTokenForCompany } from '../../../domain/usecases/authentications';
+import { RegisterCompanyData } from '../RegisterCompany.data';
+import { iCreateAuthenticateForCompanyUsecase, iCreateTokenForCompany } from '../../../../domain/usecases/authentications';
 
 describe('Registration Company', () => {
   let sut: iRegisterCompany;

@@ -1,7 +1,7 @@
-import { iAuthenticationAndReturnTokenCompany } from "../../../domain/usecases/authentications"
-import { iAccessCompany } from "../../../domain/usecases/companies"
+import { iAuthenticationAndReturnTokenCompany } from "../../../../domain/usecases/authentications"
+import { iAccessCompany } from "../../../../domain/usecases/companies"
 import { mock, MockProxy } from "jest-mock-extended"
-import { AccessCompanyData } from "./AccessCompany.data"
+import { AccessCompanyData } from "../AccessCompany.data"
 
 
 

@@ -2,14 +2,14 @@ import { Company, Event } from '@/src/domain/entities';
 import {
   MissingParamError,
   UnauthorizedError,
-} from '../../../domain/errors';
-import { CreateEventData } from './CreateEvent.data';
+} from '../../../../domain/errors';
+import { CreateEventData } from '../CreateEvent.data';
 import { mock, MockProxy } from 'jest-mock-extended';
 import {
   iCompanyRepository,
   iEventRepository,
-} from '../../../infra/database/contracts/repositorys';
-import { iCreateEvent } from '../../../domain/usecases/events';
+} from '../../../../infra/database/contracts/repositorys';
+import { iCreateEvent } from '../../../../domain/usecases/events';
 
 describe('Creation Event', () => {
   let sut: iCreateEvent;
