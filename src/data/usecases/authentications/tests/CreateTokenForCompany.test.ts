@@ -1,10 +1,10 @@
-import { Company } from "../../../../src/domain/entities"
-import { InternalError } from "../../../../src/domain/errors"
-import { iCreateTokenForCompany } from "../../../../src/domain/usecases/authentications"
-import { iTokenAdapter } from "../../../../src/infra/cryptography/contracts"
-import { iCompanyRepository } from "../../../../src/infra/database/contracts/repositorys"
+import { Company } from "../../../../../src/domain/entities"
+import { InternalError } from "../../../../../src/domain/errors"
+import { iCreateTokenForCompany } from "../../../../../src/domain/usecases/authentications"
+import { iTokenAdapter } from "../../../../../src/infra/cryptography/contracts"
+import { iCompanyRepository } from "../../../../../src/infra/database/contracts/repositorys"
 import { mock, MockProxy } from "jest-mock-extended"
-import { CreateTokenForCompany } from "./CreateTokenForCompany.data"
+import { CreateTokenForCompany } from "../CreateTokenForCompany.data"
 
 
 

@@ -8,8 +8,8 @@ import { iAuthenticationRepository } from '@/src/infra/database/contracts/reposi
 import { mock, MockProxy } from 'jest-mock-extended';
 import {
   BadRequestError, UnauthorizedError,
-} from '../../../domain/errors';
-import { AuthenticateAndReturnTokenCompanyData } from './AuthenticateAndReturnTokenCompany.data';
+} from '../../../../domain/errors';
+import { AuthenticateAndReturnTokenCompanyData } from '../AuthenticateAndReturnTokenCompany.data';
 
 describe('Authenticate Company', () => {
   let sut: iAuthenticationAndReturnTokenCompany;

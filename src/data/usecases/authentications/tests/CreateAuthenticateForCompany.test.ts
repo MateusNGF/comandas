@@ -1,9 +1,9 @@
-import { Auth } from "../../../domain/entities";
-import { UnauthorizedError } from "../../../domain/errors";
-import { iCreateAuthenticateForCompanyUsecase, iHasAuthenticationRecordCompany } from "../../../domain/usecases/authentications";
-import { iAuthenticationRepository } from "../../../infra/database/contracts/repositorys";
+import { Auth } from "../../../../domain/entities";
+import { UnauthorizedError } from "../../../../domain/errors";
+import { iCreateAuthenticateForCompanyUsecase, iHasAuthenticationRecordCompany } from "../../../../domain/usecases/authentications";
+import { iAuthenticationRepository } from "../../../../infra/database/contracts/repositorys";
 import { mock, MockProxy } from "jest-mock-extended";
-import { CreateAuthenticateForCompanyData } from "./CreateAuthenticateForCompany.data";
+import { CreateAuthenticateForCompanyData } from "../CreateAuthenticateForCompany.data";
 
 describe('Create Authentication for company', () => {
 

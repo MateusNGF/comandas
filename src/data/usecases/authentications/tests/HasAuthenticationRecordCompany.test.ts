@@ -1,9 +1,10 @@
-import { Auth } from "../../../domain/entities";
-import { UnauthorizedError } from "../../../domain/errors";
-import { iHasAuthenticationRecordCompany } from "../../../domain/usecases/authentications";
-import { iAuthenticationRepository } from "../../../infra/database/contracts/repositorys";
+import { Auth } from "../../../../../src/domain/entities";
+import { UnauthorizedError } from "../../../../../src/domain/errors";
+import { iHasAuthenticationRecordCompany } from "../../../../../src/domain/usecases/authentications";
+import { iAuthenticationRepository } from "../../../../../src/infra/database/contracts/repositorys";
 import { mock, MockProxy } from "jest-mock-extended";
-import { HasAuthenticationRecordCompanyData } from "./HasAuthenticationRecordCompany.data";
+import { HasAuthenticationRecordCompanyData } from "../HasAuthenticationRecordCompany.data";
+
 
 describe('Has Authentication record for company', () => {
     let sut: iHasAuthenticationRecordCompany;
