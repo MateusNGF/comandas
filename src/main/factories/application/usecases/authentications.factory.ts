@@ -17,6 +17,7 @@ import { CreateTokenForCompany as CreateTokenForCompanyData } from "../../../../
 import { makeCompanyRepository } from "./companies.factory";
 import { SendEmailWithTokenAuthenticateData } from "../../../../../src/data/usecases/authentications/SendEmailWithTokenAuthenticate.data";
 import { makeMailProvider } from "../../infra/mail";
+import { UpdateAuthenticateData } from "../../../../../src/data/usecases/authentications/UpdateAuthenticate.data";
 
 
 export function makeAuthenticationRepository(): any {
@@ -56,7 +57,9 @@ export function makeUsecaseCreateTokenForCompany() : iCreateTokenForCompany {
 
 
 export function makeUsecaseUpdateAuthenticate() : iUpdadeAuthenticate {
-    return;
+    return new UpdateAuthenticateData(
+        makeAuthenticationRepository()
+    )
 }
 
 export function makeUsecaseSendEmailForResentPasswordAuthenticateForCompany() : iSendEmailWithTokenAuthenticate {

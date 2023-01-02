@@ -19,7 +19,7 @@ export class AuthenticateAndReturnTokenCompanyData implements iAuthenticationAnd
     async exec(
         input: iAuthenticationAndReturnTokenCompany.input
     ): Promise<iAuthenticationAndReturnTokenCompany.output> {
-        const auth : Auth = await this.authenticationRepository.getAuth({
+        const auth : Auth = await this.authenticationRepository.getAuthByCredentials({
             email: input?.email,
             cnpj: input?.cnpj
         })

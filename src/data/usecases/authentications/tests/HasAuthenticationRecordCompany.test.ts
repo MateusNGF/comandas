@@ -39,7 +39,7 @@ describe('Has Authentication record for company', () => {
 
     it("Should return void when email donst is record", async () => {
         delete fakeInputCredentials.cnpj
-        AuthenticationRepositorySpy.getAuth.mockResolvedValue(undefined);
+        AuthenticationRepositorySpy.getAuthByCredentials.mockResolvedValue(undefined);
 
         const response = await sut.exec(fakeInputCredentials);
         expect(response).toBe(undefined);
@@ -48,7 +48,7 @@ describe('Has Authentication record for company', () => {
 
     it("Should return void when cnpj donst is record", async () => {
         delete fakeInputCredentials.email
-        AuthenticationRepositorySpy.getAuth.mockResolvedValue(undefined);
+        AuthenticationRepositorySpy.getAuthByCredentials.mockResolvedValue(undefined);
 
         const response = await sut.exec(fakeInputCredentials);
         expect(response).toBe(undefined);
@@ -56,7 +56,7 @@ describe('Has Authentication record for company', () => {
 
     it("Should return UnauthorizedError when email is record", async () => {
         delete fakeInputCredentials.cnpj
-        AuthenticationRepositorySpy.getAuth.mockResolvedValue(fakeValidDataAuth);
+        AuthenticationRepositorySpy.getAuthByCredentials.mockResolvedValue(fakeValidDataAuth);
 
         const response = sut.exec(fakeInputCredentials);
   
@@ -67,7 +67,7 @@ describe('Has Authentication record for company', () => {
 
     it("Should return UnauthorizedError when cnpj is record", async () => {
         delete fakeInputCredentials.email
-        AuthenticationRepositorySpy.getAuth.mockResolvedValue(fakeValidDataAuth);
+        AuthenticationRepositorySpy.getAuthByCredentials.mockResolvedValue(fakeValidDataAuth);
 
         const response = sut.exec(fakeInputCredentials);
   

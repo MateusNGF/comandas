@@ -51,7 +51,7 @@ describe('Authenticate Company', () => {
 
   it('Should return BadRequestError when email not was find.', async () => {
     delete fakeInputCredentials.cnpj
-    AuthenticationRepositorySpy.getAuth.mockResolvedValue(undefined);
+    AuthenticationRepositorySpy.getAuthByCredentials.mockResolvedValue(undefined);
     const response = sut.exec(fakeInputCredentials);
 
     await expect(response).rejects.toThrow(
@@ -61,7 +61,7 @@ describe('Authenticate Company', () => {
 
   it('Should return BadRequestError when CNPJ not was find.', async () => {
     delete fakeInputCredentials.email
-    AuthenticationRepositorySpy.getAuth.mockResolvedValue(undefined);
+    AuthenticationRepositorySpy.getAuthByCredentials.mockResolvedValue(undefined);
     const response = sut.exec(fakeInputCredentials);
 
     await expect(response).rejects.toThrow(
@@ -70,7 +70,7 @@ describe('Authenticate Company', () => {
   });
 
   it('Should return UnauhtorizedError when password incorret.', async () => {
-    AuthenticationRepositorySpy.getAuth.mockResolvedValue(fakeValidDataAuth);
+    AuthenticationRepositorySpy.getAuthByCredentials.mockResolvedValue(fakeValidDataAuth);
 
     fakeInputCredentials.password = 'incorret_password';
     hashAdapterSpy.compare.mockResolvedValue(
@@ -84,7 +84,7 @@ describe('Authenticate Company', () => {
 
   it('Should return valid token when access is valid.', async () => {
     const tokenMockado = { token : "any_token"}
-    AuthenticationRepositorySpy.getAuth.mockResolvedValue(fakeValidDataAuth);
+    AuthenticationRepositorySpy.getAuthByCredentials.mockResolvedValue(fakeValidDataAuth);
 
     hashAdapterSpy.compare.mockResolvedValue(true);
     createTokenForCompany.exec.mockResolvedValue(tokenMockado);

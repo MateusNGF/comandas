@@ -18,13 +18,13 @@ export class SendEmailWithTokenAuthenticateData implements iSendEmailWithTokenAu
         options ?: iSendEmailWithTokenAuthenticate.options 
     ): Promise<Boolean> {
 
-        const auth = await this.authenticateRepository.getAuth({ email : input.email})
+        const auth = await this.authenticateRepository.getAuthByCredentials({ email : input.email})
         if (!auth) throw new BadRequestError("Account not found.")
 
         const token = await this.tokenAdapter.sing<
             iSendEmailWithTokenAuthenticate.payloadToken
-        >({ authId: auth._id }, options?.secretKey ?? process.env.PW_DEFAULT)
-        
+        >({ authId: auth._id }, options)
+
         const bodyEmail : iMailProvider.ContentEmail = {
             to : auth.email,
             subject : "Update pa",

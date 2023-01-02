@@ -52,14 +52,14 @@ describe("SendEmailWithTokenAuthenticate", () => {
 
 
     it("Should return BadRequestError when auth not found.", async () => {
-        authenticateRepository.getAuth.mockResolvedValue(undefined)
+        authenticateRepository.getAuthByCredentials.mockResolvedValue(undefined)
 
         const result = sut.exec(fakeInput)
         await expect(result).rejects.toThrowError(new BadRequestError("Account not found."))
     })
 
     it("Should return true when auth found and send.", async () => {
-        authenticateRepository.getAuth.mockResolvedValue(fakeAuth)
+        authenticateRepository.getAuthByCredentials.mockResolvedValue(fakeAuth)
         mailProviderMock.send.mockResolvedValue(true)
 
         const result = await sut.exec(fakeInput)
@@ -67,7 +67,7 @@ describe("SendEmailWithTokenAuthenticate", () => {
     })
 
     it("Should return false when auth found and not send.", async () => {
-        authenticateRepository.getAuth.mockResolvedValue(fakeAuth)
+        authenticateRepository.getAuthByCredentials.mockResolvedValue(fakeAuth)
         mailProviderMock.send.mockResolvedValue(false)
 
         const result = await sut.exec(fakeInput)

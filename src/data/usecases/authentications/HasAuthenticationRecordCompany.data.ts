@@ -10,7 +10,7 @@ export class HasAuthenticationRecordCompanyData implements iHasAuthenticationRec
     async exec(
         input: iHasAuthenticationRecordCompany.input
     ): Promise<iHasAuthenticationRecordCompany.output> {
-        const auth : Auth = await this.authenticationRepository.getAuth({
+        const auth : Auth = await this.authenticationRepository.getAuthByCredentials({
             email: input?.email,
             cnpj: input?.cnpj
         })
