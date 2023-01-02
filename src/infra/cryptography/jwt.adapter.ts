@@ -7,32 +7,17 @@ export class JWTAdapter implements iTokenAdapter {
     private readonly expiresIn: string = process.env.JWT_EXPIRE_DEFAULT,
   ) {}
 
-  sing<T=any>(content: T, options ?: iTokenAdapter.options): Promise<string> {
-    const makeToken = (data) => {
+  async sing(content: any, options ?: iTokenAdapter.options): Promise<string> {
       return jwt.sign(
-        data,
-        options.secretKey ?? this.secrectKey,
+        content,
+        options?.secretKey ?? this.secrectKey,
         {
-          expiresIn: options.expireIn ?? this.expiresIn
+          expiresIn: options?.expireIn ?? this.expiresIn
         }
       )
-    }
-
-
-    switch (typeof content) {
-      case 'string':
-        return Promise.resolve(makeToken(content));
-      case 'object':
-        return Promise.resolve(makeToken(JSON.stringify(content)));
-    }
-    
   }
 
-  verify(hash: string, secret = this.secrectKey): Promise<any> {
-    return Promise.resolve(jwt.verify(hash, secret));
-  }
-
-  createAccessToken(data: any): Promise<string> {
-    return this.sing(JSON.stringify(data));
+  async verify(hash: string, secret = this.secrectKey): Promise<any> {
+    return jwt.verify(hash, secret);
   }
 }

@@ -54,7 +54,7 @@ describe("CreateTokenForCompany", ()=>{
 
     it("Should return valid token when company found.", async () => {
         companyRepository.findById.mockResolvedValue(fakeCompany)
-        tokenAdapter.createAccessToken.mockResolvedValue(fakeOutput.token)
+        tokenAdapter.sing.mockResolvedValue(fakeOutput.token)
         const result = await sut.exec(fakeInput)
         expect(result).toEqual(expect.objectContaining(fakeOutput))
         expect(result.token).toEqual(fakeOutput.token)

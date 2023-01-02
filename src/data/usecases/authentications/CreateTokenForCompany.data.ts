@@ -1,3 +1,4 @@
+import { PayloadToken } from "@/src/domain/types";
 import { InternalError } from "../../../../src/domain/errors";
 import { iCreateTokenForCompany } from "../../../../src/domain/usecases/authentications";
 import { iTokenAdapter } from "../../../../src/infra/cryptography/contracts";
@@ -13,7 +14,7 @@ export class CreateTokenForCompany implements iCreateTokenForCompany {
         const company = await this.companyRepository.findById(input.companyId)
 
         if (company) {
-            const token = await this.tokenAdapter.createAccessToken({
+            const token = await this.tokenAdapter.sing<PayloadToken>({
                 companyId : company._id,
                 email : company.email,
                 timezone : company.timezone
