@@ -1,13 +1,14 @@
-import { CustomError } from './custom.error';
+import { HTTP_STATUS } from '../types/Http.status';
+import { CUSTOM_ERROR } from './custom.error';
 
-export abstract class HttpError extends CustomError {
+export abstract class HTTP_ERROR extends CUSTOM_ERROR {
   code: number;
   message: string;
 }
 
-export class UnauthorizedError extends HttpError {
+export class UnauthorizedError extends HTTP_ERROR {
   name = 'Unauthorized Error';
-  code = 401;
+  code = HTTP_STATUS.UNAUTHORIZED;
 
   constructor(menssage: string = 'Request Denied.') {
     super();
@@ -15,9 +16,9 @@ export class UnauthorizedError extends HttpError {
   }
 }
 
-export class BadRequestError extends HttpError {
+export class BadRequestError extends HTTP_ERROR {
   name = 'BadRequest Error';
-  code = 400;
+  code = HTTP_STATUS.BAD_REQUEST;
 
   constructor(menssage: string = 'Request Failed.') {
     super();
@@ -28,7 +29,7 @@ export class BadRequestError extends HttpError {
 
 export class InternalError extends Error {
   name = 'InternalError'
-  code = 500
+  code = HTTP_STATUS.INTERNAL_SERVER_ERROR
   constructor(message:string = "Internal Error. Try later."){
     super();
     this.message = message

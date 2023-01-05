@@ -1,1 +1,1 @@
-export abstract class CustomError extends Error {}
+export abstract class CUSTOM_ERROR extends Error {}
