@@ -6,9 +6,16 @@ export interface iDateProvider {
     isEqual(dateToCompare : string | Date) : boolean
 
     toISOString() : string
-    toDateString(locateFormar ?: string) : string
+    toDateString(locateFormar ?: iDateProvider.Locates) : string
 
     addDays(days : number) : iDateProvider
+    subtractDays(days : number) : iDateProvider
 
-    tz(timezone : string) : string
+    tz(timezone : iDateProvider.Timezone) : string
+}
+
+
+export namespace iDateProvider {
+    export type Locates = "en-US" | "pt-BR"
+    export type Timezone = string
 }

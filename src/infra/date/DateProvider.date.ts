@@ -3,7 +3,7 @@ import { iDateProvider } from "./contracts/iDateProvider.contract"
 class DateManager implements iDateProvider {
     constructor(
         private readonly dateRef : string | number | Date = new Date(),
-        private readonly locateFormart : string = 'en-US'
+        private readonly locateFormart : iDateProvider.Locates = 'en-US'
     ){}
 
     now(): iDateProvider {
@@ -14,7 +14,7 @@ class DateManager implements iDateProvider {
         return new Date(this.dateRef).toISOString()
     }
 
-    toDateString(locateFormart ?: string): string {
+    toDateString(locateFormart ?: iDateProvider.Locates): string {
         return new Date(this.dateRef).toLocaleDateString(locateFormart ?? this.locateFormart)
     }
 
@@ -44,9 +44,17 @@ class DateManager implements iDateProvider {
         return new DateManager(currentDate)
     }
 
-    tz(timezone ?: string): string {
+    subtractDays(days: number): iDateProvider {
+        if (!days) return;
+        
+        const currentDate = new Date(this.dateRef)
+        currentDate.setDate(currentDate.getDate() - days)
+        return new DateManager(currentDate)
+    }
+
+    tz(timezone ?: iDateProvider.Timezone): string {
         return new Date(this.dateRef).toLocaleString(this.locateFormart, { timeZone : timezone ?? process.env.TZ})
     }
 }
 
-export const DateProvider = (date ?: string | Date, locate ?: string) : iDateProvider => new DateManager(date, locate)
+export const DateProvider = (date ?: string | Date, locate ?: iDateProvider.Locates) : iDateProvider => new DateManager(date, locate)
