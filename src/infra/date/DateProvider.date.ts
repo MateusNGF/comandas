@@ -53,7 +53,9 @@ class DateManager implements iDateProvider {
     }
 
     tz(timezone ?: iDateProvider.Timezone): string {
-        return new Date(this.dateRef).toLocaleString(this.locateFormart, { timeZone : timezone ?? process.env.TZ})
+        const dateNormalized = new Date(this.dateRef).toLocaleString(this.locateFormart, { timeZone : timezone ?? process.env.TZ})
+        console.log(dateNormalized)
+        return new Date(dateNormalized).toISOString()
     }
 }
 
