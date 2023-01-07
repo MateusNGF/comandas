@@ -1,3 +1,4 @@
-export * from './company';
-export * from './event';
-export * from './authentication'
+export * from './companies.repository';
+export * from './events.repository';
+export * from './authentications.repository'
+export * from './inventory.repository'

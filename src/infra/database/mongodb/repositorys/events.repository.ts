@@ -74,8 +74,6 @@ export class EventsRepository implements iEventRepository {
       }
     }
 
-    console.log(where)
-
     return this.Colletion.find(where).toArray()
   }
 }

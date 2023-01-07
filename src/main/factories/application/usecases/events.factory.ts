@@ -13,11 +13,11 @@ export function makeEventRepository() {
   return repository;
 }
 
-export const makeUsecaseCreationEvent = (): iCreateEvent => {
+export const makeUsecaseCreateEvent = (): iCreateEvent => {
   return new CreateEventData(makeCompanyRepository(), makeEventRepository());
 };
 
-export const makeUsecaseArchivationEvent = (): iArchivateEvent => {
+export const makeUsecaseArchivateEvent = (): iArchivateEvent => {
   return new ArchivateEventData(makeEventRepository());
 };
 

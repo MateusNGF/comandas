@@ -1,15 +1,15 @@
 
 import { ArchivateEventController, CreateEventController, GetEventController, ListEventsController } from '../../../../application/controllers/events';
 import { iController } from '../../../../application/contracts';
-import { makeUsecaseArchivationEvent, makeUsecaseCreationEvent, makeUsecaseListEventsEvent } from '../usecases/events.factory';
+import { makeUsecaseArchivateEvent, makeUsecaseCreateEvent, makeUsecaseListEventsEvent } from '../usecases/events.factory';
 
 export const makeCreationEventController = (): iController => {
-  const usecaseCreationEvent = makeUsecaseCreationEvent();
+  const usecaseCreationEvent = makeUsecaseCreateEvent();
   return new CreateEventController(usecaseCreationEvent);
 };
 
 export const makeArchivationEventController = (): iController => {
-  const usecaseArchivationEvent = makeUsecaseArchivationEvent();
+  const usecaseArchivationEvent = makeUsecaseArchivateEvent();
   return new ArchivateEventController(usecaseArchivationEvent);
 };
 

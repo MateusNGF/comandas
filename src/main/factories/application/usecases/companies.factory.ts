@@ -8,6 +8,7 @@ import { Company } from '../../../../domain/entities';
 import { CompaniesRepository } from '../../../../infra/database/mongodb/repositorys/companies.repository';
 import { makeUsecaseAuthenticatieAndReturnTokenCompany, makeUsecaseCreateAuthenticateForCompany, makeUsecaseCreateTokenForCompany } from './authentications.factory';
 import { AccessCompanyData, RegisterCompanyData } from '../../../../../src/data/usecases/companies';
+import { makeUsecaseCreateInventory } from './inventory.factory';
 
 export function makeCompanyRepository(): any {
   const collection = MongoDB.colletion<Company>(process.env.COLLECTIONS_NAMES_COMPANIES as  string);
@@ -15,11 +16,12 @@ export function makeCompanyRepository(): any {
   return repository;
 }
 
-export const makeUseCaseRegistrationCompany = (): iRegisterCompany => {
+export const makeUseCaseRegisterCompany = (): iRegisterCompany => {
   return new RegisterCompanyData(
     makeCompanyRepository(),
     makeUsecaseCreateAuthenticateForCompany(),
-    makeUsecaseCreateTokenForCompany()
+    makeUsecaseCreateTokenForCompany(),
+    makeUsecaseCreateInventory()
   );
 };
 

@@ -11,7 +11,7 @@ import {
 } from '../usecases/authentications.factory';
 import {
   makeUseCaseAccessCompany,
-  makeUseCaseRegistrationCompany as makeUseCaseRegisterCompany,
+  makeUseCaseRegisterCompany as makeUseCaseRegisterCompany,
 } from '../usecases/companies.factory';
 
 export const makeRegisterCompanyController = (): iController => {
