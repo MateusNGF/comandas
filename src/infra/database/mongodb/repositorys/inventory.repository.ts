@@ -1,5 +1,5 @@
 import { Inventory } from "../../../../../src/domain/entities/inventory.entity";
-import { Product } from "../../../../../src/domain/entities/product.entity";
+import { Product } from "../../../../domain/entities/sub/product.entity";
 import { Collection, ObjectId } from "mongodb";
 import { iInventoryRepository } from "../../contracts/repositorys/iInventoryRepository";
 

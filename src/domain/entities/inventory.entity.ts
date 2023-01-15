@@ -1,6 +1,6 @@
 import {iEntity} from '.'
 import { ObjectManager } from '../utils';
-import { Product } from './product.entity';
+import { Product } from './sub/product.entity';
 
 export class Inventory implements iEntity {
     public readonly _id?: any = undefined;
@@ -9,8 +9,8 @@ export class Inventory implements iEntity {
 
     public readonly products?: Array<Product> = [];
   
-    public readonly created_at?: string = undefined;
-    public readonly updated_at?: string = undefined;
+    public readonly created_at?: string = new Date().toISOString();
+    public readonly updated_at?: string = new Date().toISOString();
   
     constructor(inventory: Inventory) {
       ObjectManager.assing(this, inventory);

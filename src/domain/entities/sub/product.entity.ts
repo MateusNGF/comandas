@@ -1,7 +1,7 @@
-import {iEntity} from '.'
-import { ObjectManager } from '../utils';
+import {iEntity} from '..'
+import { ObjectManager } from '../../utils';
 export class Product implements iEntity {
-    public readonly _id?: any = undefined;
+    public readonly _id?: string = undefined;
 
     public readonly name: string = undefined;
     public readonly description?: string = undefined;
@@ -13,8 +13,8 @@ export class Product implements iEntity {
 
     public readonly archived?: boolean = false;
   
-    public readonly created_at?: string = undefined;
-    public readonly updated_at?: string = undefined;
+    public readonly created_at?: string = new Date().toISOString();
+    public readonly updated_at?: string = new Date().toISOString();
   
     constructor(product: Product) {
       ObjectManager.assing(this, product);

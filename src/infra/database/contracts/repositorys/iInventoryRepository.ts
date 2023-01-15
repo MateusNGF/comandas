@@ -1,5 +1,5 @@
 import { Inventory } from "@/src/domain/entities/inventory.entity";
-import { Product } from "@/src/domain/entities/product.entity";
+import { Product } from "@/src/domain/entities/sub/product.entity";
 import { iBaseRepository } from "./iBaseRepository";
 
 export interface iInventoryRepository extends iBaseRepository<Inventory> {

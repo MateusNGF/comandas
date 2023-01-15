@@ -1,4 +1,4 @@
-import { Product } from '../../../../src/domain/entities/product.entity';
+import { Product } from '../../../domain/entities/sub/product.entity';
 import { BadRequestError } from '../../../../src/domain/errors';
 import { iInsertProducts } from '../../../../src/domain/usecases/inventory/iInsertProducts.usecase';
 import { ObjectManager } from '../../../../src/domain/utils';
