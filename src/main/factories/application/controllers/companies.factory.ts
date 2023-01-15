@@ -5,9 +5,9 @@ import {
   RegisterCompanyController,
 } from '../../../../application/controllers/companies';
 import { makeTokenAdapter } from '../../infra/cryptography';
-import { 
-  makeUsecaseSendEmailForResentPasswordAuthenticateForCompany, 
-  makeUsecaseUpdateAuthenticate 
+import {
+  makeUsecaseSendEmailForResentPasswordAuthenticateForCompany,
+  makeUsecaseUpdateAuthenticate,
 } from '../usecases/authentications.factory';
 import {
   makeUseCaseAccessCompany,
@@ -19,15 +19,15 @@ export const makeRegisterCompanyController = (): iController => {
   return new RegisterCompanyController(usecaseRegisterCompany);
 };
 
-export const makeAccessCompanyController = () : iController => {
+export const makeAccessCompanyController = (): iController => {
   const usecaseAccessCompany = makeUseCaseAccessCompany();
-  return new AccessCompanyController(usecaseAccessCompany)
-}
+  return new AccessCompanyController(usecaseAccessCompany);
+};
 
-export const makeResetPasswordCompanyController = ()  : iController => {
+export const makeResetPasswordCompanyController = (): iController => {
   return new ResetPasswordCompanyController(
     makeTokenAdapter(),
     makeUsecaseUpdateAuthenticate(),
     makeUsecaseSendEmailForResentPasswordAuthenticateForCompany()
-  )
-}
+  );
+};

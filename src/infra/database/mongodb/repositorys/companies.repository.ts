@@ -4,15 +4,13 @@ import { iCompanyRepository } from '../../contracts/repositorys';
 
 export class CompaniesRepository implements iCompanyRepository {
   private readonly projection = {
-    omit : {
+    omit: {
       projection: {
         password: 0,
       },
-    }
+    },
   };
-  constructor(
-    private readonly Colletion: Collection<Company>,
-  ) { }
+  constructor(private readonly Colletion: Collection<Company>) {}
   async findByCNPJ(cnpj: string): Promise<Company> {
     return this.Colletion.findOne({ cnpj });
   }
@@ -21,20 +19,19 @@ export class CompaniesRepository implements iCompanyRepository {
     return this.Colletion.findOne({ email });
   }
   async findById(_id: string): Promise<Company> {
-    return this.Colletion.findOne({_id});
+    return this.Colletion.findOne({ _id });
   }
 
-  generateId(){
-    return new ObjectId().toHexString()
+  generateId() {
+    return new ObjectId().toHexString();
   }
 
   async register(company: Company): Promise<{ _id: string }> {
-
     const _company: Company = {
       ...company,
       create_at: new Date().toISOString(),
-      update_at: new Date().toISOString()
-    }
+      update_at: new Date().toISOString(),
+    };
 
     const result = await this.Colletion.insertOne(_company);
     if (result && result.acknowledged) {

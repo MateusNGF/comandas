@@ -14,13 +14,14 @@ export class CreateEventData implements iCreateEvent {
     private readonly eventRepository: iEventRepository
   ) {}
   async exec(input: iCreateEvent.input): Promise<iCreateEvent.output> {
+    const event = input.event;
+    const company = await this.companyRepository.findById(input.companyId);
+    if (!company) throw new BadRequestError('Company not found.');
 
-    const event = input.event
-    const company = await this.companyRepository.findById(input.companyId)
-    if (!company) throw new BadRequestError("Company not found.")
-
-    if (DateProvider(event.start_date).isAfter(event.end_date)){
-      throw new BadRequestError('The start date cannot be equal to or after the end date of the event.')
+    if (DateProvider(event.start_date).isAfter(event.end_date)) {
+      throw new BadRequestError(
+        'The start date cannot be equal to or after the end date of the event.'
+      );
     }
 
     const newEvent = new Event({
@@ -31,7 +32,7 @@ export class CreateEventData implements iCreateEvent {
       description: event?.description,
       archived: false,
       created_at: DateProvider().tz(company?.timezone),
-      updated_at: DateProvider().tz(company?.timezone)
+      updated_at: DateProvider().tz(company?.timezone),
     });
 
     const createdEvent = await this.eventRepository.register(newEvent);

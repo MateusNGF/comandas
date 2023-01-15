@@ -10,18 +10,20 @@ export class CreateEventController extends iController {
   }
   async exec(request: HttpRequest): Promise<HttpResponse> {
     try {
+      const { companyId } = request.headers.decodedTokenCompany;
+      const event = request.body;
 
-      const { companyId } = request.headers.decodedTokenCompany
-      const event = request.body
+      ObjectManager.hasKeys<Event>(
+        ['name', 'description', 'start_date', 'end_date'],
+        event
+      );
 
-      ObjectManager.hasKeys<Event>(['name', 'description', 'start_date', 'end_date'], event);
-      
       const { _id } = await this.createEventUsecase.exec({
         companyId: companyId,
         event: event,
       });
 
-      return this.sendSucess(200, {_id });
+      return this.sendSucess(200, { _id });
     } catch (e) {
       return this.sendError(e);
     }

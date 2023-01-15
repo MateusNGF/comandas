@@ -9,7 +9,7 @@ export const adaptExpressRoute: Adapter =
       body: req.body,
       params: req.params,
       headers: req.headers as any,
-      query : req.query
+      query: req.query,
     });
     const json = [200, 204].includes(status) ? data : { error: data.message };
     res.status(status).json(json);

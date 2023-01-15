@@ -1,1 +1,1 @@
-export * from './CreateInventory.data'
+export * from './CreateInventory.data';

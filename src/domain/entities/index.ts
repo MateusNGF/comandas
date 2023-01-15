@@ -1,7 +1,7 @@
 export * from './company.entity';
 export * from './event.entity';
-export * from './auth.entity'
-export * from './sub'
+export * from './auth.entity';
+export * from './sub';
 export interface iEntity {
   readonly _id?: any;
   readonly create_at?: string;

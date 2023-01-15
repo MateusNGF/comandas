@@ -1,10 +1,12 @@
-import { iUsecase } from "../../contracts"
+import { iUsecase } from '../../contracts';
 
 export abstract class iUpdadeAuthenticate implements iUsecase {
-    abstract exec(input: iUpdadeAuthenticate.input): Promise<iUpdadeAuthenticate.output>
+  abstract exec(
+    input: iUpdadeAuthenticate.input
+  ): Promise<iUpdadeAuthenticate.output>;
 }
 
 export namespace iUpdadeAuthenticate {
-    export type input = { authId: string, email?: string, password?: string }
-    export type output = Boolean
+  export type input = { authId: string; email?: string; password?: string };
+  export type output = Boolean;
 }

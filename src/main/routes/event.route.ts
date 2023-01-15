@@ -1,6 +1,11 @@
 import { Router } from 'express';
 import { adaptExpressRoute } from '../adapters/express-route';
-import { makeArchivationEventController, makeCreationEventController, makeGetEventController, makeListEventsController } from '../factories/application/controllers/events.factory';
+import {
+  makeArchivationEventController,
+  makeCreationEventController,
+  makeGetEventController,
+  makeListEventsController,
+} from '../factories/application/controllers/events.factory';
 import { requestAuthorization } from '../middlewares';
 
 export default (router: Router): void => {
@@ -16,16 +21,15 @@ export default (router: Router): void => {
     adaptExpressRoute(makeArchivationEventController())
   );
 
-
   router.get(
     '/:eventId',
     requestAuthorization(),
     adaptExpressRoute(makeGetEventController())
-  )
+  );
 
   router.get(
     '/',
     requestAuthorization(),
     adaptExpressRoute(makeListEventsController())
-  )
+  );
 };

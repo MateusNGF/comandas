@@ -1,61 +1,69 @@
-import { iDateProvider } from "./contracts/iDateProvider.contract"
+import { iDateProvider } from './contracts/iDateProvider.contract';
 
 class DateManager implements iDateProvider {
-    constructor(
-        private readonly dateRef : string | number | Date = new Date(),
-        private readonly locateFormart : iDateProvider.Locates = 'en-US'
-    ){}
+  constructor(
+    private readonly dateRef: string | number | Date = new Date(),
+    private readonly locateFormart: iDateProvider.Locates = 'en-US'
+  ) {}
 
-    now(): iDateProvider {
-        return new DateManager(new Date())
-    }
+  now(): iDateProvider {
+    return new DateManager(new Date());
+  }
 
-    toISOString(): string {
-        return new Date(this.dateRef).toISOString()
-    }
+  toISOString(): string {
+    return new Date(this.dateRef).toISOString();
+  }
 
-    toDateString(locateFormart ?: iDateProvider.Locates): string {
-        return new Date(this.dateRef).toLocaleDateString(locateFormart ?? this.locateFormart)
-    }
+  toDateString(locateFormart?: iDateProvider.Locates): string {
+    return new Date(this.dateRef).toLocaleDateString(
+      locateFormart ?? this.locateFormart
+    );
+  }
 
-    isBefore(dateToCompare: string | Date): boolean {
-        if (!dateToCompare) return false;
+  isBefore(dateToCompare: string | Date): boolean {
+    if (!dateToCompare) return false;
 
-        return new Date(this.dateRef) <= new Date(dateToCompare)
-    }
+    return new Date(this.dateRef) <= new Date(dateToCompare);
+  }
 
-    isAfter(dateToCompare: string | Date): boolean {
-        if (!dateToCompare) return false;
-        
-        return new Date(this.dateRef) >= new Date(dateToCompare)
-    }
+  isAfter(dateToCompare: string | Date): boolean {
+    if (!dateToCompare) return false;
 
-    isEqual(dateToCompare: string | Date): boolean {
-        if (!dateToCompare) return false;
+    return new Date(this.dateRef) >= new Date(dateToCompare);
+  }
 
-        return new Date(this.dateRef) === new Date(dateToCompare)
-    }
+  isEqual(dateToCompare: string | Date): boolean {
+    if (!dateToCompare) return false;
 
-    addDays(days: number): iDateProvider {
-        if (!days) return;
+    return new Date(this.dateRef) === new Date(dateToCompare);
+  }
 
-        const currentDate = new Date(this.dateRef)
-        currentDate.setDate(currentDate.getDate() + days)
-        return new DateManager(currentDate)
-    }
+  addDays(days: number): iDateProvider {
+    if (!days) return;
 
-    subtractDays(days: number): iDateProvider {
-        if (!days) return;
-        
-        const currentDate = new Date(this.dateRef)
-        currentDate.setDate(currentDate.getDate() - days)
-        return new DateManager(currentDate)
-    }
+    const currentDate = new Date(this.dateRef);
+    currentDate.setDate(currentDate.getDate() + days);
+    return new DateManager(currentDate);
+  }
 
-    tz(timezone ?: iDateProvider.Timezone): string {
-        const dateNormalized = new Date(this.dateRef).toLocaleString(this.locateFormart, { timeZone : timezone ?? process.env.TZ})
-        return new Date(dateNormalized).toISOString()
-    }
+  subtractDays(days: number): iDateProvider {
+    if (!days) return;
+
+    const currentDate = new Date(this.dateRef);
+    currentDate.setDate(currentDate.getDate() - days);
+    return new DateManager(currentDate);
+  }
+
+  tz(timezone?: iDateProvider.Timezone): string {
+    const dateNormalized = new Date(this.dateRef).toLocaleString(
+      this.locateFormart,
+      { timeZone: timezone ?? process.env.TZ }
+    );
+    return new Date(dateNormalized).toISOString();
+  }
 }
 
-export const DateProvider = (date ?: string | Date, locate ?: iDateProvider.Locates) : iDateProvider => new DateManager(date, locate)
+export const DateProvider = (
+  date?: string | Date,
+  locate?: iDateProvider.Locates
+): iDateProvider => new DateManager(date, locate);

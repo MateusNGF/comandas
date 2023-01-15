@@ -9,7 +9,9 @@ export class AccessCompanyController extends iController {
   }
   async exec(request: HttpRequest): Promise<HttpResponse> {
     try {
-      const authenticatedCompany = await this.accessCompanyUsecase.exec(request.body);
+      const authenticatedCompany = await this.accessCompanyUsecase.exec(
+        request.body
+      );
 
       if (authenticatedCompany && authenticatedCompany.token) {
         return this.sendSucess(200, authenticatedCompany);

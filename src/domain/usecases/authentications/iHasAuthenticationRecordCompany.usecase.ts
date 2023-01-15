@@ -10,8 +10,8 @@ export namespace iHasAuthenticationRecordCompany {
   export type input = {
     email?: string;
     cnpj?: string;
-    password ?: string
-  }
+    password?: string;
+  };
 
-  export type output = { token: string }
+  export type output = { token: string };
 }

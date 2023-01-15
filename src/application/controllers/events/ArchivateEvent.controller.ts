@@ -9,11 +9,11 @@ export class ArchivateEventController extends iController {
   }
   async exec(request: HttpRequest): Promise<HttpResponse> {
     try {
-      const { action, eventId } = request.params
+      const { action, eventId } = request.params;
       const newEvent = await this.usecase.exec({
         companyId: request.headers.decodedTokenCompany.companyId,
-        eventId : eventId,
-        action : action
+        eventId: eventId,
+        action: action,
       });
 
       if (!newEvent)

@@ -11,18 +11,21 @@ export class InsertProductsController extends iController {
   }
   async exec(request: HttpRequest): Promise<HttpResponse> {
     try {
+      const { companyId } = request.headers.decodedTokenCompany;
 
-      const { companyId } = request.headers.decodedTokenCompany
+      if (!request.body) throw new BadRequestError('Body is required.');
+      if (!request.body.products)
+        throw new BadRequestError('Products is required.');
 
-      if (!request.body) throw new BadRequestError('Body is required.')
-      if (!request.body.products) throw new BadRequestError("Products is required.")
-    
-      const products : Array<Product> = request.body.products
-      if (!products.length) throw new BadRequestError("Nothing products sent.")
+      const products: Array<Product> = request.body.products;
+      if (!products.length) throw new BadRequestError('Nothing products sent.');
 
-      products.forEach(product => {
-        ObjectManager.hasKeys<Product>(['name', 'sale_price', 'quantity'], product);
-      })
+      products.forEach((product) => {
+        ObjectManager.hasKeys<Product>(
+          ['name', 'sale_price', 'quantity'],
+          product
+        );
+      });
 
       const productsInserted = await this.insertProductUsecase.exec({
         companyId: companyId,

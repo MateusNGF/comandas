@@ -1,1 +1,1 @@
-export * from './InsertProduct.controller'
+export * from './InsertProduct.controller';

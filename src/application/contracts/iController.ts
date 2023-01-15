@@ -13,16 +13,23 @@ export abstract class iController {
       );
     } else {
       console.error(error);
-      return makeBodyResponseError(HTTP_STATUS.INTERNAL_SERVER_ERROR, 'Internal Error. try later.');
+      return makeBodyResponseError(
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        'Internal Error. try later.'
+      );
     }
   }
 
   protected sendSucess(
-    status: HTTP_STATUS.OK | HTTP_STATUS.ACCEPTED | HTTP_STATUS.CREATED | HTTP_STATUS.CONTINUE,
+    status:
+      | HTTP_STATUS.OK
+      | HTTP_STATUS.ACCEPTED
+      | HTTP_STATUS.CREATED
+      | HTTP_STATUS.CONTINUE,
     data?: any
   ): HttpResponse<any> {
-    if (typeof data == 'string'){
-      data = { message : data }
+    if (typeof data == 'string') {
+      data = { message: data };
     }
     return {
       status: status || 200,

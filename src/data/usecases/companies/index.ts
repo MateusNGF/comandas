@@ -1,2 +1,2 @@
 export * from './RegisterCompany.data';
-export * from './AccessCompany.data'
+export * from './AccessCompany.data';

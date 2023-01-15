@@ -26,12 +26,11 @@ export class BadRequestError extends HTTP_ERROR {
   }
 }
 
-
 export class InternalError extends Error {
-  name = 'InternalError'
-  code = HTTP_STATUS.INTERNAL_SERVER_ERROR
-  constructor(message:string = "Internal Error. Try later."){
+  name = 'InternalError';
+  code = HTTP_STATUS.INTERNAL_SERVER_ERROR;
+  constructor(message: string = 'Internal Error. Try later.') {
     super();
-    this.message = message
+    this.message = message;
   }
 }

@@ -38,7 +38,7 @@ describe('Creation Event', () => {
     fakeCompany = {
       _id: 'any_id',
       name_fantasy: 'any_name',
-      timezone : "sao_paulo/brazilia",
+      timezone: 'sao_paulo/brazilia',
       cnpj: 'any_cnpj',
       email: 'any_email',
     };
@@ -52,17 +52,13 @@ describe('Creation Event', () => {
   it('Should return MissingParamError if companyId is missing.', async () => {
     delete fakeBody.companyId;
     const response = sut.exec(fakeBody);
-    await expect(response).rejects.toThrow(
-      new MissingParamError('companyId')
-    );
+    await expect(response).rejects.toThrow(new MissingParamError('companyId'));
   });
 
   it('Should return MissingParamError if event is missing.', async () => {
     delete fakeBody.event;
     const response = sut.exec(fakeBody);
-    await expect(response).rejects.toThrow(
-      new MissingParamError('event')
-    );
+    await expect(response).rejects.toThrow(new MissingParamError('event'));
   });
 
   it('Should return UnauthorizedError if companyId not has registered.', async () => {

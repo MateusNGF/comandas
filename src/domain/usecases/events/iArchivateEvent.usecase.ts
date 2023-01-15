@@ -8,7 +8,7 @@ export namespace iArchivateEvent {
   export type input = {
     companyId: string;
     eventId: string;
-    action : "archive" | "unarchive"
+    action: 'archive' | 'unarchive';
   };
-  export type output = boolean
+  export type output = boolean;
 }

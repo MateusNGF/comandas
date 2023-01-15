@@ -1,1 +1,1 @@
-export * from './PayloadToken.type'
+export * from './PayloadToken.type';

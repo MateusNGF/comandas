@@ -9,11 +9,16 @@ export class RegisterCompanyController extends iController {
   }
   async exec(request: HttpRequest): Promise<HttpResponse> {
     try {
-      const incomingCompany = request.body
+      const incomingCompany = request.body;
 
-      ObjectManager.hasKeys<iRegisterCompany.input>(['name_fantasy', 'email', 'cnpj', 'timezone', 'password'], incomingCompany);
+      ObjectManager.hasKeys<iRegisterCompany.input>(
+        ['name_fantasy', 'email', 'cnpj', 'timezone', 'password'],
+        incomingCompany
+      );
 
-      const companyRecord = await this.registrationCompanyUsercase.exec(incomingCompany);
+      const companyRecord = await this.registrationCompanyUsercase.exec(
+        incomingCompany
+      );
 
       return this.sendSucess(200, { ...companyRecord });
     } catch (error) {

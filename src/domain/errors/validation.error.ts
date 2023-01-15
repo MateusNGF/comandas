@@ -16,7 +16,6 @@ export class UnexpectedParamError extends BadRequestError {
   }
 }
 
-
 export class EmptyParamError extends BadRequestError {
   name: string = 'Empty Param';
 
@@ -24,7 +23,6 @@ export class EmptyParamError extends BadRequestError {
     super(`The param '${param}' can't be empty.`);
   }
 }
-
 
 export class TypeParamError extends BadRequestError {
   name: string = 'Type Param';
