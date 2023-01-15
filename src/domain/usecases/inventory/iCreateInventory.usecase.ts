@@ -1,4 +1,3 @@
-import { iDateProvider } from '@/src/infra/date/contracts/iDateProvider.contract';
 import { iUsecase } from '../../contracts';
 import { Inventory } from '../../entities/inventory.entity';
 

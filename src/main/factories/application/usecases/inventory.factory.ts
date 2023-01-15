@@ -1,9 +1,11 @@
-import { CreateInventoryData } from "../../../../../src/data/usecases/inventory";
+import { InsertProductsData } from "../../../../../src/data/usecases/inventories/InsertProducts.data";
+import { CreateInventoryData } from "../../../../data/usecases/inventories";
 import { Inventory } from "../../../../../src/domain/entities/inventory.entity";
 import { iCreateInventory } from "../../../../../src/domain/usecases/inventory/iCreateInventory.usecase";
 import { MongoDB } from "../../../../../src/infra/database/mongodb";
 import { InventoryRepository } from "../../../../../src/infra/database/mongodb/repositorys";
 import { makeCompanyRepository } from "./companies.factory";
+import { iInsertProducts } from "../../../../../src/domain/usecases/inventory/iInsertProducts.usecase";
 
 
 
@@ -19,4 +21,10 @@ export const makeUsecaseCreateInventory = () : iCreateInventory => {
         makeInventoryRepository(),
         makeCompanyRepository()
     )    
+}
+
+export const makeUsecaseInsertProducts = () : iInsertProducts => {
+    return new InsertProductsData(
+        makeInventoryRepository()
+    )
 }

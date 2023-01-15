@@ -5,9 +5,7 @@ import { iBaseRepository } from "./iBaseRepository";
 export interface iInventoryRepository extends iBaseRepository<Inventory> {
     finByCompanyId(companyId : string) : Promise<Inventory>
     createInventory(inventory : Inventory) : Promise<{_id : string}>
+    updateInventory(inventory : Inventory) : Promise<Inventory>
 
-    removeProductById(_id  :string) : Promise<boolean>
-    createProduct(product : Product) : Promise<{ _id : string}>
-    updatePrduct(product : Product) : Promise<Product>
-    saleProduct(productId  :string, quantity : number) : Promise<Product>
+    insertProducts(inventoryId : string, products : Array<Product>) : Promise<Array<Product>>
 }

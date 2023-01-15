@@ -1,8 +1,8 @@
-import { Inventory } from '../../../../src/domain/entities/inventory.entity';
-import { iCreateInventory } from '../../../../src/domain/usecases/inventory/iCreateInventory.usecase';
-import { iCompanyRepository } from '../../../../src/infra/database/contracts/repositorys';
-import { iInventoryRepository } from '../../../../src/infra/database/contracts/repositorys/iInventory.repository';
-import { DateProvider } from '../../../../src/infra/date/DateProvider.date';
+import { Inventory } from '../../../domain/entities/inventory.entity';
+import { iCreateInventory } from '../../../domain/usecases/inventory/iCreateInventory.usecase';
+import { iCompanyRepository } from '../../../infra/database/contracts/repositorys';
+import { iInventoryRepository } from '../../../infra/database/contracts/repositorys/iInventoryRepository';
+import { DateProvider } from '../../../infra/date/DateProvider.date';
 
 export class CreateInventoryData implements iCreateInventory {
   constructor(

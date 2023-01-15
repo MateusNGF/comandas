@@ -3,7 +3,6 @@ import { iRegisterCompany } from '../../../domain/usecases/companies';
 import { Company } from '../../../domain/entities';
 import { iCreateAuthenticateForCompanyUsecase, iCreateTokenForCompany } from '../../../../src/domain/usecases/authentications';
 import { iCreateInventory } from '../../../../src/domain/usecases/inventory/iCreateInventory.usecase';
-import { Inventory } from '../../../../src/domain/entities/inventory.entity';
 
 export class RegisterCompanyData extends iRegisterCompany {
   constructor(

@@ -1,4 +1,3 @@
-import { iDateProvider } from '@/src/infra/date/contracts/iDateProvider.contract';
 import {iEntity} from '.'
 import { ObjectManager } from '../utils';
 import { Product } from './product.entity';
