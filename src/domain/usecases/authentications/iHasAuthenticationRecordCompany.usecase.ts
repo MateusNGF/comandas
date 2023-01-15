@@ -1,5 +1,4 @@
 import { iUsecase } from '../../contracts';
-import { UnauthorizedError } from '../../errors';
 
 export abstract class iHasAuthenticationRecordCompany implements iUsecase {
   abstract exec(
@@ -8,10 +7,11 @@ export abstract class iHasAuthenticationRecordCompany implements iUsecase {
 }
 
 export namespace iHasAuthenticationRecordCompany {
-  export interface input {
+  export type input = {
     email?: string;
     cnpj?: string;
+    password ?: string
   }
 
-  export type output = UnauthorizedError | void
+  export type output = { token: string }
 }

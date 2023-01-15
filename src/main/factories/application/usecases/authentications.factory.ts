@@ -1,8 +1,6 @@
 import { AuthenticationsRepository } from "../../../../infra/database/mongodb/repositorys/authentications.repository";
-import { AuthenticateAndReturnTokenCompanyData } from "../../../../data/usecases/authentications/AuthenticateAndReturnTokenCompany.data";
 import { Auth } from "../../../../domain/entities";
 import { 
-    iAuthenticationAndReturnTokenCompany, 
     iCreateAuthenticateForCompanyUsecase, 
     iCreateTokenForCompany, 
     iHasAuthenticationRecordCompany, 
@@ -27,17 +25,11 @@ export function makeAuthenticationRepository(): any {
     return repository;
 }
 
-export function makeUsecaseAuthenticatieAndReturnTokenCompany(): iAuthenticationAndReturnTokenCompany {
-    return new AuthenticateAndReturnTokenCompanyData(
+export function makeUsecaseHasAuthenticationRecordCompany() : iHasAuthenticationRecordCompany {
+    return new HasAuthenticationRecordCompanyData(
         makeAuthenticationRepository(),
         makeUsecaseCreateTokenForCompany(),
         makeHashAdapter()
-    );
-}
-
-export function makeUsecaseHasAuthenticationRecordCompany() : iHasAuthenticationRecordCompany {
-    return new HasAuthenticationRecordCompanyData(
-        makeAuthenticationRepository()
     )
 }
 
