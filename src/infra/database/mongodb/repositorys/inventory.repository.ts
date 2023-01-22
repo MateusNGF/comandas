@@ -88,7 +88,6 @@ export class InventoryRepository implements iInventoryRepository {
     if (filters) {
       if (filters.productId) {
         findOptions.projection = {
-          ...findOptions.projection,
           products : {
             $filter : {
               input : "$products",
@@ -100,7 +99,6 @@ export class InventoryRepository implements iInventoryRepository {
       }
     }
 
-    console.log(findOptions)
     const inventory = await this.Colletion.findOne({...where as any}, findOptions)
     return inventory?.products ?? []
   }
