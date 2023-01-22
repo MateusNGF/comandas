@@ -11,7 +11,7 @@ export class ListEventsController extends iController {
   async exec(request: HttpRequest): Promise<HttpResponse> {
     try {
       const { companyId } = request.headers.decodedTokenCompany;
-      const filters: iListEvents.filters = request.body as any;
+      const filters: iListEvents.Filters = request.body as any;
 
       const events = await this.listEventsUsecase.exec({ companyId, filters });
 

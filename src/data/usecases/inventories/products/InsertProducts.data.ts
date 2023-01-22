@@ -1,8 +1,8 @@
-import { Product } from '../../../domain/entities/sub/product.entity';
-import { BadRequestError } from '../../../domain/errors';
-import { iInsertProducts } from '../../../domain/usecases/inventory/iInsertProducts.usecase';
-import { iInventoryRepository } from '../../../infra/database/contracts/repositorys/iInventoryRepository';
-import { DateProvider } from '../../../infra/date/DateProvider.date';
+import { Product } from '../../../../domain/entities/sub/product.entity';
+import { BadRequestError } from '../../../../domain/errors';
+import { iInsertProducts } from '../../../../domain/usecases/inventories/products/iInsertProducts.usecase';
+import { iInventoryRepository } from '../../../../infra/database/contracts/repositorys/iInventoryRepository';
+import { DateProvider } from '../../../../infra/date/DateProvider.date';
 
 export class InsertProductsData implements iInsertProducts {
   constructor(private readonly inventoryRepository: iInventoryRepository) {}

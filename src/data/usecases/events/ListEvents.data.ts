@@ -1,10 +1,10 @@
-import { BadRequestError, InternalError } from '../../../../src/domain/errors';
+import {  InternalError } from '../../../../src/domain/errors';
 import { iListEvents } from '../../../../src/domain/usecases/events';
 import { iEventRepository } from '../../../../src/infra/database/contracts/repositorys';
 
 export class ListEvents implements iListEvents {
   constructor(private readonly eventRepository: iEventRepository) {}
-  async exec(input: iListEvents.input): Promise<iListEvents.output> {
+  async exec(input: iListEvents.Input): Promise<iListEvents.Output> {
     const { companyId, filters } = input;
     if (!companyId) throw new InternalError('CompanyId no sent.');
 

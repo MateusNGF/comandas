@@ -14,7 +14,7 @@ export class GetEventController extends iController {
       const { companyId } = request.headers.decodedTokenCompany;
       const eventId = request.params.eventId;
 
-      const filters: iListEvents.filters = { eventId };
+      const filters: iListEvents.Filters = { eventId };
 
       const events = await this.listEventsUsecase.exec({ companyId, filters });
       if (!events.length)

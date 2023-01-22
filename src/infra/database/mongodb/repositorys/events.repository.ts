@@ -42,7 +42,7 @@ export class EventsRepository implements iEventRepository {
     }
   }
 
-  list(companyId: string, filters?: iListEvents.filters): Promise<Event[]> {
+  list(companyId: string, filters?: iListEvents.Filters): Promise<Event[]> {
     let where: Filter<Event> = {
       company_id: companyId,
     };

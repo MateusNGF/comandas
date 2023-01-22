@@ -1,5 +1,5 @@
-import { iUsecase } from '../../contracts';
-import { Product } from '../../entities/sub/product.entity';
+import { iUsecase } from '../../../contracts';
+import { Product } from '../../../entities/sub/product.entity';
 
 export abstract class iInsertProducts implements iUsecase {
   abstract exec(input: iInsertProducts.input): Promise<iInsertProducts.output>;

@@ -5,7 +5,7 @@ import {
   iCreateAuthenticateForCompanyUsecase,
   iCreateTokenForCompany,
 } from '../../../../src/domain/usecases/authentications';
-import { iCreateInventory } from '../../../../src/domain/usecases/inventory/iCreateInventory.usecase';
+import { iCreateInventory } from '../../../domain/usecases/inventories/iCreateInventory.usecase';
 
 export class RegisterCompanyData extends iRegisterCompany {
   constructor(

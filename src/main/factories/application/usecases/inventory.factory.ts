@@ -1,11 +1,13 @@
-import { InsertProductsData } from '../../../../../src/data/usecases/inventories/InsertProducts.data';
+import { InsertProductsData } from '../../../../data/usecases/inventories/products/InsertProducts.data';
 import { CreateInventoryData } from '../../../../data/usecases/inventories';
 import { Inventory } from '../../../../../src/domain/entities/inventory.entity';
-import { iCreateInventory } from '../../../../../src/domain/usecases/inventory/iCreateInventory.usecase';
+import { iCreateInventory } from '../../../../domain/usecases/inventories/iCreateInventory.usecase';
 import { MongoDB } from '../../../../../src/infra/database/mongodb';
 import { InventoryRepository } from '../../../../../src/infra/database/mongodb/repositorys';
 import { makeCompanyRepository } from './companies.factory';
-import { iInsertProducts } from '../../../../../src/domain/usecases/inventory/iInsertProducts.usecase';
+import { iInsertProducts } from '../../../../domain/usecases/inventories/products/iInsertProducts.usecase';
+import { iListProducts } from '../../../../../src/domain/usecases/inventories/products/iListProducts.usecase';
+import { ListProducts } from '../../../../../src/data/usecases/inventories/products/ListProducts.data';
 
 export function makeInventoryRepository(): any {
   const collection = MongoDB.colletion<Inventory>(
@@ -25,3 +27,7 @@ export const makeUsecaseCreateInventory = (): iCreateInventory => {
 export const makeUsecaseInsertProducts = (): iInsertProducts => {
   return new InsertProductsData(makeInventoryRepository());
 };
+
+export const makeUsecaseListProducts = () : iListProducts => {
+  return new ListProducts(makeInventoryRepository())
+}

@@ -1,10 +1,12 @@
 import { Inventory } from '../../../../../src/domain/entities/inventory.entity';
 import { Product } from '../../../../domain/entities/sub/product.entity';
-import { Collection, ObjectId } from 'mongodb';
+import { Collection, Filter, FindOptions, ObjectId } from 'mongodb';
 import { iInventoryRepository } from '../../contracts/repositorys/iInventoryRepository';
+import { iListProducts } from '../../../../../src/domain/usecases/inventories/products/iListProducts.usecase';
 
 export class InventoryRepository implements iInventoryRepository {
   constructor(private readonly Colletion: Collection<Inventory>) {}
+
   async updateInventory(inventory: Inventory): Promise<Inventory> {
     if (!inventory || !inventory._id) return;
 
@@ -65,5 +67,41 @@ export class InventoryRepository implements iInventoryRepository {
     if (result.matchedCount) {
       return products;
     }
+  }
+
+  async listProducts(companyId: string, filters?: iListProducts.Filters): Promise<Product[]> {
+    const configQuery = {
+      limit : filters.limit || 25,
+      skip : filters.offset || 0
+    }
+    
+    const findOptions : FindOptions = {
+      projection : {
+        products : { $slice : ['$products', configQuery.skip, configQuery.limit]}
+      }
+    }
+
+    const where: Filter<Product> = {
+      company_id: companyId,
+    };
+
+    if (filters) {
+      if (filters.productId) {
+        findOptions.projection = {
+          ...findOptions.projection,
+          products : {
+            $filter : {
+              input : "$products",
+              cond : { $eq : ["$$product._id", filters.productId] },
+              as : "product"
+            }
+          }
+        }
+      }
+    }
+
+    console.log(findOptions)
+    const inventory = await this.Colletion.findOne({...where as any}, findOptions)
+    return inventory?.products ?? []
   }
 }

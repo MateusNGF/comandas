@@ -1,9 +1,9 @@
-import { Product } from '../../../domain/entities/sub/product.entity';
-import { BadRequestError } from '../../../../src/domain/errors';
-import { iInsertProducts } from '../../../../src/domain/usecases/inventory/iInsertProducts.usecase';
-import { ObjectManager } from '../../../../src/domain/utils';
-import { iController } from '../../contracts';
-import { HttpRequest, HttpResponse } from '../../helpers/http';
+import { Product } from '../../../../domain/entities/sub/product.entity';
+import { BadRequestError } from '../../../../domain/errors';
+import { iInsertProducts } from '../../../../domain/usecases/inventories/products/iInsertProducts.usecase';
+import { ObjectManager } from '../../../../domain/utils';
+import { iController } from '../../../contracts';
+import { HttpRequest, HttpResponse } from '../../../helpers/http';
 
 export class InsertProductsController extends iController {
   constructor(private readonly insertProductUsecase: iInsertProducts) {
@@ -14,8 +14,7 @@ export class InsertProductsController extends iController {
       const { companyId } = request.headers.decodedTokenCompany;
 
       if (!request.body) throw new BadRequestError('Body is required.');
-      if (!request.body.products)
-        throw new BadRequestError('Products is required.');
+      if (!request.body.products) throw new BadRequestError('Products is required.');
 
       const products: Array<Product> = request.body.products;
       if (!products.length) throw new BadRequestError('Nothing products sent.');

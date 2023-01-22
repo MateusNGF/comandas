@@ -1,5 +1,5 @@
 import { Inventory } from '../../../domain/entities/inventory.entity';
-import { iCreateInventory } from '../../../domain/usecases/inventory/iCreateInventory.usecase';
+import { iCreateInventory } from '../../../domain/usecases/inventories/iCreateInventory.usecase';
 import { iCompanyRepository } from '../../../infra/database/contracts/repositorys';
 import { iInventoryRepository } from '../../../infra/database/contracts/repositorys/iInventoryRepository';
 import { DateProvider } from '../../../infra/date/DateProvider.date';

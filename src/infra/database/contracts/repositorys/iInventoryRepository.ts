@@ -1,5 +1,6 @@
 import { Inventory } from '@/src/domain/entities/inventory.entity';
 import { Product } from '@/src/domain/entities/sub/product.entity';
+import { iListProducts } from '@/src/domain/usecases/inventories/products/iListProducts.usecase';
 import { iBaseRepository } from './iBaseRepository';
 
 export interface iInventoryRepository extends iBaseRepository<Inventory> {
@@ -11,4 +12,6 @@ export interface iInventoryRepository extends iBaseRepository<Inventory> {
     inventoryId: string,
     products: Array<Product>
   ): Promise<Array<Product>>;
+  listProducts(companyId: string, filters?: iListProducts.Filters): Promise<Array<Product>>;
+
 }
