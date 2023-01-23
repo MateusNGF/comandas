@@ -15,14 +15,8 @@ import {
   RegisterCompanyData,
 } from '../../../../../src/data/usecases/companies';
 import { makeUsecaseCreateInventory } from './inventory.factory';
+import { makeCompanyRepository } from '../../infra/database';
 
-export function makeCompanyRepository(): any {
-  const collection = MongoDB.colletion<Company>(
-    process.env.COLLECTIONS_NAMES_COMPANIES as string
-  );
-  const repository = new CompaniesRepository(collection);
-  return repository;
-}
 
 export const makeUseCaseRegisterCompany = (): iRegisterCompany => {
   return new RegisterCompanyData(
