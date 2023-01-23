@@ -1,4 +1,4 @@
-import { iAuthenticationAndReturnTokenCompany } from '../../../../domain/usecases/authentications';
+import { iHasAuthenticationRecordCompany } from '../../../../domain/usecases/authentications';
 import { iAccessCompany } from '../../../../domain/usecases/companies';
 import { mock, MockProxy } from 'jest-mock-extended';
 import { AccessCompanyData } from '../AccessCompany.data';
@@ -6,7 +6,7 @@ import { AccessCompanyData } from '../AccessCompany.data';
 describe('Access Company usecase', () => {
   let sut: iAccessCompany;
 
-  let authenticateAndReturnToken: MockProxy<iAuthenticationAndReturnTokenCompany>;
+  let authenticateAndReturnToken: MockProxy<iHasAuthenticationRecordCompany>;
 
   let fakeInputCredentials: iAccessCompany.input;
   let fakeOutput: iAccessCompany.output;

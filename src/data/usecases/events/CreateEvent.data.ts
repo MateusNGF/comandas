@@ -1,4 +1,4 @@
-import { BadRequestError } from '../../../../src/domain/errors';
+import { BadRequestError, MissingParamError } from '../../../../src/domain/errors';
 import { iCreateEvent } from '../../../../src/domain/usecases/events';
 
 import {
@@ -15,6 +15,10 @@ export class CreateEventData implements iCreateEvent {
   ) {}
   async exec(input: iCreateEvent.input): Promise<iCreateEvent.output> {
     const event = input.event;
+
+    if (!input.companyId) throw new MissingParamError('companyId')
+    if (!input.event) throw new MissingParamError('event')
+
     const company = await this.companyRepository.findById(input.companyId);
     if (!company) throw new BadRequestError('Company not found.');
 

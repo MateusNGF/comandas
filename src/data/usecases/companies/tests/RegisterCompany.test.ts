@@ -8,6 +8,7 @@ import {
   iCreateAuthenticateForCompanyUsecase,
   iCreateTokenForCompany,
 } from '../../../../domain/usecases/authentications';
+import { iCreateInventory } from '@/src/domain/usecases/inventories/iCreateInventory.usecase';
 
 describe('Registration Company', () => {
   let sut: iRegisterCompany;
@@ -15,6 +16,7 @@ describe('Registration Company', () => {
   let repositorySpy: MockProxy<iCompanyRepository>;
 
   let createTokenForCompany: MockProxy<iCreateTokenForCompany>;
+  let createInventory : MockProxy<iCreateInventory>;
   let createAuthenticationForCompany: MockProxy<iCreateAuthenticateForCompanyUsecase>;
 
   let fakeCompany: Company;
@@ -30,13 +32,15 @@ describe('Registration Company', () => {
     repositorySpy = mock();
     createTokenForCompany = mock();
     createAuthenticationForCompany = mock();
+    createInventory = mock();
   });
 
   beforeEach(() => {
     sut = new RegisterCompanyData(
       repositorySpy,
       createAuthenticationForCompany,
-      createTokenForCompany
+      createTokenForCompany,
+      createInventory
     );
 
     fakeCompany = {

@@ -31,14 +31,14 @@ describe('Creation Event', () => {
     fakeEvent = {
       name: 'fake_event',
       description: 'fake_description',
-      start_date: 'any_data',
-      end_date: 'any_data',
+      start_date: '2024/02/12',
+      end_date: '2024/02/15',
     };
 
     fakeCompany = {
       _id: 'any_id',
       name_fantasy: 'any_name',
-      timezone: 'sao_paulo/brazilia',
+      timezone: 'Europe/Amsterdam',
       cnpj: 'any_cnpj',
       email: 'any_email',
     };
@@ -57,6 +57,7 @@ describe('Creation Event', () => {
 
   it('Should return MissingParamError if event is missing.', async () => {
     delete fakeBody.event;
+    companyRepositorySpy.findById.mockResolvedValue(fakeCompany);
     const response = sut.exec(fakeBody);
     await expect(response).rejects.toThrow(new MissingParamError('event'));
   });
