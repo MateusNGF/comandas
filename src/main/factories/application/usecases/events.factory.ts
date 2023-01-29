@@ -8,7 +8,7 @@ import {
   iCreateEvent,
   iListEvents,
 } from '../../../../../src/domain/usecases/events';
-import { makeCompanyRepository, makeEventRepository } from '../../infra/database';
+import { makeCompanyRepository, makeEventRepository } from '../../infra/database/mongo.factory';
 
 
 

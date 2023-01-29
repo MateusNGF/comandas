@@ -4,7 +4,7 @@ import { iCreateInventory } from '../../../../domain/usecases/inventories/iCreat
 import { iInsertProducts } from '../../../../domain/usecases/inventories/products/iInsertProducts.usecase';
 import { iListProducts } from '../../../../../src/domain/usecases/inventories/products/iListProducts.usecase';
 import { ListProducts } from '../../../../../src/data/usecases/inventories/products/ListProducts.data';
-import { makeCompanyRepository, makeInventoryRepository } from '../../infra/database';
+import { makeCompanyRepository, makeInventoryRepository } from '../../infra/database/mongo.factory';
 
 
 

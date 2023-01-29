@@ -2,9 +2,6 @@ import {
   iAccessCompany,
   iRegisterCompany,
 } from '../../../../domain/usecases/companies';
-import { MongoDB } from '../../../../infra/database/mongodb';
-import { Company } from '../../../../domain/entities';
-import { CompaniesRepository } from '../../../../infra/database/mongodb/repositorys/companies.repository';
 import {
   makeUsecaseCreateAuthenticateForCompany,
   makeUsecaseCreateTokenForCompany,
@@ -15,7 +12,7 @@ import {
   RegisterCompanyData,
 } from '../../../../../src/data/usecases/companies';
 import { makeUsecaseCreateInventory } from './inventory.factory';
-import { makeCompanyRepository } from '../../infra/database';
+import { makeCompanyRepository } from '../../infra/database/mongo.factory';
 
 
 export const makeUseCaseRegisterCompany = (): iRegisterCompany => {
