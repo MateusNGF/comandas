@@ -1,11 +1,15 @@
 import { Inventory } from '../../../../../src/domain/entities/inventory.entity';
 import { Product } from '../../../../domain/entities/sub/product.entity';
-import { Collection, Filter, FindOptions, ObjectId } from 'mongodb';
+import { ClientSession, Collection, Filter, FindOptions, ObjectId } from 'mongodb';
 import { iInventoryRepository } from '../../contracts/repositorys/iInventoryRepository';
 import { iListProducts } from '../../../../../src/domain/usecases/inventories/products/iListProducts.usecase';
 
 export class InventoryRepository implements iInventoryRepository {
-  constructor(private readonly Colletion: Collection<Inventory>) {}
+
+  constructor(
+    private SessionDB : ClientSession,
+    private InventoryColletion : Collection<Inventory>,
+  ) {}
 
   async updateInventory(inventory: Inventory): Promise<Inventory> {
     if (!inventory || !inventory._id) return;
@@ -18,7 +22,7 @@ export class InventoryRepository implements iInventoryRepository {
       updated_at: new Date().toISOString(),
     });
 
-    const result = await this.Colletion.updateOne(
+    const result = await this.InventoryColletion.updateOne(
       { _id: currentInventory._id },
       updatedInventory
     );
@@ -28,15 +32,15 @@ export class InventoryRepository implements iInventoryRepository {
   }
 
   finByCompanyId(company_id: string): Promise<Inventory> {
-    return this.Colletion.findOne({ company_id });
+    return this.InventoryColletion.findOne({ company_id });
   }
 
   findById(_id: string): Promise<Inventory> {
-    return this.Colletion.findOne({ _id });
+    return this.InventoryColletion.findOne({ _id });
   }
 
   async createInventory(inventory: Inventory): Promise<{ _id: string }> {
-    const result = await this.Colletion.insertOne({
+    const result = await this.InventoryColletion.insertOne({
       ...inventory,
       _id: new ObjectId().toHexString() as any,
     });
@@ -57,7 +61,7 @@ export class InventoryRepository implements iInventoryRepository {
       };
     });
 
-    const result = await this.Colletion.updateOne(
+    const result = await this.InventoryColletion.updateOne(
       { _id: inventoryId },
       {
         $push: { products: { $each: products } },
@@ -99,7 +103,7 @@ export class InventoryRepository implements iInventoryRepository {
       }
     }
 
-    const inventory = await this.Colletion.findOne({...where as any}, findOptions)
+    const inventory = await this.InventoryColletion.findOne({...where as any}, findOptions)
     return inventory?.products ?? []
   }
 }

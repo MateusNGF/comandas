@@ -13,5 +13,13 @@ export interface iInventoryRepository extends iBaseRepository<Inventory> {
     products: Array<Product>
   ): Promise<Array<Product>>;
   listProducts(companyId: string, filters?: iListProducts.Filters): Promise<Array<Product>>;
+}
 
+
+export namespace iInventoryRepository {
+  export type ProductsForSale = {
+    id : string,
+    quantity : number
+    price : number
+  }
 }

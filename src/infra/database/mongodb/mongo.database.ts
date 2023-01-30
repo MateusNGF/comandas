@@ -1,4 +1,4 @@
-import { Collection, MongoClient } from 'mongodb';
+import { ClientSession, Collection, MongoClient } from 'mongodb';
 import { iDatabase } from '../contracts';
 
 class Mongo implements iDatabase {
@@ -13,6 +13,10 @@ class Mongo implements iDatabase {
   public async close(): Promise<void> {
     if (this.client) await this.client.close();
     this.client = null;
+  }
+
+  public makeSession() : ClientSession {
+    return this.client.startSession();
   }
 
   public colletion<Schema>(name: string): Collection<Schema> {
