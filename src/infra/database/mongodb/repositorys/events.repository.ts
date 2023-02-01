@@ -7,13 +7,13 @@ import { DateProvider } from '../../../../../src/infra/date/DateProvider.date';
 export class EventsRepository implements iEventRepository {
   constructor(private readonly Colletion: Collection<Event>) {}
   findById(_id: string): Promise<Event> {
-    return this.Colletion.findOne({ _id });
+    return this.Colletion.findOne({ id: _id });
   }
 
   async register(event: Event): Promise<{ _id: any }> {
     const eventWithId = new Event({
       ...event,
-      _id: new ObjectId().toHexString(),
+      id: new ObjectId().toHexString(),
     });
 
     const response = await this.Colletion.insertOne(eventWithId);
@@ -24,8 +24,8 @@ export class EventsRepository implements iEventRepository {
 
   async archive(eventId: string, company_id: string): Promise<boolean> {
     const response = await this.Colletion.updateOne(
-      { _id: new ObjectId(eventId), company_id },
-      { $set: { archived: true } }
+      { id: new ObjectId(eventId), company_id },
+      { $set: { archived_date: new Date() } }
     );
     if (response.matchedCount) {
       return !!response.modifiedCount;
@@ -34,8 +34,8 @@ export class EventsRepository implements iEventRepository {
 
   async unarchive(eventId: string, company_id: string): Promise<boolean> {
     const response = await this.Colletion.updateOne(
-      { _id: new ObjectId(eventId), company_id },
-      { $set: { archived: false } }
+      { id: new ObjectId(eventId), company_id },
+      { $set: { archived_date: null } }
     );
     if (response.matchedCount) {
       return !!response.modifiedCount;
@@ -50,7 +50,7 @@ export class EventsRepository implements iEventRepository {
     if (filters) {
       if (filters.eventId) {
         where = {
-          _id: filters.eventId as any,
+          id: filters.eventId as any,
           ...where,
         };
       }
@@ -59,10 +59,10 @@ export class EventsRepository implements iEventRepository {
         where = {
           ...where,
           start_date: {
-            $gte: DateProvider(filters.startDate).toISOString(),
+            $gte: DateProvider(filters.startDate).toPrimitive(),
           },
           end_date: {
-            $lte: DateProvider(filters.endDate).toISOString(),
+            $lte: DateProvider(filters.endDate).toPrimitive(),
           },
         };
       }

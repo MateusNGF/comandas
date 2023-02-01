@@ -33,10 +33,7 @@ export class CreateEventData implements iCreateEvent {
       name: event.name,
       start_date: DateProvider(event.start_date).tz(company?.timezone),
       end_date: DateProvider(event.end_date).tz(company?.timezone),
-      description: event?.description,
-      archived: false,
-      created_at: DateProvider().tz(company?.timezone),
-      updated_at: DateProvider().tz(company?.timezone),
+      description: event?.description
     });
 
     const createdEvent = await this.eventRepository.register(newEvent);
@@ -44,7 +41,7 @@ export class CreateEventData implements iCreateEvent {
     if (createdEvent) {
       return {
         _id: createdEvent._id,
-        createdAt: event.created_at,
+        created_at: event.created_at,
       };
     }
   }

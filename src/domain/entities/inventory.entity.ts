@@ -1,18 +1,14 @@
-import { iEntity } from '.';
 import { ObjectManager } from '../utils';
-import { Product } from './sub/product.entity';
+import { iEntity } from './itens';
+import { Product } from './itens/product.entity';
 
-export class Inventory implements iEntity {
-  public readonly _id?: any = undefined;
+export class Inventory extends iEntity {
 
   public readonly company_id?: string = undefined;
-
   public readonly products?: Array<Product> = [];
 
-  public readonly created_at?: string = new Date().toISOString();
-  public readonly updated_at?: string = new Date().toISOString();
-
   constructor(inventory: Inventory) {
+    super(inventory);
     ObjectManager.assing(this, inventory);
   }
 }

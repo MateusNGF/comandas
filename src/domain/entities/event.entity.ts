@@ -1,20 +1,17 @@
-import { iEntity } from '.';
 import { ObjectManager } from '../utils';
+import { iEntity } from './itens';
 
-export class Event implements iEntity {
-  public readonly _id?: any = undefined;
+export class Event extends iEntity {
 
-  public readonly name: string = undefined;
-  public readonly company_id?: string = undefined;
-  public readonly description?: string = undefined;
-  public readonly start_date: string = undefined;
-  public readonly end_date: string = undefined;
-  public readonly archived?: boolean = false;
+  public readonly name: string = null;
+  public readonly company_id?: string = null;
+  public readonly description?: string = null;
+  public readonly start_date: Date = null;
+  public readonly end_date: Date = null;
 
-  public readonly created_at?: string = undefined;
-  public readonly updated_at?: string = undefined;
 
   constructor(event: Event) {
+    super(event);
     ObjectManager.assing(this, event);
   }
 }

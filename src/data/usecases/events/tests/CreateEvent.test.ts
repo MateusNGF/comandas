@@ -36,7 +36,7 @@ describe('Creation Event', () => {
     };
 
     fakeCompany = {
-      _id: 'any_id',
+      id: 'any_id',
       name_fantasy: 'any_name',
       timezone: 'Europe/Amsterdam',
       cnpj: 'any_cnpj',

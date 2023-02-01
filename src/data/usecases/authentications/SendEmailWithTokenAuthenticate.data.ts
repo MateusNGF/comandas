@@ -23,7 +23,7 @@ export class SendEmailWithTokenAuthenticateData
 
     const token =
       await this.tokenAdapter.sing<iSendEmailWithTokenAuthenticate.payloadToken>(
-        { authId: auth._id },
+        { authId: auth.id },
         options
       );
 

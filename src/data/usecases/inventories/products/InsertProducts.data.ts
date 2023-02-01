@@ -1,4 +1,4 @@
-import { Product } from '../../../../domain/entities/sub/product.entity';
+import { Product } from '../../../../domain/entities/itens/product.entity';
 import { BadRequestError } from '../../../../domain/errors';
 import { iInsertProducts } from '../../../../domain/usecases/inventories/products/iInsertProducts.usecase';
 import { iInventoryRepository } from '../../../../infra/database/contracts/repositorys/iInventoryRepository';
@@ -19,13 +19,13 @@ export class InsertProductsData implements iInsertProducts {
     products = products.map((product) => {
       return new Product({
         ...product,
-        created_at: DateProvider().toISOString(),
-        updated_at: DateProvider().toISOString(),
+        created_at: new Date(),
+        updated_at: new Date(),
       });
     });
 
     const insertedProducts = await this.inventoryRepository.insertProducts(
-      inventory._id,
+      inventory.id,
       products
     );
     if (!insertedProducts.length) throw new BadRequestError('Insert failed');

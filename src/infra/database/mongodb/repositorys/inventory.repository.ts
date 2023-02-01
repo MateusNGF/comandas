@@ -1,5 +1,5 @@
 import { Inventory } from '../../../../../src/domain/entities/inventory.entity';
-import { Product } from '../../../../domain/entities/sub/product.entity';
+import { Product } from '../../../../domain/entities/itens/product.entity';
 import { ClientSession, Collection, Filter, FindOptions, ObjectId } from 'mongodb';
 import { iInventoryRepository } from '../../contracts/repositorys/iInventoryRepository';
 import { iListProducts } from '../../../../../src/domain/usecases/inventories/products/iListProducts.usecase';
@@ -12,18 +12,18 @@ export class InventoryRepository implements iInventoryRepository {
   ) {}
 
   async updateInventory(inventory: Inventory): Promise<Inventory> {
-    if (!inventory || !inventory._id) return;
+    if (!inventory || !inventory.id) return;
 
-    const currentInventory = await this.findById(inventory._id);
+    const currentInventory = await this.findById(inventory.id);
 
     const updatedInventory = new Inventory({
       ...currentInventory,
       products: currentInventory.products,
-      updated_at: new Date().toISOString(),
+      updated_at: new Date(),
     });
 
     const result = await this.InventoryColletion.updateOne(
-      { _id: currentInventory._id },
+      { id: currentInventory.id },
       updatedInventory
     );
     if (result.modifiedCount) {
@@ -36,7 +36,7 @@ export class InventoryRepository implements iInventoryRepository {
   }
 
   findById(_id: string): Promise<Inventory> {
-    return this.InventoryColletion.findOne({ _id });
+    return this.InventoryColletion.findOne({ id: _id });
   }
 
   async createInventory(inventory: Inventory): Promise<{ _id: string }> {
@@ -62,7 +62,7 @@ export class InventoryRepository implements iInventoryRepository {
     });
 
     const result = await this.InventoryColletion.updateOne(
-      { _id: inventoryId },
+      { id: inventoryId },
       {
         $push: { products: { $each: products } },
       }

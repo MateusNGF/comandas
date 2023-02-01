@@ -5,12 +5,13 @@ export interface iDateProvider {
   isEqual(dateToCompare: string | Date): boolean;
 
   toISOString(): string;
+  toPrimitive(): Date;
   toDateString(locateFormar?: iDateProvider.Locates): string;
 
   addDays(days: number): iDateProvider;
   subtractDays(days: number): iDateProvider;
 
-  tz(timezone: iDateProvider.Timezone): string;
+  tz(timezone: iDateProvider.Timezone): Date;
 }
 
 export namespace iDateProvider {

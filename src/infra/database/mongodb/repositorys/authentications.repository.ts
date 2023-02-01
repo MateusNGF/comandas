@@ -26,21 +26,21 @@ export class AuthenticationsRepository implements iAuthenticationRepository {
     auth = {
       ...auth,
       password: await this.hashAdapter.encrypt(auth.password),
-      create_at: new Date().toISOString(),
-      update_at: new Date().toISOString(),
+      created_at: new Date(),
+      updated_at: new Date(),
     };
 
     const result = await this.Colletion.insertOne(auth);
     return {
       ...auth,
-      _id: result.insertedId,
+      id: result.insertedId,
     };
   }
 
   async update(auth: UpdateAuthenticateDTO): Promise<Boolean> {
     if (!auth.authId) return false;
 
-    const _id = auth.authId;
+    const id = auth.authId;
     delete auth.authId;
 
     if (auth.password) {
@@ -48,11 +48,11 @@ export class AuthenticationsRepository implements iAuthenticationRepository {
     }
 
     const result = await this.Colletion.updateOne(
-      { _id: new ObjectId(_id) },
+      { _id: new ObjectId(id) },
       {
         $set: {
           ...auth,
-          update_at: new Date().toISOString(),
+          updated_at: new Date(),
         },
       }
     );

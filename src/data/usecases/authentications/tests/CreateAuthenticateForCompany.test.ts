@@ -33,7 +33,7 @@ describe('Create Authentication for company', () => {
     );
 
     fakeValidDataAuth = {
-      _id: '01',
+      id: '01',
       email: 'any_email@gmail.com',
       cnpj: 'fake_cnpj',
       password: 'fake_pwd',
@@ -82,7 +82,7 @@ describe('Create Authentication for company', () => {
 
     expect(response).toEqual(
       expect.objectContaining({
-        authId: fakeValidDataAuth._id,
+        authId: fakeValidDataAuth.id,
       })
     );
   });

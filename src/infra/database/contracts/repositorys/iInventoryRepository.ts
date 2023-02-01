@@ -1,5 +1,5 @@
 import { Inventory } from '@/src/domain/entities/inventory.entity';
-import { Product } from '@/src/domain/entities/sub/product.entity';
+import { Product } from '@/src/domain/entities/itens/product.entity';
 import { iListProducts } from '@/src/domain/usecases/inventories/products/iListProducts.usecase';
 import { iBaseRepository } from './iBaseRepository';
 

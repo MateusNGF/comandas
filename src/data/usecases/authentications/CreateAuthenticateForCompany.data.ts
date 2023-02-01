@@ -33,7 +33,7 @@ export class CreateAuthenticateForCompanyData
     );
 
     return {
-      authId: authRecored._id,
+      authId: authRecored.id,
     };
   }
 }

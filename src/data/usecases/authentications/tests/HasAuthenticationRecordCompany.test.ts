@@ -35,7 +35,7 @@ describe('Has Authentication record for company', () => {
     );
 
     fakeValidDataAuth = {
-      _id: '01',
+      id: '01',
       email: 'any_email@gmail.com',
       cnpj: 'any_cnpj',
       password: 'any_passowrd',

@@ -14,6 +14,6 @@ export namespace iCreateInventory {
   };
   export type output = {
     _id: string;
-    createdAt: string;
+    created_at: Date;
   };
 }

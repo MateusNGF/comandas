@@ -16,7 +16,7 @@ export class CreateTokenForCompany implements iCreateTokenForCompany {
 
     if (company) {
       const token = await this.tokenAdapter.sing<PayloadToken>({
-        companyId: company._id,
+        companyId: company.id,
         email: company.email,
         timezone: company.timezone,
       });

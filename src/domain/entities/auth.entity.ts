@@ -1,18 +1,15 @@
-import { iEntity } from '.';
 import { ObjectManager } from '../utils';
+import { iEntity } from './itens';
 
-export class Auth implements iEntity {
-  public readonly _id?: any = undefined;
+export class Auth extends iEntity {
 
-  public readonly email: string = undefined;
-  public readonly cnpj: string = undefined;
-  public readonly password: string = undefined;
-  public readonly associeteded_id: string = undefined;
-
-  public readonly create_at?: string = undefined;
-  public readonly update_at?: string = undefined;
+  public readonly email: string = null;
+  public readonly cnpj: string = null;
+  public readonly password: string = null;
+  public readonly associeteded_id: string = null;
 
   constructor(auth: Auth) {
+    super(auth);
     ObjectManager.assing(this, auth);
   }
 }

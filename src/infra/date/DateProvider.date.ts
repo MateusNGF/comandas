@@ -14,6 +14,10 @@ class DateManager implements iDateProvider {
     return new Date(this.dateRef).toISOString();
   }
 
+  toPrimitive(): Date {
+    return new Date(this.dateRef)
+  }
+
   toDateString(locateFormart?: iDateProvider.Locates): string {
     return new Date(this.dateRef).toLocaleDateString(
       locateFormart ?? this.locateFormart
@@ -54,12 +58,12 @@ class DateManager implements iDateProvider {
     return new DateManager(currentDate);
   }
 
-  tz(timezone?: iDateProvider.Timezone): string {
+  tz(timezone?: iDateProvider.Timezone): Date {
     const dateNormalized = new Date(this.dateRef).toLocaleString(
       this.locateFormart,
       { timeZone: timezone ?? process.env.TZ }
     );
-    return new Date(dateNormalized).toISOString();
+    return new Date(dateNormalized)
   }
 }
 

@@ -20,18 +20,18 @@ export class RegisterCompanyData extends iRegisterCompany {
   async exec(input: iRegisterCompany.input): Promise<iRegisterCompany.output> {
     const company = new Company({
       ...input,
-      _id: this.companyRepository.generateId(),
+      id: this.companyRepository.generateId(),
     });
 
     await this.createAuthenticationForCompany.exec({
-      associeteded_id: company._id,
+      associeteded_id: company.id,
       email: company.email,
       cnpj: company.cnpj,
       password: input.password,
     });
 
     await this.companyRepository.register({
-      _id: company._id,
+      id: company.id,
       name_fantasy: company.name_fantasy,
       cnpj: company.cnpj,
       email: company.email,
@@ -39,12 +39,12 @@ export class RegisterCompanyData extends iRegisterCompany {
     });
 
     await this.createInvetory.exec({
-      companyId: company._id,
+      companyId: company.id,
       inventory: {},
     });
 
     const { token } = await this.createTokenForCompany.exec({
-      companyId: company._id,
+      companyId: company.id,
     });
 
     return {

@@ -38,7 +38,7 @@ describe('SendEmailWithTokenAuthenticate', () => {
     fakeOutput = true;
 
     fakeAuth = {
-      _id: '01',
+      id: '01',
       associeteded_id: '011',
       email: 'any_email',
       cnpj: 'any_cnpj',

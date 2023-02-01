@@ -44,7 +44,7 @@ describe('Registration Company', () => {
     );
 
     fakeCompany = {
-      _id: '01',
+      id: '01',
       name_fantasy: 'any_name',
       timezone: 'sao_paulo/brazilia',
       cnpj: 'any_cnpj',
@@ -91,7 +91,7 @@ describe('Registration Company', () => {
   it('Should return token when record sucess company.', async () => {
     createAuthenticationForCompany.exec.mockResolvedValue(fakeReturnCreateAuth);
 
-    repositorySpy.register.mockResolvedValue({ _id: fakeCompany._id });
+    repositorySpy.register.mockResolvedValue({ _id: fakeCompany.id });
     createTokenForCompany.exec.mockResolvedValue(fakeReturnCreateToken);
 
     const response = await sut.exec(fakeNewCompany);

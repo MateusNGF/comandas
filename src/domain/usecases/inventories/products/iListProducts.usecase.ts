@@ -1,5 +1,5 @@
 import { iUsecase } from "../../../../../src/domain/contracts";
-import { Product } from "../../../../../src/domain/entities/sub/product.entity";
+import { Product } from "../../../entities/itens/product.entity";
 import { BaseFilterForListing } from "../../../../../src/domain/types";
 
 

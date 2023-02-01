@@ -1,20 +1,18 @@
-import { iEntity } from '.';
 import { ObjectManager } from '../utils';
+import { iEntity } from './itens';
 
-export class Company implements iEntity {
-  public readonly _id?: any = undefined;
+export class Company extends iEntity {
 
-  public readonly name_fantasy: string = undefined;
-  public readonly email: string = undefined;
-  public readonly cnpj: string = undefined;
-  public readonly timezone: string = undefined;
+  public readonly name_fantasy: string = null;
+  public readonly email: string = null;
+  public readonly cnpj: string = null;
+  public readonly timezone: string = null;
 
-  public readonly currency?: string = undefined;
-  public readonly logo_url?: string = undefined;
-  public readonly create_at?: string = undefined;
-  public readonly update_at?: string = undefined;
+  public readonly currency?: string = null;
+  public readonly logo_url?: string = null;
 
   constructor(company: Company) {
+    super(company);
     ObjectManager.assing(this, company);
   }
 }

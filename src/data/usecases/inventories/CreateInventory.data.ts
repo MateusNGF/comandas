@@ -17,8 +17,8 @@ export class CreateInventoryData implements iCreateInventory {
     );
     if (currentInventory) {
       return {
-        _id: currentInventory._id,
-        createdAt: currentInventory.created_at,
+        _id: currentInventory.id,
+        created_at: currentInventory.created_at,
       };
     }
 
@@ -27,14 +27,14 @@ export class CreateInventoryData implements iCreateInventory {
     const newInventory = new Inventory({
       ...inventory,
       company_id: input.companyId,
-      created_at: DateProvider().tz(company?.timezone),
-      updated_at: DateProvider().tz(company?.timezone),
+      created_at: new Date(),
+      updated_at: new Date(),
     });
 
     const { _id } = await this.inventoryRepository.createInventory(
       newInventory
     );
 
-    return { _id, createdAt: newInventory.created_at };
+    return { _id, created_at: newInventory.created_at };
   }
 }
