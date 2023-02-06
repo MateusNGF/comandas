@@ -1,5 +1,6 @@
-import { iHasAuthenticationRecordCompany } from '@/src/domain/usecases/authentications';
-import { iAccessCompany } from '@/src/domain/usecases/companies';
+import { Product } from '../../../../src/domain/entities/itens/product.entity';
+import { iHasAuthenticationRecordCompany } from '../../../../src/domain/usecases/authentications';
+import { iAccessCompany } from '../../../../src/domain/usecases/companies';
 
 export class AccessCompanyData implements iAccessCompany {
   constructor(

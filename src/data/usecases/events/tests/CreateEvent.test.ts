@@ -31,8 +31,8 @@ describe('Creation Event', () => {
     fakeEvent = {
       name: 'fake_event',
       description: 'fake_description',
-      start_date: '2024/02/12',
-      end_date: '2024/02/15',
+      start_date: new Date('2024/02/12'),
+      end_date: new Date('2024/02/15'),
     };
 
     fakeCompany = {

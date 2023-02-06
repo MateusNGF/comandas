@@ -11,7 +11,6 @@ import {
   AccessCompanyData,
   RegisterCompanyData,
 } from '../../../../../src/data/usecases/companies';
-import { makeUsecaseCreateInventory } from './inventory.factory';
 import { makeCompanyRepository } from '../../infra/database/mongo.factory';
 
 
@@ -19,8 +18,7 @@ export const makeUseCaseRegisterCompany = (): iRegisterCompany => {
   return new RegisterCompanyData(
     makeCompanyRepository(),
     makeUsecaseCreateAuthenticateForCompany(),
-    makeUsecaseCreateTokenForCompany(),
-    makeUsecaseCreateInventory()
+    makeUsecaseCreateTokenForCompany()
   );
 };
 

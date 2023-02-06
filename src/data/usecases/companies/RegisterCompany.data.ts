@@ -5,14 +5,12 @@ import {
   iCreateAuthenticateForCompanyUsecase,
   iCreateTokenForCompany,
 } from '../../../../src/domain/usecases/authentications';
-import { iCreateInventory } from '../../../domain/usecases/inventories/iCreateInventory.usecase';
 
 export class RegisterCompanyData extends iRegisterCompany {
   constructor(
     private readonly companyRepository: iCompanyRepository,
     private readonly createAuthenticationForCompany: iCreateAuthenticateForCompanyUsecase,
-    private readonly createTokenForCompany: iCreateTokenForCompany,
-    private readonly createInvetory: iCreateInventory
+    private readonly createTokenForCompany: iCreateTokenForCompany
   ) {
     super();
   }
@@ -36,11 +34,6 @@ export class RegisterCompanyData extends iRegisterCompany {
       cnpj: company.cnpj,
       email: company.email,
       timezone: company.timezone,
-    });
-
-    await this.createInvetory.exec({
-      companyId: company.id,
-      inventory: {},
     });
 
     const { token } = await this.createTokenForCompany.exec({
