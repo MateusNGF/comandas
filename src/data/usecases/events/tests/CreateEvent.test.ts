@@ -1,4 +1,4 @@
-import { Company, Event } from '@/src/domain/entities';
+import { Company, Event } from '../../../../../src/domain/entities';
 import {
   MissingParamError,
   UnauthorizedError,

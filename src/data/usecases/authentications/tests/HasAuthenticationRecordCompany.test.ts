@@ -10,7 +10,7 @@ import {
 import { iAuthenticationRepository } from '../../../../../src/infra/database/contracts/repositorys';
 import { mock, MockProxy } from 'jest-mock-extended';
 import { HasAuthenticationRecordCompanyData } from '../HasAuthenticationRecordCompany.data';
-import { iHashAdapter } from '@/src/infra/cryptography/contracts';
+import { iHashAdapter } from '../../../../../src/infra/cryptography/contracts';
 
 describe('Has Authentication record for company', () => {
   let sut: iHasAuthenticationRecordCompany;

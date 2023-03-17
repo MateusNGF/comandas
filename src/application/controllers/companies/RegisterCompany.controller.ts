@@ -12,7 +12,7 @@ export class RegisterCompanyController extends iController {
       const incomingCompany = request.body;
 
       ObjectManager.hasKeys<iRegisterCompany.input>(
-        ['name_fantasy', 'email', 'cnpj', 'timezone', 'password'],
+        ['name_fantasy', 'email', 'cnpj', 'password'],
         incomingCompany
       );
 

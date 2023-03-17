@@ -1,8 +1,8 @@
 import { MissingParamError } from '../../../../domain/errors';
 import { mock, MockProxy } from 'jest-mock-extended';
 import { ArchivateEventData } from '../ArchivateEvent.data';
-import { iArchivateEvent } from '@/src/domain/usecases/events';
-import { iEventRepository } from '@/src/infra/database/contracts/repositorys';
+import { iArchivateEvent } from '../../../../../src/domain/usecases/events';
+import { iEventRepository } from '../../../../../src/infra/database/contracts/repositorys';
 
 describe('Archived event', () => {
   let sut: iArchivateEvent;

@@ -5,7 +5,7 @@ import { iAuthenticationRepository } from '../../../../../src/infra/database/con
 import { iMailProvider } from '../../../../../src/infra/mail/contracts/iMailProvider';
 import { mock, MockProxy } from 'jest-mock-extended';
 import { SendEmailWithTokenAuthenticateData } from '../SendEmailWithTokenAuthenticate.data';
-import { Auth } from '@/src/domain/entities';
+import { Auth } from '../../../../../src/domain/entities';
 
 describe('SendEmailWithTokenAuthenticate', () => {
   let sut: iSendEmailWithTokenAuthenticate;

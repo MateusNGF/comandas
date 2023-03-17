@@ -1,5 +1,5 @@
-import { Auth } from '@/src/domain/entities';
-import { iHashAdapter } from '@/src/infra/cryptography/contracts';
+import { Auth } from '../../../../../src/domain/entities';
+import { iHashAdapter } from '../../../../../src/infra/cryptography/contracts';
 import { Collection, ObjectId } from 'mongodb';
 import { iAuthenticationRepository } from '../../contracts/repositorys';
 import { UpdateAuthenticateDTO } from '../../dtos';

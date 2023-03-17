@@ -1,4 +1,4 @@
-import { Event } from '@/src/domain/entities';
+import { Event } from '../../../../src/domain/entities';
 import { ObjectManager } from '../../../../src/domain/utils';
 import { iCreateEvent } from '../../../domain/usecases/events';
 import { iController } from '../../contracts';

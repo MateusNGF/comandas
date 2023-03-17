@@ -1,4 +1,4 @@
-import { Company } from '@/src/domain/entities/company.entity';
+import { Company } from '../../../../src/domain/entities/company.entity';
 import { iBaseRepository } from './iBaseRepository';
 
 export interface iCompanyRepository extends iBaseRepository<Company> {

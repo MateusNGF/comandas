@@ -4,7 +4,7 @@ import { iCreateEvent } from '../../../../src/domain/usecases/events';
 import {
   iCompanyRepository,
   iEventRepository,
-} from '@/src/infra/database/contracts/repositorys';
+} from '../../../../src/infra/database/contracts/repositorys';
 import { Event } from '../../../domain/entities';
 import { DateProvider } from '../../../../src/infra/date/DateProvider.date';
 

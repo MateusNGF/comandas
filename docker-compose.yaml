@@ -4,12 +4,12 @@ services:
   comandas_api: 
     image: comandas_api
     container_name: comandas_api
+    ports:
+      - 4000:4000
     env_file:
       - .env
     environment:
       - MONGO_URI=mongodb://comandas_db:27017/comandas
-    ports:
-      - 3000
     networks:
       - backend_network
     depends_on:

@@ -8,6 +8,8 @@ COPY package.json .
 COPY package-lock.json .
 COPY .env . 
 
+EXPOSE 4000
+
 RUN npm install --production
 
 CMD ["npm", "run", "start"]

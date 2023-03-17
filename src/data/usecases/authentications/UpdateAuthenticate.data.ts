@@ -1,4 +1,4 @@
-import { UpdateAuthenticateDTO } from '@/src/infra/database/dtos';
+import { UpdateAuthenticateDTO } from '../../../../src/infra/database/dtos';
 import { BadRequestError } from '../../../../src/domain/errors';
 import { iUpdadeAuthenticate } from '../../../../src/domain/usecases/authentications';
 import { iAuthenticationRepository } from '../../../../src/infra/database/contracts/repositorys';

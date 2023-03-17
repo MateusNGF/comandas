@@ -1,4 +1,4 @@
-import { Auth } from '@/src/domain/entities/auth.entity';
+import { Auth } from '../../../../src/domain/entities/auth.entity';
 import { UpdateAuthenticateDTO } from '../../dtos';
 
 type BasicCredentials = { email?: string; cnpj?: string };

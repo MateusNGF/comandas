@@ -1,4 +1,4 @@
-import { iHashAdapter } from '@/src/infra/cryptography/contracts';
+import { iHashAdapter } from '../../../../src/infra/cryptography/contracts';
 import { Auth } from '../../../domain/entities';
 import { BadRequestError, UnauthorizedError } from '../../../domain/errors';
 import {

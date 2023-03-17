@@ -1,4 +1,3 @@
-import { Product } from '../../../../src/domain/entities/itens/product.entity';
 import { iHasAuthenticationRecordCompany } from '../../../../src/domain/usecases/authentications';
 import { iAccessCompany } from '../../../../src/domain/usecases/companies';
 

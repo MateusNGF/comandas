@@ -1,4 +1,4 @@
-import { iTokenAdapter } from '@/src/infra/cryptography/contracts';
+import { iTokenAdapter } from '../../../../src/infra/cryptography/contracts';
 import { iUsecase } from '../../contracts';
 
 export abstract class iSendEmailWithTokenAuthenticate implements iUsecase {
