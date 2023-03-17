@@ -1,4 +1,3 @@
 db.companies.remove({});
 db.events.remove({});
 db.authentications.remove({});
-db.inventory.remove({})
