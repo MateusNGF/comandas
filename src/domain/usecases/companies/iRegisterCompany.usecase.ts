@@ -1,5 +1,5 @@
 import { iUsecase } from '../../contracts';
-import { Company } from '../../entities';
+import { CompanyEntity } from '../../entities';
 
 export abstract class iRegisterCompany implements iUsecase {
   abstract exec(
@@ -8,7 +8,7 @@ export abstract class iRegisterCompany implements iUsecase {
 }
 
 export namespace iRegisterCompany {
-  export type input = Company & { password: string };
+  export type input = CompanyEntity & { password: string };
 
   export type output = {
     token: string;

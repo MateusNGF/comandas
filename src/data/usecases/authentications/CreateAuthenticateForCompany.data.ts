@@ -1,4 +1,4 @@
-import { Auth } from '../../../domain/entities';
+import { AuthenticateEntity } from '../../../domain/entities';
 import {
   iCreateAuthenticateForCompanyUsecase,
   iHasAuthenticationRecordCompany,
@@ -21,7 +21,7 @@ export class CreateAuthenticateForCompanyData
       cnpj: input?.cnpj,
     });
 
-    const authForRecord = new Auth({
+    const authForRecord = new AuthenticateEntity({
       associeteded_id: input.associeteded_id,
       email: input?.email,
       cnpj: input?.cnpj,

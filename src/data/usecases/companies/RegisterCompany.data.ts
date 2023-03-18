@@ -1,6 +1,6 @@
 import { iCompanyRepository } from '../../../infra/database/contracts/repositorys';
 import { iRegisterCompany } from '../../../domain/usecases/companies';
-import { Company } from '../../../domain/entities';
+import { CompanyEntity } from '../../../domain/entities';
 import {
   iCreateAuthenticateForCompanyUsecase,
   iCreateTokenForCompany,
@@ -16,7 +16,7 @@ export class RegisterCompanyData extends iRegisterCompany {
   }
 
   async exec(input: iRegisterCompany.input): Promise<iRegisterCompany.output> {
-    const company = new Company({
+    const company = new CompanyEntity({
       ...input,
       id: this.companyRepository.generateId(),
     });

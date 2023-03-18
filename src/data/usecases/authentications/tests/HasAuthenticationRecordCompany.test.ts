@@ -1,4 +1,4 @@
-import { Auth } from '../../../../../src/domain/entities';
+import { AuthenticateEntity } from '../../../../../src/domain/entities';
 import {
   BadRequestError,
   UnauthorizedError,
@@ -18,7 +18,7 @@ describe('Has Authentication record for company', () => {
   let createTokenForCompany: MockProxy<iCreateTokenForCompany>;
   let hashAdapter: MockProxy<iHashAdapter>;
 
-  let fakeValidDataAuth: Auth;
+  let fakeValidDataAuth: AuthenticateEntity;
   let fakeInputCredentials: iHasAuthenticationRecordCompany.input;
 
   beforeAll(() => {

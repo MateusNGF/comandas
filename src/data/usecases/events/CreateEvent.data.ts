@@ -5,7 +5,7 @@ import {
   iCompanyRepository,
   iEventRepository,
 } from '../../../../src/infra/database/contracts/repositorys';
-import { Event } from '../../../domain/entities';
+import { EventEntity } from '../../../domain/entities';
 import { DateProvider } from '../../../../src/infra/date/DateProvider.date';
 
 export class CreateEventData implements iCreateEvent {
@@ -28,7 +28,7 @@ export class CreateEventData implements iCreateEvent {
       );
     }
 
-    const newEvent = new Event({
+    const newEvent = new EventEntity({
       company_id: input.companyId,
       name: event.name,
       start_date: DateProvider(event.start_date).tz(company?.timezone),

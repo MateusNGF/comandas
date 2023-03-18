@@ -1,4 +1,4 @@
-import { Company } from '../../../../../src/domain/entities';
+import { CompanyEntity } from '../../../../../src/domain/entities';
 import { InternalError } from '../../../../../src/domain/errors';
 import { iCreateTokenForCompany } from '../../../../../src/domain/usecases/authentications';
 import { iTokenAdapter } from '../../../../../src/infra/cryptography/contracts';
@@ -14,7 +14,7 @@ describe('CreateTokenForCompany', () => {
 
   let fakeInput: iCreateTokenForCompany.input;
   let fakeOutput: iCreateTokenForCompany.output;
-  let fakeCompany: Company;
+  let fakeCompany: CompanyEntity;
 
   beforeAll(() => {
     companyRepository = mock();

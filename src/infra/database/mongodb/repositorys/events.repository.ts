@@ -1,17 +1,17 @@
-import { Event } from '../../../../../src/domain/entities';
+import { EventEntity } from '../../../../../src/domain/entities';
 import { Collection, ObjectId, Filter } from 'mongodb';
 import { iEventRepository } from '../../contracts/repositorys/iEventRepository';
 import { iListEvents } from '../../../../../src/domain/usecases/events';
 import { DateProvider } from '../../../../../src/infra/date/DateProvider.date';
 
 export class EventsRepository implements iEventRepository {
-  constructor(private readonly Colletion: Collection<Event>) {}
-  findById(_id: string): Promise<Event> {
+  constructor(private readonly Colletion: Collection<EventEntity>) {}
+  findById(_id: string): Promise<EventEntity> {
     return this.Colletion.findOne({ id: _id });
   }
 
-  async register(event: Event): Promise<{ _id: any }> {
-    const eventWithId = new Event({
+  async register(event: EventEntity): Promise<{ _id: any }> {
+    const eventWithId = new EventEntity({
       ...event,
       id: new ObjectId().toHexString(),
     });
@@ -42,8 +42,8 @@ export class EventsRepository implements iEventRepository {
     }
   }
 
-  list(companyId: string, filters?: iListEvents.Filters): Promise<Event[]> {
-    let where: Filter<Event> = {
+  list(companyId: string, filters?: iListEvents.Filters): Promise<EventEntity[]> {
+    let where: Filter<EventEntity> = {
       company_id: companyId,
     };
 

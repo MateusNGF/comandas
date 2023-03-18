@@ -1,4 +1,4 @@
-import { Company } from '../../../../../src/domain/entities';
+import { CompanyEntity } from '../../../../../src/domain/entities';
 import { Collection, ObjectId } from 'mongodb';
 import { iCompanyRepository } from '../../contracts/repositorys';
 
@@ -10,15 +10,15 @@ export class CompaniesRepository implements iCompanyRepository {
       },
     },
   };
-  constructor(private readonly Colletion: Collection<Company>) {}
-  async findByCNPJ(cnpj: string): Promise<Company> {
+  constructor(private readonly Colletion: Collection<CompanyEntity>) {}
+  async findByCNPJ(cnpj: string): Promise<CompanyEntity> {
     return this.Colletion.findOne({ cnpj });
   }
 
-  async findByEmail(email: string): Promise<Company> {
+  async findByEmail(email: string): Promise<CompanyEntity> {
     return this.Colletion.findOne({ email });
   }
-  async findById(_id: string): Promise<Company> {
+  async findById(_id: string): Promise<CompanyEntity> {
     return this.Colletion.findOne({ id: _id });
   }
 
@@ -26,8 +26,8 @@ export class CompaniesRepository implements iCompanyRepository {
     return new ObjectId().toHexString();
   }
 
-  async register(company: Company): Promise<{ _id: string }> {
-    const _company: Company = {
+  async register(company: CompanyEntity): Promise<{ _id: string }> {
+    const _company: CompanyEntity = {
       ...company,
       created_at: new Date(),
       updated_at: new Date(),

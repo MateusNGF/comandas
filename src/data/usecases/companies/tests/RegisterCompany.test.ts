@@ -1,4 +1,4 @@
-import { Company } from '../../../../domain/entities';
+import { CompanyEntity } from '../../../../domain/entities';
 import { UnauthorizedError } from '../../../../domain/errors';
 import { iRegisterCompany } from '../../../../domain/usecases/companies';
 import { iCompanyRepository } from '../../../../infra/database/contracts/repositorys';
@@ -17,7 +17,7 @@ describe('Registration Company', () => {
   let createTokenForCompany: MockProxy<iCreateTokenForCompany>;
   let createAuthenticationForCompany: MockProxy<iCreateAuthenticateForCompanyUsecase>;
 
-  let fakeCompany: Company;
+  let fakeCompany: CompanyEntity;
   let fakeNewCompany: iRegisterCompany.input;
   let fakeReturnCreateAuth: iCreateAuthenticateForCompanyUsecase.output;
   let fakeReturnCreateToken: iCreateTokenForCompany.output;

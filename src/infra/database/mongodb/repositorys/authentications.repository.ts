@@ -1,28 +1,33 @@
-import { Auth } from '../../../../../src/domain/entities';
+import { AuthenticateEntity } from '../../../../../src/domain/entities';
 import { iHashAdapter } from '../../../../../src/infra/cryptography/contracts';
 import { Collection, ObjectId } from 'mongodb';
-import { iAuthenticationRepository } from '../../contracts/repositorys';
+import { iAuthenticationRepository, iBaseRepository } from '../../contracts/repositorys';
 import { UpdateAuthenticateDTO } from '../../dtos';
 
 export class AuthenticationsRepository implements iAuthenticationRepository {
   constructor(
-    private readonly Colletion: Collection<Auth>,
+    private readonly Colletion: Collection<AuthenticateEntity>,
     private readonly hashAdapter: iHashAdapter
   ) {}
+
+  findById(id: string, options ?: iBaseRepository.Options): Promise<AuthenticateEntity> {
+    return this.Colletion.findOne({ id }, { session : options?.session?.get() ?? null})
+  }
+
   async getAuthByCredentials(credentials: {
     email?: string;
     cnpj?: string;
-  }): Promise<Auth> {
+  }, options ?: iBaseRepository.Options): Promise<AuthenticateEntity> {
     return this.Colletion.findOne({
       $or: [{ email: credentials?.email }, { cnpj: credentials?.cnpj }],
     });
   }
 
-  async getAuthById(_id: string): Promise<Auth> {
+  async getAuthById(_id: string): Promise<AuthenticateEntity> {
     return this.Colletion.findOne({ _id: new ObjectId(_id) });
   }
 
-  async create(auth: Auth): Promise<Auth> {
+  async create(auth: AuthenticateEntity): Promise<AuthenticateEntity> {
     auth = {
       ...auth,
       password: await this.hashAdapter.encrypt(auth.password),

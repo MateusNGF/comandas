@@ -1,5 +1,5 @@
 import { iHashAdapter } from '../../../../src/infra/cryptography/contracts';
-import { Auth } from '../../../domain/entities';
+import { AuthenticateEntity } from '../../../domain/entities';
 import { BadRequestError, UnauthorizedError } from '../../../domain/errors';
 import {
   iCreateTokenForCompany,
@@ -18,20 +18,20 @@ export class HasAuthenticationRecordCompanyData
   async exec(
     input: iHasAuthenticationRecordCompany.input
   ): Promise<iHasAuthenticationRecordCompany.output> {
-    const foundedAuth: Auth =
+    const foundedAuth: AuthenticateEntity =
       await this.authenticationRepository.getAuthByCredentials({
         email: input?.email,
         cnpj: input?.cnpj,
       });
 
     if (input.password) {
-      return this.validAuthForLogin(input as Auth, foundedAuth);
+      return this.validAuthForLogin(input as AuthenticateEntity, foundedAuth);
     } else {
       return this.validAuthExist(foundedAuth) as any;
     }
   }
 
-  private async validAuthForLogin(incomingAuth: Auth, foundedAuth: Auth) {
+  private async validAuthForLogin(incomingAuth: AuthenticateEntity, foundedAuth: AuthenticateEntity) {
     if (!foundedAuth) throw new BadRequestError('Account not found.');
 
     const accessReleased = await this.hashAdapter.compare(
@@ -48,7 +48,7 @@ export class HasAuthenticationRecordCompanyData
     return { token };
   }
 
-  private async validAuthExist(foundedAuth: Auth) {
+  private async validAuthExist(foundedAuth: AuthenticateEntity) {
     if (foundedAuth)
       throw new UnauthorizedError(
         'This CNPJ or Email has record, try change your passwoord.'
