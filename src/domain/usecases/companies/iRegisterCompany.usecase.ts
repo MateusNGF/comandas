@@ -1,7 +1,7 @@
 import { iUsecase } from '../../contracts';
 import { CompanyEntity } from '../../entities';
 
-export abstract class iRegisterCompany extends iUsecase {
+export abstract class iRegisterCompany implements iUsecase {
   abstract exec(
     input: iRegisterCompany.input
   ): Promise<iRegisterCompany.output>;
