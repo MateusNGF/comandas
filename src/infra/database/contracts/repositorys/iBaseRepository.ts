@@ -1,4 +1,4 @@
-import { iDatabase, iSession } from "../iDatabase";
+import { iDatabase } from "../iDatabase";
 
 export abstract class iBaseRepository<T = any> {
   abstract findById(id: string, options ?: iBaseRepository.Options): Promise<T>;
@@ -6,6 +6,6 @@ export abstract class iBaseRepository<T = any> {
 
 export namespace iBaseRepository {
   export interface Options {
-    session ?: iSession
+    session ?: iDatabase.iSession
   }
 }

@@ -1,5 +1,5 @@
 import { Collection, MongoClient } from 'mongodb';
-import { iDatabase, iSession } from '../contracts';
+import { iDatabase } from '../contracts';
 import { MongoSession } from './mongo.session';
 
 class Mongo implements iDatabase {
@@ -16,7 +16,7 @@ class Mongo implements iDatabase {
     this.client = null;
   }
 
-  public makeSession() : iSession {
+  public makeSession() : iDatabase.iSession {
     return new MongoSession(this.client)
   }
 

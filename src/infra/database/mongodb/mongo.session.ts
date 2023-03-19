@@ -1,14 +1,14 @@
 import { ClientSession, MongoClient } from "mongodb";
-import { iSession, iTransaction } from "../contracts";
+import { iDatabase } from "../contracts";
 
-export class MongoSession implements iSession {
+export class MongoSession implements iDatabase.iSession {
     private mongoSession: ClientSession
 
     constructor(
         private readonly mongoClient: MongoClient
     ) { }
 
-    startSession(): iSession {
+    startSession(): iDatabase.iSession {
         if (!this.mongoSession) {
             this.mongoSession = this.mongoClient.startSession()
             return this
@@ -22,7 +22,7 @@ export class MongoSession implements iSession {
         }
     }
 
-    async initTransaction(): Promise<iTransaction> {
+    async initTransaction(): Promise<iDatabase.iTransaction> {
         this.hasInstanceOfClient();
         this.mongoSession.startTransaction();
         return this
