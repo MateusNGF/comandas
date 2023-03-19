@@ -1,4 +1,4 @@
-import AppExpress from './config/appExpress';
+import AppExpress from './apps/appExpress';
 
 (async () => {
   try {
