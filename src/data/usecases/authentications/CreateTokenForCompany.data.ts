@@ -4,11 +4,14 @@ import { iCreateTokenForCompany } from '../../../../src/domain/usecases/authenti
 import { iTokenAdapter } from '../../../../src/infra/cryptography/contracts';
 import { iCompanyRepository } from '../../../../src/infra/database/contracts/repositorys';
 
-export class CreateTokenForCompany implements iCreateTokenForCompany {
+export class CreateTokenForCompany extends iCreateTokenForCompany {
   constructor(
     private readonly tokenAdapter: iTokenAdapter,
     private readonly companyRepository: iCompanyRepository
-  ) {}
+  ) {
+    super();
+  }
+  
   async exec(
     input: iCreateTokenForCompany.input
   ): Promise<iCreateTokenForCompany.output> {

@@ -5,13 +5,15 @@ import { iAuthenticationRepository } from '../../../../src/infra/database/contra
 import { iMailProvider } from '../../../../src/infra/mail/contracts/iMailProvider';
 
 export class SendEmailWithTokenAuthenticateData
-  implements iSendEmailWithTokenAuthenticate
+  extends iSendEmailWithTokenAuthenticate
 {
   constructor(
     private readonly tokenAdapter: iTokenAdapter,
     private readonly mailProvider: iMailProvider,
     private readonly authenticateRepository: iAuthenticationRepository
-  ) {}
+  ) {
+    super()
+  }
   async exec(
     input: iSendEmailWithTokenAuthenticate.input,
     options?: iSendEmailWithTokenAuthenticate.options

@@ -3,10 +3,12 @@ import { BadRequestError } from '../../../../src/domain/errors';
 import { iUpdadeAuthenticate } from '../../../../src/domain/usecases/authentications';
 import { iAuthenticationRepository } from '../../../../src/infra/database/contracts/repositorys';
 
-export class UpdateAuthenticateData implements iUpdadeAuthenticate {
+export class UpdateAuthenticateData extends iUpdadeAuthenticate {
   constructor(
     private readonly authenticationRepository: iAuthenticationRepository
-  ) {}
+  ) {
+    super()
+  }
 
   async exec(input: iUpdadeAuthenticate.input): Promise<Boolean> {
     const { authId } = input;
