@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { adaptExpressMiddleware } from '../adapters/express-middleware';
 import { adaptExpressRoute } from '../adapters/express-route';
 import {
   makeArchivationEventController,
@@ -6,30 +7,30 @@ import {
   makeGetEventController,
   makeListEventsController,
 } from '../factories/application/controllers/events.factory';
-import { requestAuthorization } from '../middlewares';
+import { makeMiddlewareAuthentication } from '../factories/application/middlewares/authentication.middleware.factory';
 
 export default (router: Router): void => {
   router.post(
     '/create',
-    requestAuthorization(),
+    adaptExpressMiddleware(makeMiddlewareAuthentication()),
     adaptExpressRoute(makeCreationEventController())
   );
 
   router.put(
     '/:action/:eventId',
-    requestAuthorization(),
+    adaptExpressMiddleware(makeMiddlewareAuthentication()),
     adaptExpressRoute(makeArchivationEventController())
   );
 
   router.get(
     '/:eventId',
-    requestAuthorization(),
+    adaptExpressMiddleware(makeMiddlewareAuthentication()),
     adaptExpressRoute(makeGetEventController())
   );
 
   router.get(
     '/',
-    requestAuthorization(),
+    adaptExpressMiddleware(makeMiddlewareAuthentication()),
     adaptExpressRoute(makeListEventsController())
   );
 };
