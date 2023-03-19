@@ -6,14 +6,12 @@ import {
 import { iAuthenticationRepository } from '../../../infra/database/contracts/repositorys';
 
 export class CreateAuthenticateForCompanyData
-  extends iCreateAuthenticateForCompanyUsecase
+  implements iCreateAuthenticateForCompanyUsecase
 {
   constructor(
     private readonly authenticationRepository: iAuthenticationRepository,
     private readonly hasAuthenticationRecordCompanyUsecase: iHasAuthenticationRecordCompany
-  ) {
-    super();
-  }
+  ) {}
 
   async exec(
     input: iCreateAuthenticateForCompanyUsecase.input

@@ -8,15 +8,13 @@ import {
 import { iAuthenticationRepository } from '../../../infra/database/contracts/repositorys';
 
 export class HasAuthenticationRecordCompanyData
-  extends iHasAuthenticationRecordCompany
+  implements iHasAuthenticationRecordCompany
 {
   constructor(
     private readonly authenticationRepository: iAuthenticationRepository,
     private readonly createTokenForCompany: iCreateTokenForCompany,
     private readonly hashAdapter: iHashAdapter
-  ) {
-    super();
-  }
+  ) {}
   async exec(
     input: iHasAuthenticationRecordCompany.input
   ): Promise<iHasAuthenticationRecordCompany.output> {
