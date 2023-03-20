@@ -17,7 +17,7 @@ export class MongoSession implements iDatabase.iSession {
 
     async endSession(): Promise<void> {
         if (this.mongoSession) {
-            this.mongoSession.endSession()
+            await this.mongoSession.endSession()
             this.mongoSession = null
         }
     }
@@ -30,12 +30,12 @@ export class MongoSession implements iDatabase.iSession {
 
     async commitTransaction(): Promise<void> {
         this.hasInstanceOfClient();
-        this.mongoSession.commitTransaction();
+        await this.mongoSession.commitTransaction();
     }
 
     async rollbackTransaction(): Promise<void> {
         this.hasInstanceOfClient();
-        this.mongoSession.abortTransaction();
+        await this.mongoSession.abortTransaction();
     }
 
     private hasInstanceOfClient() {

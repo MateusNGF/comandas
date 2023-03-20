@@ -6,9 +6,11 @@ import {
   iCreateTokenForCompany,
 } from '../../../../src/domain/usecases/authentications';
 import { iUsecase } from 'src/domain/contracts';
+import { iDatabase } from 'src/infra/database/contracts';
 
 export class RegisterCompanyData extends iRegisterCompany {
   constructor(
+    private readonly sessionDatabase : iDatabase.iSession,
     private readonly companyRepository: iCompanyRepository,
     private readonly createAuthenticationForCompany: iCreateAuthenticateForCompanyUsecase,
     private readonly createTokenForCompany: iCreateTokenForCompany
@@ -18,34 +20,50 @@ export class RegisterCompanyData extends iRegisterCompany {
 
   async exec(
     input: iRegisterCompany.input,
-    options : iUsecase.Options
+    options ?: iUsecase.Options
   ): Promise<iRegisterCompany.output> {
-    const company = new CompanyEntity({
-      ...input,
-      id: this.companyRepository.generateId(),
-    });
 
-    await this.createAuthenticationForCompany.exec({
-      associeteded_id: company.id,
-      email: company.email,
-      cnpj: company.cnpj,
-      password: input.password,
-    }, options);
+    const session = this.sessionDatabase
 
-    await this.companyRepository.register({
-      id: company.id,
-      name_fantasy: company.name_fantasy,
-      cnpj: company.cnpj,
-      email: company.email,
-      timezone: company.timezone,
-    }, options);
+    session.startSession()
 
-    const { token } = await this.createTokenForCompany.exec({
-      companyId: company.id,
-    }, options);
+    try{
+      await session.initTransaction()
 
-    return {
-      token: token,
-    };
+      const company = new CompanyEntity({
+        ...input,
+        id: this.companyRepository.generateId(),
+      });
+  
+      const requestResult = await Promise.all([
+        this.createAuthenticationForCompany.exec({
+          associeteded_id: company.id,
+          email: company.email,
+          cnpj: company.cnpj,
+          password: input.password,
+        }, {session}),
+        this.companyRepository.register({
+          id: company.id,
+          name_fantasy: company.name_fantasy,
+          cnpj: company.cnpj,
+          email: company.email,
+          timezone: company.timezone,
+        }, {session}),
+        this.createTokenForCompany.exec({
+          companyId: company.id,
+        }, {session})
+      ])
+
+      await session.commitTransaction()
+      return {
+        token: requestResult[2].token,
+      };
+
+    }catch(error){
+      await session.rollbackTransaction()
+      throw error
+    }finally {
+      await session.endSession()
+    }
   }
 }
