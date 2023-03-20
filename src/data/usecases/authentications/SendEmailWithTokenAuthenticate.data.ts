@@ -14,7 +14,7 @@ export class SendEmailWithTokenAuthenticateData
   ) {}
   async exec(
     input: iSendEmailWithTokenAuthenticate.input,
-    options?: iSendEmailWithTokenAuthenticate.options
+    configuration?: iSendEmailWithTokenAuthenticate.Configuration
   ): Promise<Boolean> {
     const auth = await this.authenticateRepository.getAuthByCredentials({
       email: input.email,
@@ -24,7 +24,7 @@ export class SendEmailWithTokenAuthenticateData
     const token =
       await this.tokenAdapter.sing<iSendEmailWithTokenAuthenticate.payloadToken>(
         { authId: auth.id },
-        options
+        configuration
       );
 
     const bodyEmail: iMailProvider.ContentEmail = {
