@@ -2,7 +2,8 @@ import { iUsecase } from '../../contracts';
 
 export abstract class iCreateTokenForCompany implements iUsecase {
   abstract exec(
-    input: iCreateTokenForCompany.input
+    input: iCreateTokenForCompany.input,
+    options ?: iUsecase.Options
   ): Promise<iCreateTokenForCompany.output>;
 }
 

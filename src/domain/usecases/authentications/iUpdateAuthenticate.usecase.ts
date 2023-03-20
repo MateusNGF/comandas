@@ -2,7 +2,8 @@ import { iUsecase } from '../../contracts';
 
 export abstract class iUpdadeAuthenticate implements iUsecase {
   abstract exec(
-    input: iUpdadeAuthenticate.input
+    input: iUpdadeAuthenticate.input,
+    options ?: iUsecase.Options
   ): Promise<iUpdadeAuthenticate.output>;
 }
 

@@ -3,7 +3,8 @@ import { CompanyEntity } from '../../entities';
 
 export abstract class iRegisterCompany implements iUsecase {
   abstract exec(
-    input: iRegisterCompany.input
+    input: iRegisterCompany.input, 
+    options ?: iUsecase.Options
   ): Promise<iRegisterCompany.output>;
 }
 
