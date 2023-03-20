@@ -16,4 +16,8 @@ export namespace iDatabase {
     commitTransaction() : Promise<void>;
     rollbackTransaction() : Promise<void>;
   }
+
+  export interface Options {
+    session ?: iDatabase.iSession
+  }
 }

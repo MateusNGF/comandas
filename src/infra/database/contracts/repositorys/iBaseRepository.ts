@@ -5,7 +5,5 @@ export abstract class iBaseRepository<T = any> {
 }
 
 export namespace iBaseRepository {
-  export interface Options {
-    session ?: iDatabase.iSession
-  }
+  export interface Options extends iDatabase.Options {}
 }

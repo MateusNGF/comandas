@@ -6,7 +6,5 @@ export interface iUsecase {
 
 
 export namespace iUsecase {
-  export type Options = {
-    session : iDatabase.iSession
-  }
+  export interface Options extends iDatabase.Options {}
 }
