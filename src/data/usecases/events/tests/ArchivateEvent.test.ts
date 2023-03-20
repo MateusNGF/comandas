@@ -10,7 +10,6 @@ describe('Archived event', () => {
   let eventRepository: MockProxy<iEventRepository>;
 
   let fakeRequest: iArchivateEvent.input;
-  let fakeResponse: iArchivateEvent.output;
 
   beforeAll(() => {
     eventRepository = mock();

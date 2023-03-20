@@ -1,5 +1,4 @@
 import { ObjectManager } from '../../utils';
-import { iEntity } from '.';
 import { ItemCompany } from './item.entity';
 
 export class Product extends ItemCompany {

@@ -5,7 +5,6 @@ import {
   iCreateAuthenticateForCompanyUsecase,
   iCreateTokenForCompany,
 } from '../../../../src/domain/usecases/authentications';
-import { iUsecase } from 'src/domain/contracts';
 import { iDatabase } from 'src/infra/database/contracts';
 
 export class RegisterCompanyData extends iRegisterCompany {
@@ -19,8 +18,7 @@ export class RegisterCompanyData extends iRegisterCompany {
   }
 
   async exec(
-    input: iRegisterCompany.input,
-    options?: iUsecase.Options
+    input: iRegisterCompany.input
   ): Promise<iRegisterCompany.output> {
     const session = this.sessionDatabase;
 

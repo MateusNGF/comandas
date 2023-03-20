@@ -72,7 +72,6 @@ describe('Create Authentication for company', () => {
   });
 
   it('Should return auth_id when record sucess create auth.', async () => {
-    const tokenMockado = { token: 'token_mockado' };
 
     hasAuthenticationRecordCompanyUsecaseMock.exec.mockResolvedValue(undefined);
 

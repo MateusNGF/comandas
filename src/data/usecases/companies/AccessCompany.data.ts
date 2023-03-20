@@ -1,5 +1,4 @@
 import { iUsecase } from 'src/domain/contracts';
-import { BadRequestError } from 'src/domain/errors';
 import { iHasAuthenticationRecordCompany } from '../../../../src/domain/usecases/authentications';
 import { iAccessCompany } from '../../../../src/domain/usecases/companies';
 
