@@ -1,3 +1,4 @@
+import { iUsecase } from 'src/domain/contracts';
 import { iHashAdapter } from '../../../../src/infra/cryptography/contracts';
 import { AuthenticateEntity } from '../../../domain/entities';
 import { BadRequestError, UnauthorizedError } from '../../../domain/errors';
@@ -16,22 +17,23 @@ export class HasAuthenticationRecordCompanyData
     private readonly hashAdapter: iHashAdapter
   ) {}
   async exec(
-    input: iHasAuthenticationRecordCompany.input
+    input: iHasAuthenticationRecordCompany.input,
+    options ?: iUsecase.Options
   ): Promise<iHasAuthenticationRecordCompany.output> {
     const foundedAuth: AuthenticateEntity =
       await this.authenticationRepository.getAuthByCredentials({
         email: input?.email,
         cnpj: input?.cnpj,
-      });
+      }, options);
 
     if (input.password) {
-      return this.validAuthForLogin(input as AuthenticateEntity, foundedAuth);
+      return this.validAuthForLogin(input as AuthenticateEntity, foundedAuth, options);
     } else {
       return this.validAuthExist(foundedAuth) as any;
     }
   }
 
-  private async validAuthForLogin(incomingAuth: AuthenticateEntity, foundedAuth: AuthenticateEntity) {
+  private async validAuthForLogin(incomingAuth: AuthenticateEntity, foundedAuth: AuthenticateEntity, options : iUsecase.Options) {
     if (!foundedAuth) throw new BadRequestError('Account not found.');
 
     const accessReleased = await this.hashAdapter.compare(
@@ -43,7 +45,7 @@ export class HasAuthenticationRecordCompanyData
 
     const { token } = await this.createTokenForCompany.exec({
       companyId: foundedAuth.associeteded_id,
-    });
+    }, options);
 
     return { token };
   }

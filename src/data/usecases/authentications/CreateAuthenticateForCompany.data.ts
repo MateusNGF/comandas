@@ -1,3 +1,4 @@
+import { iUsecase } from 'src/domain/contracts';
 import { AuthenticateEntity } from '../../../domain/entities';
 import {
   iCreateAuthenticateForCompanyUsecase,
@@ -14,12 +15,13 @@ export class CreateAuthenticateForCompanyData
   ) {}
 
   async exec(
-    input: iCreateAuthenticateForCompanyUsecase.input
+    input: iCreateAuthenticateForCompanyUsecase.input,
+    options : iUsecase.Options
   ): Promise<iCreateAuthenticateForCompanyUsecase.output> {
     await this.hasAuthenticationRecordCompanyUsecase.exec({
       email: input?.email,
       cnpj: input?.cnpj,
-    });
+    }, options);
 
     const authForRecord = new AuthenticateEntity({
       associeteded_id: input.associeteded_id,
@@ -28,9 +30,7 @@ export class CreateAuthenticateForCompanyData
       password: input.password,
     });
 
-    const authRecored = await this.authenticationRepository.create(
-      authForRecord
-    );
+    const authRecored = await this.authenticationRepository.create(authForRecord, options);
 
     return {
       authId: authRecored.id,

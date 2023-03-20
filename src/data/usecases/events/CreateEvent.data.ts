@@ -7,19 +7,23 @@ import {
 } from '../../../../src/infra/database/contracts/repositorys';
 import { EventEntity } from '../../../domain/entities';
 import { DateProvider } from '../../../../src/infra/date/DateProvider.date';
+import { iUsecase } from 'src/domain/contracts';
 
 export class CreateEventData implements iCreateEvent {
   constructor(
     private readonly companyRepository: iCompanyRepository,
     private readonly eventRepository: iEventRepository
   ) {}
-  async exec(input: iCreateEvent.input): Promise<iCreateEvent.output> {
+  async exec(
+    input: iCreateEvent.input,
+    options : iUsecase.Options
+  ): Promise<iCreateEvent.output> {
     const event = input.event;
 
     if (!input.companyId) throw new MissingParamError('companyId')
     if (!input.event) throw new MissingParamError('event')
 
-    const company = await this.companyRepository.findById(input.companyId);
+    const company = await this.companyRepository.findById(input.companyId, options);
     if (!company) throw new BadRequestError('Company not found.');
 
     if (DateProvider(event.start_date).isAfter(event.end_date)) {
@@ -36,7 +40,7 @@ export class CreateEventData implements iCreateEvent {
       description: event?.description
     });
 
-    const createdEvent = await this.eventRepository.register(newEvent);
+    const createdEvent = await this.eventRepository.register(newEvent, options);
 
     if (createdEvent) {
       return {

@@ -5,6 +5,7 @@ import {
   iCreateAuthenticateForCompanyUsecase,
   iCreateTokenForCompany,
 } from '../../../../src/domain/usecases/authentications';
+import { iUsecase } from 'src/domain/contracts';
 
 export class RegisterCompanyData extends iRegisterCompany {
   constructor(
@@ -15,7 +16,10 @@ export class RegisterCompanyData extends iRegisterCompany {
     super();
   }
 
-  async exec(input: iRegisterCompany.input): Promise<iRegisterCompany.output> {
+  async exec(
+    input: iRegisterCompany.input,
+    options : iUsecase.Options
+  ): Promise<iRegisterCompany.output> {
     const company = new CompanyEntity({
       ...input,
       id: this.companyRepository.generateId(),
@@ -26,7 +30,7 @@ export class RegisterCompanyData extends iRegisterCompany {
       email: company.email,
       cnpj: company.cnpj,
       password: input.password,
-    });
+    }, options);
 
     await this.companyRepository.register({
       id: company.id,
@@ -34,11 +38,11 @@ export class RegisterCompanyData extends iRegisterCompany {
       cnpj: company.cnpj,
       email: company.email,
       timezone: company.timezone,
-    });
+    }, options);
 
     const { token } = await this.createTokenForCompany.exec({
       companyId: company.id,
-    });
+    }, options);
 
     return {
       token: token,
