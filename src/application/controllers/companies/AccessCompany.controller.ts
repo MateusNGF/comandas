@@ -10,13 +10,12 @@ export class AccessCompanyController extends iController {
   }
   async exec(request: HttpRequest): Promise<HttpResponse> {
     try {
+      ObjectManager.hasKeys<iAccessCompany.input>(['password'], request.body);
 
-      ObjectManager.hasKeys<iAccessCompany.input>(['password'], request.body)
-
-      try{
-        ObjectManager.hasKeys<iAccessCompany.input>(['cnpj'], request.body)
-      }catch(_){
-        ObjectManager.hasKeys<iAccessCompany.input>(['email'], request.body)
+      try {
+        ObjectManager.hasKeys<iAccessCompany.input>(['cnpj'], request.body);
+      } catch (_) {
+        ObjectManager.hasKeys<iAccessCompany.input>(['email'], request.body);
       }
 
       const authenticatedCompany = await this.accessCompanyUsecase.exec(

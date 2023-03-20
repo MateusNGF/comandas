@@ -3,8 +3,23 @@ import { iListEvents } from '../../../../../src/domain/usecases/events';
 import { iBaseRepository } from './iBaseRepository';
 
 export interface iEventRepository extends iBaseRepository<EventEntity> {
-  register(event: EventEntity, options ?: iBaseRepository.Options): Promise<{ _id: any }>;
-  list(companyId: string, filters?: iListEvents.Filters, options ?: iBaseRepository.Options): Promise<Array<EventEntity>>;
-  archive(eventId: string, company_id: string, options ?: iBaseRepository.Options): Promise<boolean>;
-  unarchive(eventId: string, company_id: string, options ?: iBaseRepository.Options): Promise<boolean>;
+  register(
+    event: EventEntity,
+    options?: iBaseRepository.Options
+  ): Promise<{ _id: any }>;
+  list(
+    companyId: string,
+    filters?: iListEvents.Filters,
+    options?: iBaseRepository.Options
+  ): Promise<Array<EventEntity>>;
+  archive(
+    eventId: string,
+    company_id: string,
+    options?: iBaseRepository.Options
+  ): Promise<boolean>;
+  unarchive(
+    eventId: string,
+    company_id: string,
+    options?: iBaseRepository.Options
+  ): Promise<boolean>;
 }

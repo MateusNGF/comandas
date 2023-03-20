@@ -16,12 +16,15 @@ export class CreateAuthenticateForCompanyData
 
   async exec(
     input: iCreateAuthenticateForCompanyUsecase.input,
-    options : iUsecase.Options
+    options: iUsecase.Options
   ): Promise<iCreateAuthenticateForCompanyUsecase.output> {
-    await this.hasAuthenticationRecordCompanyUsecase.exec({
-      email: input?.email,
-      cnpj: input?.cnpj,
-    }, options);
+    await this.hasAuthenticationRecordCompanyUsecase.exec(
+      {
+        email: input?.email,
+        cnpj: input?.cnpj,
+      },
+      options
+    );
 
     const authForRecord = new AuthenticateEntity({
       associeteded_id: input.associeteded_id,
@@ -30,7 +33,10 @@ export class CreateAuthenticateForCompanyData
       password: input.password,
     });
 
-    const authRecored = await this.authenticationRepository.create(authForRecord, options);
+    const authRecored = await this.authenticationRepository.create(
+      authForRecord,
+      options
+    );
 
     return {
       authId: authRecored.id,

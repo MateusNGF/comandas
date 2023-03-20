@@ -2,8 +2,8 @@ import { iUsecase } from '../../contracts';
 
 export abstract class iAccessCompany implements iUsecase {
   abstract exec(
-    input: iAccessCompany.input, 
-    options ?: iUsecase.Options
+    input: iAccessCompany.input,
+    options?: iUsecase.Options
   ): Promise<iAccessCompany.output>;
 }
 

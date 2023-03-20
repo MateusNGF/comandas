@@ -3,7 +3,7 @@ import { iUsecase } from '../../contracts';
 export abstract class iArchivateEvent implements iUsecase {
   abstract exec(
     input: iArchivateEvent.input,
-    options ?: iUsecase.Options
+    options?: iUsecase.Options
   ): Promise<iArchivateEvent.output>;
 }
 

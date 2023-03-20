@@ -10,4 +10,3 @@ export class Service extends ItemCompany {
     ObjectManager.assing(this, service);
   }
 }
-

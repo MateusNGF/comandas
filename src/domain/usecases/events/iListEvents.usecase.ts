@@ -5,7 +5,7 @@ import { BaseFilterForListing } from '../../types';
 export abstract class iListEvents implements iUsecase {
   abstract exec(
     input: iListEvents.Input,
-    options ?: iUsecase.Options
+    options?: iUsecase.Options
   ): Promise<iListEvents.Output>;
 }
 

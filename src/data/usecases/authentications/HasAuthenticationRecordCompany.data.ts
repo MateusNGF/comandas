@@ -18,22 +18,33 @@ export class HasAuthenticationRecordCompanyData
   ) {}
   async exec(
     input: iHasAuthenticationRecordCompany.input,
-    options ?: iUsecase.Options
+    options?: iUsecase.Options
   ): Promise<iHasAuthenticationRecordCompany.output> {
     const foundedAuth: AuthenticateEntity =
-      await this.authenticationRepository.getAuthByCredentials({
-        email: input?.email,
-        cnpj: input?.cnpj,
-      }, options);
+      await this.authenticationRepository.getAuthByCredentials(
+        {
+          email: input?.email,
+          cnpj: input?.cnpj,
+        },
+        options
+      );
 
     if (input.password) {
-      return this.validAuthForLogin(input as AuthenticateEntity, foundedAuth, options);
+      return this.validAuthForLogin(
+        input as AuthenticateEntity,
+        foundedAuth,
+        options
+      );
     } else {
       return this.validAuthExist(foundedAuth) as any;
     }
   }
 
-  private async validAuthForLogin(incomingAuth: AuthenticateEntity, foundedAuth: AuthenticateEntity, options : iUsecase.Options) {
+  private async validAuthForLogin(
+    incomingAuth: AuthenticateEntity,
+    foundedAuth: AuthenticateEntity,
+    options: iUsecase.Options
+  ) {
     if (!foundedAuth) throw new BadRequestError('Account not found.');
 
     const accessReleased = await this.hashAdapter.compare(
@@ -43,9 +54,12 @@ export class HasAuthenticationRecordCompanyData
 
     if (!accessReleased) throw new UnauthorizedError();
 
-    const { token } = await this.createTokenForCompany.exec({
-      companyId: foundedAuth.associeteded_id,
-    }, options);
+    const { token } = await this.createTokenForCompany.exec(
+      {
+        companyId: foundedAuth.associeteded_id,
+      },
+      options
+    );
 
     return { token };
   }

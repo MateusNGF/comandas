@@ -4,7 +4,7 @@ import { EventEntity } from '../../entities/event.entity';
 export abstract class iCreateEvent implements iUsecase {
   abstract exec(
     input: iCreateEvent.input,
-    options ?: iUsecase.Options
+    options?: iUsecase.Options
   ): Promise<iCreateEvent.output>;
 }
 

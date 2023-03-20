@@ -1,1 +1,1 @@
-export * from '../../contracts/iEntity'
+export * from '../../contracts/iEntity';

@@ -1,7 +1,7 @@
-import { iDatabase } from "../iDatabase";
+import { iDatabase } from '../iDatabase';
 
 export abstract class iBaseRepository<T = any> {
-  abstract findById(id: string, options ?: iBaseRepository.Options): Promise<T>;
+  abstract findById(id: string, options?: iBaseRepository.Options): Promise<T>;
 }
 
 export namespace iBaseRepository {

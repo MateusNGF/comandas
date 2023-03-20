@@ -16,11 +16,14 @@ export class SendEmailWithTokenAuthenticateData
   async exec(
     input: iSendEmailWithTokenAuthenticate.input,
     configuration?: iSendEmailWithTokenAuthenticate.Configuration,
-    options ?: iUsecase.Options
+    options?: iUsecase.Options
   ): Promise<Boolean> {
-    const auth = await this.authenticateRepository.getAuthByCredentials({
-      email: input.email,
-    }, options);
+    const auth = await this.authenticateRepository.getAuthByCredentials(
+      {
+        email: input.email,
+      },
+      options
+    );
     if (!auth) throw new BadRequestError('Account not found.');
 
     const token =

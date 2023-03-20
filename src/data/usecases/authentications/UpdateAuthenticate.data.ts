@@ -11,11 +11,14 @@ export class UpdateAuthenticateData implements iUpdadeAuthenticate {
 
   async exec(
     input: iUpdadeAuthenticate.input,
-    options ?: iUsecase.Options
+    options?: iUsecase.Options
   ): Promise<Boolean> {
     const { authId } = input;
 
-    const currentAuth = await this.authenticationRepository.getAuthById(authId, options);
+    const currentAuth = await this.authenticationRepository.getAuthById(
+      authId,
+      options
+    );
 
     if (!currentAuth) throw new BadRequestError('Account not found.');
 

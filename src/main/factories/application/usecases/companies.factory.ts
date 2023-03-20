@@ -11,8 +11,10 @@ import {
   AccessCompanyData,
   RegisterCompanyData,
 } from '../../../../../src/data/usecases/companies';
-import { makeCompanyRepository, makeSessionInMongo } from '../../infra/database/mongo.factory';
-
+import {
+  makeCompanyRepository,
+  makeSessionInMongo,
+} from '../../infra/database/mongo.factory';
 
 export const makeUseCaseRegisterCompany = (): iRegisterCompany => {
   return new RegisterCompanyData(

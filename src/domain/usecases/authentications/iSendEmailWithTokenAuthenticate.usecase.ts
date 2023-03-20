@@ -5,7 +5,7 @@ export abstract class iSendEmailWithTokenAuthenticate implements iUsecase {
   abstract exec(
     input: iSendEmailWithTokenAuthenticate.input,
     configuration?: iSendEmailWithTokenAuthenticate.Configuration,
-    options ?: iUsecase.Options
+    options?: iUsecase.Options
   ): Promise<iSendEmailWithTokenAuthenticate.output>;
 }
 

@@ -16,8 +16,8 @@ class Mongo implements iDatabase {
     this.client = null;
   }
 
-  public makeSession() : iDatabase.iSession {
-    return new MongoSession(this.client)
+  public makeSession(): iDatabase.iSession {
+    return new MongoSession(this.client);
   }
 
   public colletion<Schema>(name: string): Collection<Schema> {

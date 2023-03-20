@@ -5,19 +5,18 @@ export abstract class iDatabase {
 
 export namespace iDatabase {
   export interface iSession extends iTransaction {
-    startSession() : iSession;
-    endSession() : Promise<void>;
-    get() : any;
+    startSession(): iSession;
+    endSession(): Promise<void>;
+    get(): any;
   }
-  
-  
+
   export interface iTransaction {
-    initTransaction() : Promise<iTransaction>;
-    commitTransaction() : Promise<void>;
-    rollbackTransaction() : Promise<void>;
+    initTransaction(): Promise<iTransaction>;
+    commitTransaction(): Promise<void>;
+    rollbackTransaction(): Promise<void>;
   }
 
   export interface Options {
-    session ?: iDatabase.iSession
+    session?: iDatabase.iSession;
   }
 }

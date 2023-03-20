@@ -3,7 +3,7 @@ import { iUsecase } from '../../contracts';
 export abstract class iCreateTokenForCompany implements iUsecase {
   abstract exec(
     input: iCreateTokenForCompany.input,
-    options ?: iUsecase.Options
+    options?: iUsecase.Options
   ): Promise<iCreateTokenForCompany.output>;
 }
 

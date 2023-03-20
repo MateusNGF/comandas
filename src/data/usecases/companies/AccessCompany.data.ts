@@ -10,14 +10,16 @@ export class AccessCompanyData implements iAccessCompany {
 
   async exec(
     input: iAccessCompany.input,
-    options : iUsecase.Options
+    options: iUsecase.Options
   ): Promise<iAccessCompany.output> {
-
-    const { token } = await this.hasAuthenticationRecordCompany.exec({
-      password: input.password,
-      cnpj: input?.cnpj,
-      email: input?.email,
-    }, options);
+    const { token } = await this.hasAuthenticationRecordCompany.exec(
+      {
+        password: input.password,
+        cnpj: input?.cnpj,
+        email: input?.email,
+      },
+      options
+    );
 
     return { token };
   }

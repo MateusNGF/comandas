@@ -22,7 +22,7 @@ class AppExpress {
     readdirSync(join(__dirname, '../routes'))
       .filter((file) => !file.endsWith('.map'))
       .map(async (file) => {
-        const router = Router()
+        const router = Router();
         const prefix_route = file.split('.')[0];
         (await import(`../routes/${file}`)).default(router);
         this.app.use(`/api/${prefix_route}`, router);

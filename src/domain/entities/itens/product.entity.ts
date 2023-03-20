@@ -7,9 +7,8 @@ export class Product extends ItemCompany {
   public readonly quantity?: number = 0;
 
   constructor(product: Product) {
-    product.type = 'product'
-    super(product)
+    product.type = 'product';
+    super(product);
     ObjectManager.assing(this, product);
   }
 }
-

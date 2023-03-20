@@ -12,9 +12,12 @@ export class CreateTokenForCompany implements iCreateTokenForCompany {
   ) {}
   async exec(
     input: iCreateTokenForCompany.input,
-    options : iUsecase.Options
+    options: iUsecase.Options
   ): Promise<iCreateTokenForCompany.output> {
-    const company = await this.companyRepository.findById(input.companyId, options);
+    const company = await this.companyRepository.findById(
+      input.companyId,
+      options
+    );
 
     if (company) {
       const token = await this.tokenAdapter.sing<PayloadToken>({
