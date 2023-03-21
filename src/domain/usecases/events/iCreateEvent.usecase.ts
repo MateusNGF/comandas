@@ -14,7 +14,7 @@ export namespace iCreateEvent {
     event: EventEntity;
   };
   export type output = {
-    _id: string;
+    id: string;
     created_at: Date;
   };
 }

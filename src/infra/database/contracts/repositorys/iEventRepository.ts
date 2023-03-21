@@ -6,7 +6,7 @@ export interface iEventRepository extends iBaseRepository<EventEntity> {
   register(
     event: EventEntity,
     options?: iBaseRepository.Options
-  ): Promise<{ _id: any }>;
+  ): Promise<{ id: any }>;
   list(
     companyId: string,
     filters?: iListEvents.Filters,

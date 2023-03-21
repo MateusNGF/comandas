@@ -1,3 +1,4 @@
+import { BadRequestError } from '../../../domain/errors';
 import { EventEntity } from '../../../../src/domain/entities';
 import { ObjectManager } from '../../../../src/domain/utils';
 import { iCreateEvent } from '../../../domain/usecases/events';
@@ -18,12 +19,14 @@ export class CreateEventController extends iController {
         event
       );
 
-      const { _id } = await this.createEventUsecase.exec({
+      const result = await this.createEventUsecase.exec({
         companyId: companyId,
         event: event,
       });
 
-      return this.sendSucess(200, { _id });
+      if (!result) throw new BadRequestError('The event could not be registered')
+
+      return this.sendSucess(200, result);
     } catch (e) {
       return this.sendError(e);
     }

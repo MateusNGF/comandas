@@ -20,7 +20,7 @@ export class EventsRepository implements iEventRepository {
   async register(
     event: EventEntity,
     options?: iBaseRepository.Options
-  ): Promise<{ _id: any }> {
+  ): Promise<{ id: any }> {
     const eventWithId = new EventEntity({
       ...event,
       id: new ObjectId().toHexString(),
@@ -29,8 +29,9 @@ export class EventsRepository implements iEventRepository {
     const response = await this.Colletion.insertOne(eventWithId, {
       session: options?.session?.get(),
     });
+
     if (response.insertedId) {
-      return { _id: response.insertedId };
+      return { id: eventWithId.id };
     }
   }
 

@@ -11,10 +11,15 @@ import {
 import {
   makeCompanyRepository,
   makeEventRepository,
+  makeSessionInMongo,
 } from '../../infra/database/mongo.factory';
 
 export const makeUsecaseCreateEvent = (): iCreateEvent => {
-  return new CreateEventData(makeCompanyRepository(), makeEventRepository());
+  return new CreateEventData(
+    makeSessionInMongo(),
+    makeCompanyRepository(), 
+    makeEventRepository()
+  );
 };
 
 export const makeUsecaseArchivateEvent = (): iArchivateEvent => {
