@@ -25,7 +25,7 @@ class AppExpress {
         const router = Router();
         const prefix_route = file.split('.')[0];
         (await import(`../routes/${file}`)).default(router);
-        this.app.use(`/api/${prefix_route}`, router);
+        this.app.use(`/${prefix_route}`, router);
       });
   }
 

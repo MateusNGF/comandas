@@ -32,7 +32,7 @@ export class RegisterCompanyData extends iRegisterCompany {
         id: this.companyRepository.generateId(),
       });
 
-      const requestResult = await Promise.all([
+      await Promise.all([
         this.createAuthenticationForCompany.exec(
           {
             associeteded_id: company.id,
@@ -51,18 +51,20 @@ export class RegisterCompanyData extends iRegisterCompany {
             timezone: company.timezone,
           },
           { session }
-        ),
-        this.createTokenForCompany.exec(
-          {
-            companyId: company.id,
-          },
-          { session }
-        ),
+        )
       ]);
+
+
+      const createToken = await this.createTokenForCompany.exec(
+        {
+          companyId: company.id,
+        },
+        { session }
+      )
 
       await session.commitTransaction();
       return {
-        token: requestResult[2].token,
+        token: createToken.token,
       };
     } catch (error) {
       await session.rollbackTransaction();
