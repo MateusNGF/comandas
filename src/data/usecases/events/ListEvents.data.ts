@@ -10,7 +10,6 @@ export class ListEvents implements iListEvents {
     options: iUsecase.Options
   ): Promise<iListEvents.Output> {
     const { companyId, filters } = input;
-    if (!companyId) throw new InternalError('CompanyId no sent.');
 
     const events = await this.eventRepository.list(companyId, filters, options);
 
