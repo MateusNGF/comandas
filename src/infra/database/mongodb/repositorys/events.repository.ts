@@ -36,12 +36,12 @@ export class EventsRepository implements iEventRepository {
   }
 
   async archive(
-    eventId: string,
+    event_id: string,
     company_id: string,
     options?: iBaseRepository.Options
   ): Promise<boolean> {
     const response = await this.Colletion.updateOne(
-      { id: new ObjectId(eventId), company_id },
+      { id: event_id, company_id },
       { $set: { archived_date: new Date() } },
       { session: options?.session?.get() }
     );
@@ -51,12 +51,12 @@ export class EventsRepository implements iEventRepository {
   }
 
   async unarchive(
-    eventId: string,
+    event_id: string,
     company_id: string,
     options?: iBaseRepository.Options
   ): Promise<boolean> {
     const response = await this.Colletion.updateOne(
-      { id: new ObjectId(eventId), company_id },
+      { id: event_id, company_id },
       { $set: { archived_date: null } },
       { session: options?.session?.get() }
     );
