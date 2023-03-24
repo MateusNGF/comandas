@@ -14,7 +14,12 @@ export class EventsRepository implements iEventRepository {
   ): Promise<EventEntity> {
     return this.Colletion.findOne(
       { id: _id },
-      { session: options?.session?.get() }
+      {
+        projection: {
+          _id: 0
+        },
+        session: options?.session?.get(),
+      }
     );
   }
 
@@ -41,7 +46,7 @@ export class EventsRepository implements iEventRepository {
   ): Promise<boolean> {
     const response = await this.Colletion.updateOne(
       { id: event_id, company_id },
-      { $set: { archived_date: new Date() } },
+      { $set: { archived_date: new Date(), updated_at : new Date() } },
       { session: options?.session?.get() }
     );
     if (response.matchedCount) {
@@ -56,7 +61,11 @@ export class EventsRepository implements iEventRepository {
   ): Promise<boolean> {
     const response = await this.Colletion.updateOne(
       { id: event_id, company_id },
-      { $set: { archived_date: null } },
+      { $set: { 
+        archived_date: null, 
+        updated_at : new Date()
+      } 
+    },
       { session: options?.session?.get() }
     );
     if (response.matchedCount) {
@@ -101,6 +110,9 @@ export class EventsRepository implements iEventRepository {
       }
     }
     return this.Colletion.find(where, {
+      projection : {
+        _id : 0
+      },
       session: options?.session?.get(),
     }).toArray();
   }
