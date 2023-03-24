@@ -2,17 +2,17 @@ import { iUsecase } from '../../contracts';
 import { EventEntity } from '../../entities';
 import { BaseFilterForListing } from '../../types';
 
-export abstract class iListEvents implements iUsecase {
+export abstract class iListEventsUsecase implements iUsecase {
   abstract exec(
-    input: iListEvents.Input,
+    input: iListEventsUsecase.Input,
     options?: iUsecase.Options
-  ): Promise<iListEvents.Output>;
+  ): Promise<iListEventsUsecase.Output>;
 }
 
-export namespace iListEvents {
+export namespace iListEventsUsecase {
   export type Input = {
     companyId: string;
-    filters?: iListEvents.Filters;
+    filters?: iListEventsUsecase.Filters;
   };
   export type Output = Array<EventEntity>;
 

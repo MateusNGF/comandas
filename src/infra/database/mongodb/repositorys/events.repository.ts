@@ -1,7 +1,7 @@
 import { EventEntity } from '../../../../../src/domain/entities';
 import { Collection, ObjectId, Filter } from 'mongodb';
 import { iEventRepository } from '../../contracts/repositorys/iEventRepository';
-import { iListEvents } from '../../../../../src/domain/usecases/events';
+import { iListEventsUsecase } from '../../../../../src/domain/usecases/events';
 import { DateProvider } from '../../../../../src/infra/date/DateProvider.date';
 import { iBaseRepository } from '../../contracts/repositorys';
 
@@ -79,7 +79,7 @@ export class EventsRepository implements iEventRepository {
 
   list(
     companyId: string,
-    filters?: iListEvents.Filters,
+    filters?: iListEventsUsecase.Filters,
     options?: iBaseRepository.Options
   ): Promise<EventEntity[]> {
     let where: Filter<EventEntity> = {

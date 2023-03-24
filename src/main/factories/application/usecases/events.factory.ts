@@ -1,12 +1,12 @@
 import {
   CreateEventData,
-  ListEvents,
+  ListEventsData,
 } from '../../../../../src/data/usecases/events';
 import { ArchivateEventData } from '../../../../data/usecases/events/ArchivateEvent.data';
 import {
   iArchivateEvent,
-  iCreateEvent,
-  iListEvents,
+  iCreateEventUsecase,
+  iListEventsUsecase,
 } from '../../../../../src/domain/usecases/events';
 import {
   makeCompanyRepository,
@@ -14,7 +14,7 @@ import {
   makeSessionInMongo,
 } from '../../infra/database/mongo.factory';
 
-export const makeUsecaseCreateEvent = (): iCreateEvent => {
+export const makeUsecaseCreateEvent = (): iCreateEventUsecase => {
   return new CreateEventData(
     makeSessionInMongo(),
     makeCompanyRepository(),
@@ -26,6 +26,6 @@ export const makeUsecaseArchivateEvent = (): iArchivateEvent => {
   return new ArchivateEventData(makeEventRepository());
 };
 
-export const makeUsecaseListEventsEvent = (): iListEvents => {
-  return new ListEvents(makeEventRepository());
+export const makeUsecaseListEventsEvent = (): iListEventsUsecase => {
+  return new ListEventsData(makeEventRepository());
 };

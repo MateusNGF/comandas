@@ -1,12 +1,12 @@
 import { BadRequestError } from '../../../domain/errors';
 import { EventEntity } from '../../../../src/domain/entities';
 import { ObjectManager } from '../../../../src/domain/utils';
-import { iCreateEvent } from '../../../domain/usecases/events';
+import { iCreateEventUsecase } from '../../../domain/usecases/events';
 import { iController } from '../../contracts';
 import { HttpRequest, HttpResponse } from '../../helpers/http';
 
 export class CreateEventController extends iController {
-  constructor(private readonly createEventUsecase: iCreateEvent) {
+  constructor(private readonly createEventUsecase: iCreateEventUsecase) {
     super();
   }
   async exec(request: HttpRequest): Promise<HttpResponse> {
@@ -19,10 +19,7 @@ export class CreateEventController extends iController {
         event
       );
 
-      const result = await this.createEventUsecase.exec({
-        companyId: companyId,
-        event: event,
-      });
+      const result = await this.createEventUsecase.exec(event);
 
       if (!result)
         throw new BadRequestError('The event could not be registered');

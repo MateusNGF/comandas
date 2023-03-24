@@ -1,5 +1,5 @@
 import { EventEntity } from '../../../../../src/domain/entities/event.entity';
-import { iListEvents } from '../../../../../src/domain/usecases/events';
+import { iListEventsUsecase } from '../../../../../src/domain/usecases/events';
 import { iBaseRepository } from './iBaseRepository';
 
 export interface iEventRepository extends iBaseRepository<EventEntity> {
