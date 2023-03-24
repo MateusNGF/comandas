@@ -9,4 +9,5 @@
     - [X] Adicionado função de geração de id na abstração iBaseRepository.
     - [X] Implementado sistema de scripts geradores de indexes para MongoDB.
     - [X] Implementar Criação de produto e serviços.
+    - [X] Ajustar testes de unidade.
     - [] Implementar listagem e atualização de produtos e serviços.

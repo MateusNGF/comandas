@@ -9,6 +9,6 @@ export abstract class iCreateEventUsecase implements iUsecase {
 }
 
 export namespace iCreateEventUsecase {
-  export type Input = EventEntity
-  export type Output = EventEntity
+  export type Input = EventEntity;
+  export type Output = EventEntity;
 }

@@ -11,8 +11,7 @@ export class ListEventsData implements iListEventsUsecase {
   ): Promise<iListEventsUsecase.Output> {
     const { companyId, filters } = input;
 
-    if (!companyId)
-      throw new BadRequestError('Missing company id')
+    if (!companyId) throw new BadRequestError('Missing company id');
 
     const events = await this.eventRepository.list(companyId, filters, options);
 

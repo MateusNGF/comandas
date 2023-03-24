@@ -15,7 +15,7 @@ describe('Registration Company', () => {
 
   let repositorySpy: MockProxy<iCompanyRepository>;
 
-  let sessionDatabase : MockProxy<iDatabase.iSession>;
+  let sessionDatabase: MockProxy<iDatabase.iSession>;
   let createTokenForCompany: MockProxy<iCreateTokenForCompany>;
   let createAuthenticationForCompany: MockProxy<iCreateAuthenticateForCompanyUsecase>;
 
@@ -36,8 +36,8 @@ describe('Registration Company', () => {
   });
 
   beforeEach(() => {
-    sessionDatabase.startSession.mockReturnValue(sessionDatabase)
-    
+    sessionDatabase.startSession.mockReturnValue(sessionDatabase);
+
     sut = new RegisterCompanyData(
       sessionDatabase,
       repositorySpy,

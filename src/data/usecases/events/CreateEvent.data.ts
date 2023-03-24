@@ -16,7 +16,9 @@ export class CreateEventData implements iCreateEventUsecase {
     private readonly companyRepository: iCompanyRepository,
     private readonly eventRepository: iEventRepository
   ) {}
-  async exec(input: iCreateEventUsecase.Input): Promise<iCreateEventUsecase.Output> {
+  async exec(
+    input: iCreateEventUsecase.Input
+  ): Promise<iCreateEventUsecase.Output> {
     const session = this.sessionDatabase.startSession();
 
     try {
@@ -30,7 +32,9 @@ export class CreateEventData implements iCreateEventUsecase {
         );
       }
 
-      const company = await this.companyRepository.findById(event.company_id, {session});
+      const company = await this.companyRepository.findById(event.company_id, {
+        session,
+      });
       if (!company) throw new BadRequestError('Company not found.');
 
       const newEvent = new EventEntity({
@@ -42,11 +46,14 @@ export class CreateEventData implements iCreateEventUsecase {
         description: event?.description,
       });
 
-      const creatededEvent = await this.eventRepository.register(newEvent, {session});
-      if (!creatededEvent?.id) throw new BadRequestError('Failed create event, try latey.')
+      const creatededEvent = await this.eventRepository.register(newEvent, {
+        session,
+      });
+      if (!creatededEvent?.id)
+        throw new BadRequestError('Failed create event, try latey.');
 
       await session.commitTransaction();
-      return newEvent
+      return newEvent;
     } catch (error) {
       await session.rollbackTransaction();
       throw error;
