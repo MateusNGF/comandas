@@ -22,7 +22,7 @@ export class EventsRepository implements iEventRepository {
     event: EventEntity,
     options?: iBaseRepository.Options
   ): Promise<{ id: any }> {
-    let id = event.id ? event.id : this.generateId();
+    const id = event.id ? event.id : this.generateId();
 
     const response = await this.Colletion.insertOne({
       ...event,
@@ -105,7 +105,7 @@ export class EventsRepository implements iEventRepository {
     }).toArray();
   }
 
-  generateId(...args: any[]): string {
+  generateId(): string {
     return new ObjectId().toHexString()
   }
 }
