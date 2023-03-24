@@ -31,6 +31,7 @@ export class CreateAuthenticateForCompanyData
       email: input?.email,
       cnpj: input?.cnpj,
       password: input.password,
+      id: this.authenticationRepository.generateId()
     });
 
     const authRecored = await this.authenticationRepository.create(

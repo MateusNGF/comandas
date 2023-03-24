@@ -2,17 +2,20 @@ import {
   iAuthenticationRepository,
   iCompanyRepository,
   iEventRepository,
+  iInventoryRepository,
 } from '../../../../../src/infra/database/contracts/repositorys';
 import {
   AuthenticateEntity,
   CompanyEntity,
   EventEntity,
+  ItemEntity,
 } from '../../../../../src/domain/entities';
 import { MongoDB } from '../../../../../src/infra/database/mongodb';
 import {
   AuthenticationsRepository,
   CompaniesRepository,
   EventsRepository,
+  InventoryRepository,
 } from '../../../../../src/infra/database/mongodb/repositorys';
 import { makeHashAdapter } from '../cryptography';
 
@@ -42,5 +45,14 @@ export function makeCompanyRepository(): iCompanyRepository {
     process.env.COLLECTIONS_NAMES_COMPANIES as string
   );
   const repository = new CompaniesRepository(collection);
+  return repository;
+}
+
+
+export function makeInventoryRepository() : iInventoryRepository {
+  const collection = MongoDB.colletion<ItemEntity>(
+    process.env.COLLECTIONS_NAMES_INVENTORY as string
+  );
+  const repository = new InventoryRepository(collection);
   return repository;
 }

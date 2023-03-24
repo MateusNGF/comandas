@@ -1,5 +1,5 @@
+import { iEntity } from '../contracts/iEntity';
 import { ObjectManager } from '../utils';
-import { iEntity } from './itens';
 
 export class AuthenticateEntity extends iEntity {
   public readonly email: string = null;

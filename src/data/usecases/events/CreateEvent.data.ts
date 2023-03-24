@@ -42,6 +42,7 @@ export class CreateEventData implements iCreateEvent {
       }
 
       const newEvent = new EventEntity({
+        id : this.eventRepository.generateId(),
         company_id: input.companyId,
         name: event.name,
         start_date: DateProvider(event.start_date).tz(company?.timezone),

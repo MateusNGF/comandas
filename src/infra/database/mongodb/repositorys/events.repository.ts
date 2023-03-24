@@ -7,6 +7,7 @@ import { iBaseRepository } from '../../contracts/repositorys';
 
 export class EventsRepository implements iEventRepository {
   constructor(private readonly Colletion: Collection<EventEntity>) {}
+  
   findById(
     _id: string,
     options?: iBaseRepository.Options
@@ -21,17 +22,15 @@ export class EventsRepository implements iEventRepository {
     event: EventEntity,
     options?: iBaseRepository.Options
   ): Promise<{ id: any }> {
-    const eventWithId = new EventEntity({
-      ...event,
-      id: new ObjectId().toHexString(),
-    });
+    let id = event.id ? event.id : this.generateId();
 
-    const response = await this.Colletion.insertOne(eventWithId, {
-      session: options?.session?.get(),
-    });
+    const response = await this.Colletion.insertOne({
+      ...event,
+      id
+    }, {session: options?.session?.get()});
 
     if (response.insertedId) {
-      return { id: eventWithId.id };
+      return { id };
     }
   }
 
@@ -104,5 +103,9 @@ export class EventsRepository implements iEventRepository {
     return this.Colletion.find(where, {
       session: options?.session?.get(),
     }).toArray();
+  }
+
+  generateId(...args: any[]): string {
+    return new ObjectId().toHexString()
   }
 }

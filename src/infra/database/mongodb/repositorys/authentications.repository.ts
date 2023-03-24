@@ -20,6 +20,10 @@ export class AuthenticationsRepository implements iAuthenticationRepository {
     return this.Colletion.findOne({ id }, { session: options?.session?.get() });
   }
 
+  generateId(...args: any[]): string {
+    return new ObjectId().toHexString()
+  }
+
   async getAuthByCredentials(
     credentials: iAuthenticationRepository.BasicCredentials,
     options?: iBaseRepository.Options
