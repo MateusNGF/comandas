@@ -7,7 +7,7 @@ import { iBaseRepository } from '../../contracts/repositorys';
 
 export class EventsRepository implements iEventRepository {
   constructor(private readonly Colletion: Collection<EventEntity>) {}
-  
+
   findById(
     _id: string,
     options?: iBaseRepository.Options
@@ -16,7 +16,7 @@ export class EventsRepository implements iEventRepository {
       { id: _id },
       {
         projection: {
-          _id: 0
+          _id: 0,
         },
         session: options?.session?.get(),
       }
@@ -29,10 +29,13 @@ export class EventsRepository implements iEventRepository {
   ): Promise<{ id: any }> {
     const id = event.id ? event.id : this.generateId();
 
-    const response = await this.Colletion.insertOne({
-      ...event,
-      id
-    }, {session: options?.session?.get()});
+    const response = await this.Colletion.insertOne(
+      {
+        ...event,
+        id,
+      },
+      { session: options?.session?.get() }
+    );
 
     if (response.insertedId) {
       return { id };
@@ -46,7 +49,7 @@ export class EventsRepository implements iEventRepository {
   ): Promise<boolean> {
     const response = await this.Colletion.updateOne(
       { id: event_id, company_id },
-      { $set: { archived_date: new Date(), updated_at : new Date() } },
+      { $set: { archived_date: new Date(), updated_at: new Date() } },
       { session: options?.session?.get() }
     );
     if (response.matchedCount) {
@@ -61,11 +64,12 @@ export class EventsRepository implements iEventRepository {
   ): Promise<boolean> {
     const response = await this.Colletion.updateOne(
       { id: event_id, company_id },
-      { $set: { 
-        archived_date: null, 
-        updated_at : new Date()
-      } 
-    },
+      {
+        $set: {
+          archived_date: null,
+          updated_at: new Date(),
+        },
+      },
       { session: options?.session?.get() }
     );
     if (response.matchedCount) {
@@ -110,14 +114,14 @@ export class EventsRepository implements iEventRepository {
       }
     }
     return this.Colletion.find(where, {
-      projection : {
-        _id : 0
+      projection: {
+        _id: 0,
       },
       session: options?.session?.get(),
     }).toArray();
   }
 
   generateId(): string {
-    return new ObjectId().toHexString()
+    return new ObjectId().toHexString();
   }
 }

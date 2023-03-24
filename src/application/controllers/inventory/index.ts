@@ -1,1 +1,1 @@
-export * from './RegisterItem.controller'
+export * from './RegisterItem.controller';

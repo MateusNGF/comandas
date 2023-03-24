@@ -1,7 +1,7 @@
 export abstract class iDatabase {
   abstract connect(): Promise<void>;
   abstract close(): Promise<void>;
-  abstract makeSession(): iDatabase.iSession
+  abstract makeSession(): iDatabase.iSession;
 }
 
 export namespace iDatabase {

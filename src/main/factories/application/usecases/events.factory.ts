@@ -17,7 +17,7 @@ import {
 export const makeUsecaseCreateEvent = (): iCreateEvent => {
   return new CreateEventData(
     makeSessionInMongo(),
-    makeCompanyRepository(), 
+    makeCompanyRepository(),
     makeEventRepository()
   );
 };

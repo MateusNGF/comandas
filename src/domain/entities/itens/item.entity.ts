@@ -21,8 +21,8 @@ export namespace ItemEntity {
   export const Settings = {
     maxNameLength: 30,
     minNameLength: 2,
-    minDescriptionLength:5,
-    maxDescriptionLength:100,
+    minDescriptionLength: 5,
+    maxDescriptionLength: 100,
     minPriceSale: 0,
-  }
+  };
 }

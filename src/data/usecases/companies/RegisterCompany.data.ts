@@ -17,9 +17,7 @@ export class RegisterCompanyData extends iRegisterCompany {
     super();
   }
 
-  async exec(
-    input: iRegisterCompany.input
-  ): Promise<iRegisterCompany.output> {
+  async exec(input: iRegisterCompany.input): Promise<iRegisterCompany.output> {
     const session = this.sessionDatabase;
 
     session.startSession();
@@ -51,16 +49,15 @@ export class RegisterCompanyData extends iRegisterCompany {
             timezone: company.timezone,
           },
           { session }
-        )
+        ),
       ]);
-
 
       const createToken = await this.createTokenForCompany.exec(
         {
           companyId: company.id,
         },
         { session }
-      )
+      );
 
       await session.commitTransaction();
       return {

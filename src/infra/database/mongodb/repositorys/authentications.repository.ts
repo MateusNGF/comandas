@@ -21,7 +21,7 @@ export class AuthenticationsRepository implements iAuthenticationRepository {
   }
 
   generateId(...args: any[]): string {
-    return new ObjectId().toHexString()
+    return new ObjectId().toHexString();
   }
 
   async getAuthByCredentials(

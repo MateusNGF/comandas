@@ -24,7 +24,8 @@ export class CreateEventController extends iController {
         event: event,
       });
 
-      if (!result) throw new BadRequestError('The event could not be registered')
+      if (!result)
+        throw new BadRequestError('The event could not be registered');
 
       return this.sendSucess(200, result);
     } catch (e) {

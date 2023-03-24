@@ -72,7 +72,6 @@ describe('Create Authentication for company', () => {
   });
 
   it('Should return auth_id when record sucess create auth.', async () => {
-
     hasAuthenticationRecordCompanyUsecaseMock.exec.mockResolvedValue(undefined);
 
     authenticationRepositoryMock.create.mockResolvedValue(fakeValidDataAuth);

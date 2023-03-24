@@ -1,6 +1,4 @@
-import {
-  BadRequestError,
-} from '../../../../src/domain/errors';
+import { BadRequestError } from '../../../../src/domain/errors';
 import { iCreateEvent } from '../../../../src/domain/usecases/events';
 
 import {
@@ -18,21 +16,17 @@ export class CreateEventData implements iCreateEvent {
     private readonly companyRepository: iCompanyRepository,
     private readonly eventRepository: iEventRepository
   ) {}
-  async exec(
-    input: iCreateEvent.input
-  ): Promise<iCreateEvent.output> {
-
-    const session = this.sessionDatabase.startSession()
+  async exec(input: iCreateEvent.input): Promise<iCreateEvent.output> {
+    const session = this.sessionDatabase.startSession();
 
     try {
       session.initTransaction();
 
       const event = input.event;
 
-      const company = await this.companyRepository.findById(
-        input.companyId,
-        { session }
-      );
+      const company = await this.companyRepository.findById(input.companyId, {
+        session,
+      });
       if (!company) throw new BadRequestError('Company not found.');
 
       if (DateProvider(event.start_date).isAfter(event.end_date)) {
@@ -42,7 +36,7 @@ export class CreateEventData implements iCreateEvent {
       }
 
       const newEvent = new EventEntity({
-        id : this.eventRepository.generateId(),
+        id: this.eventRepository.generateId(),
         company_id: input.companyId,
         name: event.name,
         start_date: DateProvider(event.start_date).tz(company?.timezone),
@@ -50,9 +44,11 @@ export class CreateEventData implements iCreateEvent {
         description: event?.description,
       });
 
-      const createdEvent = await this.eventRepository.register(newEvent, { session });
+      const createdEvent = await this.eventRepository.register(newEvent, {
+        session,
+      });
 
-      await session.commitTransaction()
+      await session.commitTransaction();
       if (createdEvent) {
         return {
           id: createdEvent.id,
@@ -61,9 +57,9 @@ export class CreateEventData implements iCreateEvent {
       }
     } catch (error) {
       await session.rollbackTransaction();
-      throw error
+      throw error;
     } finally {
-      await session.endSession()
+      await session.endSession();
     }
   }
 }

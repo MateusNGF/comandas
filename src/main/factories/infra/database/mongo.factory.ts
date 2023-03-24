@@ -48,8 +48,7 @@ export function makeCompanyRepository(): iCompanyRepository {
   return repository;
 }
 
-
-export function makeInventoryRepository() : iInventoryRepository {
+export function makeInventoryRepository(): iInventoryRepository {
   const collection = MongoDB.colletion<ItemEntity>(
     process.env.COLLECTIONS_NAMES_INVENTORY as string
   );

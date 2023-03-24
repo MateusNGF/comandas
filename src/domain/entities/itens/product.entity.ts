@@ -12,11 +12,9 @@ export class ProductEntity extends ItemEntity {
   }
 }
 
-
-
 export namespace ProductEntity {
   export const Settings = {
     ...ItemEntity.Settings,
-    minBuyPrice : 0
-  }
+    minBuyPrice: 0,
+  };
 }

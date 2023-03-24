@@ -1,1 +1,1 @@
-export * from './RegisterItem.data'
+export * from './RegisterItem.data';
