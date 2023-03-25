@@ -20,7 +20,7 @@ export class AuthenticationsRepository implements iAuthenticationRepository {
     return this.Colletion.findOne({ id }, { session: options?.session?.get() });
   }
 
-  generateId(...args: any[]): string {
+  generateId(): string {
     return new ObjectId().toHexString();
   }
 

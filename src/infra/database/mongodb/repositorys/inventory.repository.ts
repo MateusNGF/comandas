@@ -1,5 +1,7 @@
-import { Collection, ObjectId } from 'mongodb';
-import { ItemEntity } from 'src/domain/entities';
+import { Collection, Filter, ObjectId } from 'mongodb';
+import { ItemEntity } from '../../../../domain/entities';
+import { iListInventoryUsecase } from '../../../../domain/usecases/inventory/iListInventory.usecase';
+import { append } from '../../../../domain/utils';
 import {
   iBaseRepository,
   iInventoryRepository,
@@ -42,5 +44,40 @@ export class InventoryRepository implements iInventoryRepository {
       { id },
       { session: options?.session?.get() }
     );
+  }
+
+  list<Item extends ItemEntity = ItemEntity>(
+    companyId: string, 
+    filters?: iListInventoryUsecase.FiltersList, 
+    options?: iBaseRepository.Options
+  ): Promise<Array<Item>> {
+
+    type TypeFilter = Filter<ItemEntity>;
+    
+    let where: TypeFilter = {company_id: companyId};
+
+    const appendWrere = (cont:TypeFilter) => append(where, cont)
+
+    if (filters) {
+      if (filters.id) {
+        where = appendWrere({id: filters.id as any})
+      }
+
+      if(filters.type){
+        where = appendWrere({ type : filters.type })
+      }
+
+      if (filters.text) {
+        where = appendWrere({ $text : { $search : filters.text}})
+      }
+
+    }
+
+    return this.Colletion.find<Item>(where, {
+      projection: {
+        _id: 0,
+      },
+      session: options?.session?.get(),
+    }).skip(Number(filters.offset) ?? 0).limit(Number(filters.limit) ?? 20).toArray();
   }
 }

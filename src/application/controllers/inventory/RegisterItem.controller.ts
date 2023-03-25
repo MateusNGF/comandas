@@ -1,4 +1,3 @@
-import { time } from 'console';
 import { iController } from '../../../application/contracts';
 import { HttpRequest, HttpResponse } from '../../../application/helpers/http';
 import { ItemEntity, ProductEntity } from '../../../domain/entities';

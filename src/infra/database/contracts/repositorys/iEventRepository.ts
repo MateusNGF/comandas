@@ -9,7 +9,7 @@ export interface iEventRepository extends iBaseRepository<EventEntity> {
   ): Promise<{ id: any }>;
   list(
     companyId: string,
-    filters?: iListEvents.Filters,
+    filters?: iListEventsUsecase.Filters,
     options?: iBaseRepository.Options
   ): Promise<Array<EventEntity>>;
   archive(

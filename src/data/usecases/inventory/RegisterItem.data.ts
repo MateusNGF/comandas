@@ -20,8 +20,7 @@ export class RegisterItemData implements iRegisterItemUsecase {
   ) {}
 
   async exec<Item extends ItemEntity>(
-    input: iRegisterItemUsecase.Input<Item>,
-    options?: iUsecase.Options
+    input: iRegisterItemUsecase.Input<Item>
   ): Promise<iRegisterItemUsecase.Output<Item>> {
     const session = this.sessionDatabase.startSession();
 

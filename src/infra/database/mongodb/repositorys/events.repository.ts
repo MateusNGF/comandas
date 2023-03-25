@@ -87,21 +87,21 @@ export class EventsRepository implements iEventRepository {
     };
 
     if (filters) {
-      if (filters.eventId) {
+      if (filters.id) {
         where = {
-          id: filters.eventId as any,
+          id: filters.id as any,
           ...where,
         };
       }
 
-      if (filters.startDate && filters.endDate) {
+      if (filters.start_date && filters.end_date) {
         where = {
           ...where,
           start_date: {
-            $gte: DateProvider(filters.startDate).toPrimitive(),
+            $gte: DateProvider(filters.start_date).toPrimitive(),
           },
           end_date: {
-            $lte: DateProvider(filters.endDate).toPrimitive(),
+            $lte: DateProvider(filters.end_date).toPrimitive(),
           },
         };
       }
@@ -113,12 +113,12 @@ export class EventsRepository implements iEventRepository {
         };
       }
     }
-    return this.Colletion.find(where, {
+    return this.Colletion.find<EventEntity>(where, {
       projection: {
         _id: 0,
       },
       session: options?.session?.get(),
-    }).toArray();
+    }).skip(Number(filters.offset) ?? 0).limit(filters.limit ?? 20).toArray();
   }
 
   generateId(): string {

@@ -7,7 +7,6 @@ import {
 } from '../../../../src/infra/database/contracts/repositorys';
 import { EventEntity } from '../../../domain/entities';
 import { DateProvider } from '../../../../src/infra/date/DateProvider.date';
-import { iUsecase } from 'src/domain/contracts';
 import { iDatabase } from 'src/infra/database/contracts';
 
 export class CreateEventData implements iCreateEventUsecase {

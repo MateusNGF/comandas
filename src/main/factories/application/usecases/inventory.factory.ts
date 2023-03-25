@@ -1,5 +1,5 @@
-import { RegisterItemData } from '../../../../data/usecases/inventory';
-import { iRegisterItemUsecase } from '../../../../domain/usecases/inventory';
+import { ListInvetoryData, RegisterItemData } from '../../../../data/usecases/inventory';
+import { iListInventoryUsecase, iRegisterItemUsecase } from '../../../../domain/usecases/inventory';
 import {
   makeCompanyRepository,
   makeInventoryRepository,
@@ -15,5 +15,13 @@ export function makeRegisterItemUsecase(): iRegisterItemUsecase {
     sessionDatabase,
     inventoryRepository,
     companyRepository
+  );
+}
+
+export function makeListInventoryUsecase(): iListInventoryUsecase {
+  const inventoryRepository = makeInventoryRepository();
+
+  return new ListInvetoryData(
+    inventoryRepository
   );
 }

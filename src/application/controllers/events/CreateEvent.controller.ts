@@ -12,7 +12,11 @@ export class CreateEventController extends iController {
   async exec(request: HttpRequest): Promise<HttpResponse> {
     try {
       const { companyId } = request.headers.decodedTokenCompany;
-      const event = request.body;
+      
+      const event : EventEntity = {
+        ...request.body,
+        company_id : companyId
+      };
 
       ObjectManager.hasKeys<EventEntity>(
         ['name', 'description', 'start_date', 'end_date'],
