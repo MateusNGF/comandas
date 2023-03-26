@@ -1,5 +1,5 @@
 import { ForbiddenError } from "../../../domain/errors";
-import { PermitededItemInventoryList } from "../../../domain/utils";
+import { append, PermitededItemInventoryList } from "../../../domain/utils";
 import { iController } from "../../../application/contracts";
 import { HttpRequest, HttpResponse } from "../../../application/helpers/http";
 import { HTTP_STATUS } from "../../../domain/types/Http.status";
@@ -15,7 +15,12 @@ export class ListInventoryController extends iController {
     async exec(request: HttpRequest): Promise<HttpResponse> {
         try{
             const company_id = request.headers.decodedTokenCompany.companyId;
-            const filters : iListInventoryUsecase.FiltersList = request.body;
+            let filters : iListInventoryUsecase.FiltersList = request.body;
+            const item_id = request.params.item_id
+
+            if (item_id){
+                filters = append(filters, { id : item_id})
+            }
 
             const inventory = await this.listInvetoryUsecase.exec({company_id, filters})
 

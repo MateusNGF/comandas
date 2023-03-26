@@ -10,4 +10,5 @@
     - [X] Implementado sistema de scripts geradores de indexes para MongoDB.
     - [X] Implementar Criação de produto e serviços.
     - [X] Ajustar testes de unidade.
+    - [X] Implementar casos de usos para Ordens (Comandas)
     - [] Implementar listagem e atualização de produtos e serviços.
