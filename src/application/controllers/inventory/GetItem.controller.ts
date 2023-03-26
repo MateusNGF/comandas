@@ -18,7 +18,7 @@ export class GetItemController extends iController {
             let item: ItemEntity = null;
 
             if (item_id) {
-                let filters: iListInventoryUsecase.FiltersList = {
+                const filters: iListInventoryUsecase.FiltersList = {
                     id: item_id
                 }
 

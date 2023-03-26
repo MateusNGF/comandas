@@ -22,11 +22,23 @@ class AppExpress {
     readdirSync(join(__dirname, '../routes'))
       .filter((file) => !file.endsWith('.map'))
       .map(async (file) => {
-        const router = Router();
-        const prefix_route = file.split('.')[0];
-        (await import(`../routes/${file}`)).default(router);
-        this.app.use(`/${prefix_route}`, router);
-      });
+      const router = Router();
+      const prefix_route = file.split('.')[0];
+      (await import(`../routes/${file}`)).default(router);
+
+      router.stack.map((layer) => {
+        console.log( this.makePathOverview(layer, prefix_route));
+      })
+
+      this.app.use(`/${prefix_route}`, router);
+    });
+  }
+
+
+  private makePathOverview(layer: any, prefix: string) {
+    const method = (Object.keys(layer.route.methods))[0]
+    const path = layer.route.path
+    return `[${method.toUpperCase()}] http://localhost:${process.env.PORT}/${prefix}${path}`
   }
 
   private setupMiddlewares(): void {

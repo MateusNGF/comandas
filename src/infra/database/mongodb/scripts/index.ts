@@ -27,6 +27,7 @@ async function createIndexes(database: Db) {
     CreateIndexForAuthenticates(),
     CreateIndexForCompanies(),
     CreateIndexForEvents(),
+    CreateIndexForOrders(),
   ]);
 
   function CreateIndexForAuthenticates() {
@@ -96,6 +97,24 @@ async function createIndexes(database: Db) {
       {
         name: 'texts_idx',
         key: { name: 'text', description: 'text' },
+      },
+      {
+        name: 'company_id_idx',
+        key: { company_id: 1 },
+      },
+    ]);
+  }
+
+  function CreateIndexForOrders() {
+    return database.collection('orders').createIndexes([
+      {
+        name: 'id_idx',
+        key: { id: 1 },
+        unique: true,
+      },
+      {
+        name: 'texts_idx',
+        key: { 'itens.name': 'text' },
       },
       {
         name: 'company_id_idx',

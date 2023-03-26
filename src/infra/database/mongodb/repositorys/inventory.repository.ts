@@ -1,5 +1,5 @@
 import { Collection, Filter, ObjectId } from 'mongodb';
-import { ItemEntity } from '../../../../domain/entities';
+import { ItemEntity, ProductEntity } from '../../../../domain/entities';
 import { iListInventoryUsecase } from '../../../../domain/usecases/inventory/iListInventory.usecase';
 import { append } from '../../../../domain/utils';
 import {
@@ -15,7 +15,7 @@ export class InventoryRepository implements iInventoryRepository {
     options?: iBaseRepository.Options
   ): Promise<Item> {
     return this.Colletion.findOne<Item>(
-      { $text: { $search: name }, company_id },
+      { name , company_id},
       { session: options?.session?.get() }
     );
   }
@@ -70,7 +70,6 @@ export class InventoryRepository implements iInventoryRepository {
       if (filters.text) {
         where = appendWrere({ $text : { $search : filters.text}})
       }
-
     }
 
     return this.Colletion.find<Item>(where, {
@@ -79,5 +78,25 @@ export class InventoryRepository implements iInventoryRepository {
       },
       session: options?.session?.get(),
     }).skip(Number(filters.offset) ?? 0).limit(Number(filters.limit) ?? 20).toArray();
+  }
+
+  async update<Item extends ItemEntity = ItemEntity>(
+    company_id: string, 
+    item: Partial<Item>, 
+    options?: iBaseRepository.Options
+  ): Promise<boolean> {
+    console.log({company_id,
+      id : item.id, item})
+  const result = await this.Colletion.updateOne({
+      company_id,
+      id : item.id
+    }, {
+      $set : {
+        ...item
+      }
+    }, { session : options?.session?.get() })
+    
+    console.log(result)
+    return !!result.modifiedCount
   }
 }

@@ -29,7 +29,7 @@ export class RegisterItemController extends iController {
 
       if (!result)
         throw new BadRequestError('Register item failed, try again.');
-      return this.sendSucess(200, result);
+      return this.sendSucess(200, { item : result});
     } catch (e) {
       return this.sendError(e);
     }
