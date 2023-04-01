@@ -1,10 +1,10 @@
 import { iController } from '../../../../application/contracts';
 import { ListInventoryController, RegisterItemController } from '../../../../application/controllers';
-import { iListInventoryUsecase, iRegisterItemUsecase } from '../../../../domain/usecases/inventory';
-import { makeListInventoryUsecase, makeRegisterItemUsecase } from '../usecases/inventory.factory';
+import { iListInventoryUsecase, iInputItemUsecase } from '../../../../domain/usecases/inventory';
+import { makeListInventoryUsecase, makeInputItemUsecase } from '../usecases/inventory.factory';
 
-export const makeRegisterItemController = (): iController => {
-  const registerItemUsecase: iRegisterItemUsecase = makeRegisterItemUsecase();
+export const makeInputItemController = (): iController => {
+  const registerItemUsecase: iInputItemUsecase = makeInputItemUsecase();
 
   return new RegisterItemController(registerItemUsecase);
 };

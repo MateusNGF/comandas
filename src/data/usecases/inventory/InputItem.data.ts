@@ -1,18 +1,17 @@
-import { iUsecase } from '../../../domain/contracts';
 import {
   ItemEntity,
   ProductEntity,
   ServiceEntity,
 } from '../../../domain/entities';
 import { BadRequestError } from '../../../domain/errors';
-import { iRegisterItemUsecase } from '../../../domain/usecases/inventory';
+import { iInputItemUsecase } from '../../../domain/usecases/inventory';
 import { iDatabase } from '../../../infra/database/contracts';
 import {
   iCompanyRepository,
   iInventoryRepository,
 } from '../../../infra/database/contracts/repositorys';
 
-export class RegisterItemData implements iRegisterItemUsecase {
+export class InputItemData implements iInputItemUsecase {
   constructor(
     private readonly sessionDatabase: iDatabase.iSession,
     private readonly inventoryRepository: iInventoryRepository,
@@ -20,8 +19,8 @@ export class RegisterItemData implements iRegisterItemUsecase {
   ) {}
 
   async exec<Item extends ItemEntity>(
-    input: iRegisterItemUsecase.Input<Item>
-  ): Promise<iRegisterItemUsecase.Output<Item>> {
+    input: iInputItemUsecase.Input<Item>
+  ): Promise<iInputItemUsecase.Output<Item>> {
     const session = this.sessionDatabase.startSession();
 
     try {
@@ -105,7 +104,7 @@ export class RegisterItemData implements iRegisterItemUsecase {
     }
   }
 
-  makeItem(item: ItemEntity): ItemEntity {
+  private makeItem(item: ItemEntity): ItemEntity {
     if (item.type == 'product') {
       return new ProductEntity({
         ...item,

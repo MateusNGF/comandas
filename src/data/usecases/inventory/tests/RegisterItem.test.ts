@@ -1,6 +1,6 @@
 import { mock, MockProxy } from 'jest-mock-extended';
 import { BadRequestError } from '../../../../domain/errors';
-import { iRegisterItemUsecase } from 'src/domain/usecases/inventory';
+import { iInputItemUsecase } from 'src/domain/usecases/inventory';
 import { iDatabase } from 'src/infra/database/contracts';
 import {
   iCompanyRepository,
@@ -11,10 +11,10 @@ import {
   ItemEntity,
   ServiceEntity,
 } from '../../../../domain/entities';
-import { RegisterItemData } from '../RegisterItem.data';
+import { InputItemData } from '../InputItem.data';
 
 describe('RegisterItem test', () => {
-  let sut: iRegisterItemUsecase;
+  let sut: iInputItemUsecase;
 
   let sessionDatabase: MockProxy<iDatabase.iSession>;
   let inventoryRepository: MockProxy<iInventoryRepository>;
@@ -36,7 +36,7 @@ describe('RegisterItem test', () => {
   beforeEach(() => {
     sessionDatabase.startSession.mockImplementation(() => sessionDatabase);
 
-    sut = new RegisterItemData(
+    sut = new InputItemData(
       sessionDatabase,
       inventoryRepository,
       companyRepository

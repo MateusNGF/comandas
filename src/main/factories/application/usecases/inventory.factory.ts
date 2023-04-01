@@ -1,17 +1,17 @@
-import { ListInvetoryData, RegisterItemData } from '../../../../data/usecases/inventory';
-import { iListInventoryUsecase, iRegisterItemUsecase } from '../../../../domain/usecases/inventory';
+import { ListInvetoryData, InputItemData } from '../../../../data/usecases/inventory';
+import { iListInventoryUsecase, iInputItemUsecase } from '../../../../domain/usecases/inventory';
 import {
   makeCompanyRepository,
   makeInventoryRepository,
   makeSessionInMongo,
 } from '../../infra/database/mongo.factory';
 
-export function makeRegisterItemUsecase(): iRegisterItemUsecase {
+export function makeInputItemUsecase(): iInputItemUsecase {
   const inventoryRepository = makeInventoryRepository();
   const companyRepository = makeCompanyRepository();
   const sessionDatabase = makeSessionInMongo();
 
-  return new RegisterItemData(
+  return new InputItemData(
     sessionDatabase,
     inventoryRepository,
     companyRepository

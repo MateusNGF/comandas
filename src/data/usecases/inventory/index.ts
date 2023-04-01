@@ -1,2 +1,2 @@
-export * from './RegisterItem.data';
+export * from './InputItem.data';
 export * from './ListInventory.data'

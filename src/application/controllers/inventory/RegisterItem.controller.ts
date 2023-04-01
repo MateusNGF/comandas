@@ -2,11 +2,11 @@ import { iController } from '../../../application/contracts';
 import { HttpRequest, HttpResponse } from '../../../application/helpers/http';
 import { ItemEntity, ProductEntity } from '../../../domain/entities';
 import { BadRequestError } from '../../../domain/errors';
-import { iRegisterItemUsecase } from '../../../domain/usecases/inventory';
+import { iInputItemUsecase } from '../../../domain/usecases/inventory';
 import { ObjectManager } from '../../../domain/utils';
 
 export class RegisterItemController extends iController {
-  constructor(private readonly usecase: iRegisterItemUsecase) {
+  constructor(private readonly usecase: iInputItemUsecase) {
     super();
   }
 
