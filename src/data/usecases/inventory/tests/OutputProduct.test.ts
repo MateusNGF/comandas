@@ -3,12 +3,12 @@ import { ProductEntity } from "../../../../domain/entities";
 import { iOutputProductUsecase } from "../../../../domain/usecases/inventory";
 import { iDatabase } from "../../../../infra/database/contracts";
 import { iInventoryRepository } from "../../../../infra/database/contracts/repositorys";
-import { OutputProductUsecase } from "../OutputProduct.data";
+import { OutputProductData } from "../OutputProduct.data";
 import { BadRequestError } from "../../../../domain/errors";
 
 
 
-describe("iOutputProductUsecase", () => {
+describe("OutputProductUsecase", () => {
     let sut : iOutputProductUsecase;
 
     let sessionDatabase : MockProxy<iDatabase.iSession>
@@ -25,7 +25,7 @@ describe("iOutputProductUsecase", () => {
     beforeEach(() => {
         const company_id = "1";
 
-        sut = new OutputProductUsecase(sessionDatabase, inventoryRepository);
+        sut = new OutputProductData(sessionDatabase, inventoryRepository);
 
         productInventory = {
             id: "1",

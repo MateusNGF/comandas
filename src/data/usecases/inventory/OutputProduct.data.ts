@@ -5,7 +5,7 @@ import { iOutputProductUsecase } from "../../../domain/usecases/inventory";
 import { iDatabase } from "../../../infra/database/contracts";
 import { iInventoryRepository } from "../../../infra/database/contracts/repositorys";
 
-export class OutputProductUsecase implements iOutputProductUsecase {
+export class OutputProductData implements iOutputProductUsecase {
     constructor(
         private readonly sessionDatabase : iDatabase.iSession,
         private readonly inventoryRepository: iInventoryRepository
