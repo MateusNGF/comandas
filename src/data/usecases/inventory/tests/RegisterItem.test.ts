@@ -20,7 +20,7 @@ describe('RegisterItem test', () => {
   let inventoryRepository: MockProxy<iInventoryRepository>;
   let companyRepository: MockProxy<iCompanyRepository>;
 
-  let fakeInput: iRegisterItemUsecase.Input;
+  let fakeInput: iInputItemUsecase.Input;
   let fakeCompany: CompanyEntity;
 
   function MakeText(lenth: number) {
