@@ -12,6 +12,12 @@ export default (router: Router) => {
         adaptExpressRoute(makeCreateOrderController())
     );
 
+    router.post(
+        '/in/:event_id',
+        adaptExpressMiddleware(makeMiddlewareAuthentication()),
+        adaptExpressRoute(makeCreateOrderController())
+    );
+
     router.get(
         '/',
         adaptExpressMiddleware(makeMiddlewareAuthentication()),

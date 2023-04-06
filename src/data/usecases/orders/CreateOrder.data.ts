@@ -4,7 +4,7 @@ import { OrderEntity, ProductOutputRecord } from "../../../domain/entities";
 import { BadRequestError} from "../../../domain/errors";
 import { iCreateOrderUsecase } from "../../../domain/usecases/orders";
 import { iDatabase } from "../../../infra/database/contracts";
-import { iCompanyRepository, iOrderRepository } from "../../../infra/database/contracts/repositorys";
+import { iCompanyRepository, iEventRepository, iOrderRepository } from "../../../infra/database/contracts/repositorys";
 
 export class CreateOrderData implements iCreateOrderUsecase {
 
@@ -12,6 +12,7 @@ export class CreateOrderData implements iCreateOrderUsecase {
         private readonly sessionDataabse: iDatabase.iSession,
         private readonly orderRepository: iOrderRepository,
         private readonly companyRepository: iCompanyRepository,
+        private readonly eventRepository: iEventRepository,
         private readonly outputProductUsecase: iOutputProductUsecase
     ) { }
 
@@ -23,14 +24,19 @@ export class CreateOrderData implements iCreateOrderUsecase {
             session.initTransaction();
 
             const company_id = input.company_id;
+            const event_id = input.event_id
             const itens_orders: Array<ProductOutputRecord> = input.products
 
 
+            if (!itens_orders?.length) throw new BadRequestError(`Need one item for create Order.`)
+            
             const company = await this.companyRepository.findById(company_id)
-
             if (!company) throw new BadRequestError(`Company not found with ${company_id}.`)
 
-            if (!itens_orders?.length) throw new BadRequestError(`Need one item for create Order.`)
+            if (event_id){
+                const event = await this.eventRepository.findById(event_id)
+                if (!event) throw new BadRequestError(`Event not found with ${event_id}.`)
+            }
 
             const recordOutputProducts = await this.outputProductUsecase.exec({
                 company_id,
@@ -40,6 +46,7 @@ export class CreateOrderData implements iCreateOrderUsecase {
             const new_order: OrderEntity = {
                 id: this.orderRepository.generateId(),
                 company_id: company.id,
+                event_id: event_id,
                 itens: recordOutputProducts
             }
 
@@ -49,7 +56,7 @@ export class CreateOrderData implements iCreateOrderUsecase {
 
             await session.commitTransaction();
             return {
-                id: new_order.id
+                id: resultCreateOrder.id
             }
         } catch (error) {
             await session.rollbackTransaction();

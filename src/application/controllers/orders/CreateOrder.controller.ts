@@ -17,8 +17,11 @@ export class CreateOrderController extends iController {
         try{
 
             const company_id = request.headers.decodedTokenCompany.companyId
+            const event_id = request.params.event_id
+
             const request_order : iCreateOrderUsecase.Input = {
                 company_id : company_id,
+                event_id : event_id,
                 products : request.body
             }
 

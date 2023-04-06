@@ -1,6 +1,6 @@
 import { CreateOrderData, ListOrderData } from "../../../../data/usecases/orders";
 import { iCreateOrderUsecase, iListOrderUsecase } from "../../../../domain/usecases/orders";
-import { makeCompanyRepository, makeOrderRepository, makeSessionInMongo } from "../../infra/database/mongo.factory";
+import { makeCompanyRepository, makeEventRepository, makeOrderRepository, makeSessionInMongo } from "../../infra/database/mongo.factory";
 import { makeOutputProductUsecase } from "./inventory.factory";
 
 
@@ -10,6 +10,7 @@ export function makeCreateOrderUsecase(): iCreateOrderUsecase {
         makeSessionInMongo(),
         makeOrderRepository(),
         makeCompanyRepository(),
+        makeEventRepository(),
         makeOutputProductUsecase()
     )
 }
