@@ -81,22 +81,20 @@ export class InventoryRepository implements iInventoryRepository {
   }
 
   async update<Item extends ItemEntity = ItemEntity>(
-    company_id: string, 
-    item: Partial<Item>, 
+    company_id: string,
+    item: Partial<Item>,
     options?: iBaseRepository.Options
   ): Promise<boolean> {
-    console.log({company_id,
-      id : item.id, item})
-  const result = await this.Colletion.updateOne({
+    const result = await this.Colletion.updateOne({
       company_id,
-      id : item.id
+      id: item.id
     }, {
-      $set : {
-        ...item
+      $set: {
+        ...item,
+        updated_at: new Date()
       }
-    }, { session : options?.session?.get() })
-    
-    console.log(result)
+    }, { session: options?.session?.get() })
+
     return !!result.modifiedCount
   }
 }

@@ -1,7 +1,7 @@
 import { BadRequestError } from "../../../domain/errors";
 import { iController } from "../../../application/contracts";
 import { HttpRequest, HttpResponse } from "../../../application/helpers/http";
-import { OrderEntity } from "../../../domain/entities";
+import { ProductOutputReference } from "../../../domain/entities";
 import { HTTP_STATUS } from "../../../domain/types/Http.status";
 import { iCreateOrderUsecase } from "../../../domain/usecases/orders";
 import { ObjectManager } from "../../../domain/utils";
@@ -19,18 +19,18 @@ export class CreateOrderController extends iController {
             const company_id = request.headers.decodedTokenCompany.companyId
             const request_order : iCreateOrderUsecase.Input = {
                 company_id : company_id,
-                itens : request.body
+                products : request.body
             }
 
-            if (!Array.isArray(request_order.itens)){
+            if (!Array.isArray(request_order.products)){
                 throw new BadRequestError(`body need be array.`)
             }
 
-            if (!request_order.itens.length) {
+            if (!request_order.products.length) {
                 throw new BadRequestError(`Need one item in list.`)
             }
-            for (let i = 0; i < request_order.itens.length; i++) {
-               ObjectManager.hasKeys<OrderEntity.ItemOrder>(['id', 'quantity'], request_order.itens[i]) 
+            for (let i = 0; i < request_order.products.length; i++) {
+               ObjectManager.hasKeys<ProductOutputReference>(['id', 'quantity'], request_order.products[i]) 
             }
 
             const order_created = await this.createOrderUsecase.exec(request_order)

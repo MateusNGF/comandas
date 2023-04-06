@@ -18,3 +18,18 @@ export namespace ProductEntity {
     minBuyPrice: 0,
   };
 }
+
+
+export abstract class ProductOutputReference implements Partial<ProductEntity> {
+  public id: any;
+  public quantity: number;
+}
+
+
+export abstract class ProductOutputRecord implements Partial<ProductEntity> {
+  public id: any;
+  public readonly type?: ItemEntity.TypeItens = 'product';
+  public quantity: number;
+  public name?: string;
+  public sale_price?: number;
+}

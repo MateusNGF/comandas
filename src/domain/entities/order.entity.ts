@@ -17,6 +17,7 @@ export class OrderEntity extends iEntity {
 export namespace OrderEntity {
     export abstract class ItemOrder implements Partial<ItemEntity>{
         public id: any;
+        public type?: ItemEntity.TypeItens 
         public quantity: number;
         public name?: string;
         public sale_price?: number;

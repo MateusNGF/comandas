@@ -1,5 +1,5 @@
 import { iUsecase } from "src/domain/contracts";
-import { ProductEntity } from "src/domain/entities";
+import { ProductOutputRecord, ProductOutputReference } from "src/domain/entities";
 
 
 export abstract class iOutputProductUsecase implements iUsecase {
@@ -13,12 +13,8 @@ export abstract class iOutputProductUsecase implements iUsecase {
 export namespace iOutputProductUsecase {
     export abstract class Input {
         company_id: string;
-        items: Array<ProductReference>;
+        items: Array<ProductOutputReference>;
     }
-
-    export abstract class ProductReference implements Partial<ProductEntity> {
-        public id: any;
-        public quantity: number;
-    }
-    export type Output = Boolean;
+    
+    export type Output = Array<ProductOutputRecord>;
 }

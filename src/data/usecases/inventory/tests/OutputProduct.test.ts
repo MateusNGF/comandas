@@ -30,6 +30,7 @@ describe("OutputProductUsecase", () => {
         productInventory = {
             id: "1",
             company_id: "1",
+            type: "product",
             sale_price: 12, 
             name: "Sabão",
             quantity: 10
@@ -51,13 +52,23 @@ describe("OutputProductUsecase", () => {
     it("should return false when input itens is empty", async () => {
         incomingData.items = []
         const output = await sut.exec(incomingData);
-        expect(output).toEqual(false);
+        expect(output).toEqual([]);
     })
 
     it('Should return BadRequestError when product not found.', async ()=> {
         inventoryRepository.findById.mockResolvedValue(null)
         const output = sut.exec(incomingData);
-        await expect(output).rejects.toThrowError(BadRequestError);
+        await expect(output).rejects.toThrow(`Product 0º not found.`);
+    })
+
+    it('Should return BadRequestError when id of item is service.', async ()=> {
+        const mockResultValue = {
+            type : 'service',
+            name : "Abacate"
+        }
+        inventoryRepository.findById.mockResolvedValue(mockResultValue as any)
+        const output = sut.exec(incomingData);
+        await expect(output).rejects.toThrow(new BadRequestError(`The item 0º-${mockResultValue.name} is not a product.`));
     })
 
     it(`Should BadRequestError when quantity out is less of in inventory`, async () => {
@@ -75,6 +86,12 @@ describe("OutputProductUsecase", () => {
 
     it(`Should return true when all product out with sucess.`, async () => {
         const output = await sut.exec(incomingData);
-        expect(output).toEqual(true)
+        expect(output[0]).toEqual(expect.objectContaining({
+            id: incomingData.items[0].id,
+            name: productInventory.name,
+            type: 'product',
+            sale_price: productInventory.sale_price,
+            quantity: incomingData.items[0].quantity
+        }));
     })
 })

@@ -9,7 +9,7 @@ export abstract class iCreateOrderUsecase implements iUsecase {
 export namespace iCreateOrderUsecase {
     export abstract class Input implements Partial<OrderEntity> {
         public company_id: string;
-        public itens?: Array<OrderEntity.ItemOrder>;
+        public products?: Array<OrderEntity.ItemOrder>;
     }
 
     export type Output = {

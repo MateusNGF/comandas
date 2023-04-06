@@ -44,34 +44,39 @@ export class OutputProductData implements iOutputProductUsecase {
     ): Promise<iOutputProductUsecase.Output> {
 
         const {company_id, items} = input
-        const output : Array<{id : string, name: string}> = []
+        const output : iOutputProductUsecase.Output = []
         const promises = []
 
-        if (!items.length) return false
+        if (!items.length) return []
 
         for (let i = 0; i < items.length; i++) {
             const productOut = items[i]
             const productDB = await this.inventoryRepository.findById(productOut.id, options) as ProductEntity
 
-            if (!productDB) throw new BadRequestError(`Product ${productOut.id} not found.`)
+            if (!productDB) throw new BadRequestError(`Product ${i}º not found.`)
+            if (productDB.type !== 'product') throw new BadRequestError(`The item ${i}º-${productDB.name} is not a product.`)
             
             const quantityUpdated = productDB.quantity - productOut.quantity
 
-            if (quantityUpdated < 0) throw new BadRequestError(`Has only ${productDB.quantity} - ${productDB.name.toLocaleLowerCase()} in inventory.`)
+            if (quantityUpdated < 0) throw new BadRequestError(`Has only ${productDB.quantity} unit of ${productDB.name.toLocaleLowerCase()} in inventory.`)
 
-            const query = await this.inventoryRepository.update<ProductEntity>( company_id, { quantity: quantityUpdated}, options)
+            const query = await this.inventoryRepository.update<ProductEntity>( company_id, { id: productDB.id, quantity: quantityUpdated}, options)
             output.push({
                 id: productDB.id,
-                name: productDB.name
+                name: productDB.name,
+                type: 'product',
+                sale_price: productDB.sale_price,
+                quantity: productOut.quantity
             })
             promises.push(query)
         }
 
         const result : Array<boolean> = await Promise.all(promises)
+        console.log(result)
         result.forEach((updatedProduct, index) => {
             if (!updatedProduct) throw new BadRequestError(`Product ${output[index].name} not updated.`)
         })
 
-        return true
+        return output
     }
 }
