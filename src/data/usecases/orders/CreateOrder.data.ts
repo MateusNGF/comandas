@@ -25,7 +25,7 @@ export class CreateOrderData implements iCreateOrderUsecase {
 
             const company_id = input.company_id;
             const event_id = input.event_id
-            const itens_orders: Array<ProductOutputRecord> = input.products
+            const itens_orders: Array<ProductOutputRecord> = input.itens
 
 
             if (!itens_orders?.length) throw new BadRequestError(`Need one item for create Order.`)
