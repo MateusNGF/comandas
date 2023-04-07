@@ -1,5 +1,4 @@
 import { iOutputProductUsecase } from "src/domain/usecases/inventory";
-import { iUsecase } from "../../../domain/contracts";
 import { OrderEntity, ProductOutputRecord } from "../../../domain/entities";
 import { BadRequestError} from "../../../domain/errors";
 import { iCreateOrderUsecase } from "../../../domain/usecases/orders";
@@ -16,7 +15,7 @@ export class CreateOrderData implements iCreateOrderUsecase {
         private readonly outputProductUsecase: iOutputProductUsecase
     ) { }
 
-    async exec(input: iCreateOrderUsecase.Input, options?: iUsecase.Options): Promise<any> {
+    async exec(input: iCreateOrderUsecase.Input): Promise<any> {
 
         const session = this.sessionDataabse.startSession();
 

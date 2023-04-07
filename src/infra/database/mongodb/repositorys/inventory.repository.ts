@@ -1,5 +1,5 @@
 import { Collection, Filter, ObjectId } from 'mongodb';
-import { ItemEntity, ProductEntity } from '../../../../domain/entities';
+import { ItemEntity } from '../../../../domain/entities';
 import { iListInventoryUsecase } from '../../../../domain/usecases/inventory/iListInventory.usecase';
 import { append } from '../../../../domain/utils';
 import {

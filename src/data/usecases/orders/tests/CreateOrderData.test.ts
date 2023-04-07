@@ -1,10 +1,9 @@
 import { mock, MockProxy } from "jest-mock-extended";
-import { CompanyEntity, ItemEntity, ProductEntity } from "../../../../domain/entities";
-import { BadRequestError, ForbiddenError } from "../../../../domain/errors";
+import { CompanyEntity } from "../../../../domain/entities";
+import { BadRequestError} from "../../../../domain/errors";
 import { iCreateOrderUsecase } from "../../../../domain/usecases/orders";
 import { iDatabase } from "../../../../infra/database/contracts";
 import { iCompanyRepository, iEventRepository, iOrderRepository } from "../../../../infra/database/contracts/repositorys";
-import { append } from "../../../../domain/utils";
 import { CreateOrderData } from "../CreateOrder.data";
 import { iOutputProductUsecase } from "src/domain/usecases/inventory";
 
@@ -18,13 +17,9 @@ describe('CreateOrderData testings', () => {
     let outputProductUsecase: MockProxy<iOutputProductUsecase>;
 
     let fakeOrderRequest: iCreateOrderUsecase.Input;
-    let fakeInventory: Array<ProductEntity>;
     let fakeCompany: CompanyEntity;
     let generatedOrderId : string;
 
-    function MakeText(lenth: number) {
-        return Array(lenth).fill('A').join('');
-    }
 
     beforeAll(() => {
         sessionDatabase = mock();
@@ -66,17 +61,6 @@ describe('CreateOrderData testings', () => {
             name_fantasy: "teste 123",
             timezone: null
         }
-
-        fakeInventory = [
-            {
-                id: "123",
-                name: "123P",
-                type: 'product',
-                sale_price: 12,
-                quantity: 5,
-                company_id: fakeCompany.id
-            }
-        ]
 
         generatedOrderId = "123123";
 

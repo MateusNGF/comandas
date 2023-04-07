@@ -16,7 +16,6 @@ describe('SendEmailWithTokenAuthenticate', () => {
 
   let fakeAuth: AuthenticateEntity;
   let fakeInput: iSendEmailWithTokenAuthenticate.input;
-  let fakeOutput: iSendEmailWithTokenAuthenticate.output;
 
   beforeAll(() => {
     tokenAdapterMock = mock();
@@ -34,8 +33,6 @@ describe('SendEmailWithTokenAuthenticate', () => {
     fakeInput = {
       email: 'email_test',
     };
-
-    fakeOutput = true;
 
     fakeAuth = {
       id: '01',

@@ -1,6 +1,5 @@
-import { ItemEntity, OrderEntity } from 'src/domain/entities';
+import { ItemEntity } from 'src/domain/entities';
 import { iListInventoryUsecase } from 'src/domain/usecases/inventory/iListInventory.usecase';
-import { iCreateOrderUsecase } from 'src/domain/usecases/orders';
 import { iBaseRepository } from './iBaseRepository';
 
 export abstract class iInventoryRepository extends iBaseRepository<ItemEntity> {

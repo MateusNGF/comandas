@@ -1,7 +1,7 @@
 import { CompanyEntity, EventEntity } from '../../../../../src/domain/entities';
 import { BadRequestError } from '../../../../domain/errors';
 import { CreateEventData } from '../CreateEvent.data';
-import { mock, MockProxy, objectContainsKey } from 'jest-mock-extended';
+import { mock, MockProxy } from 'jest-mock-extended';
 import {
   iCompanyRepository,
   iEventRepository,

@@ -2,7 +2,6 @@ import { iInputProductUsecase } from '../../../domain/usecases/inventory';
 import {
   ProductEntity,
 } from '../../../domain/entities';
-import { BadRequestError } from '../../../domain/errors';
 import { iDatabase } from '../../../infra/database/contracts';
 import {
   iInventoryRepository,
