@@ -15,7 +15,7 @@ export class InventoryRepository implements iInventoryRepository {
     options?: iBaseRepository.Options
   ): Promise<Item> {
     return this.Colletion.findOne<Item>(
-      { name , company_id},
+      { name, company_id },
       { session: options?.session?.get() }
     );
   }
@@ -47,28 +47,27 @@ export class InventoryRepository implements iInventoryRepository {
   }
 
   list<Item extends ItemEntity = ItemEntity>(
-    companyId: string, 
-    filters?: iListInventoryUsecase.FiltersList, 
+    companyId: string,
+    filters?: iListInventoryUsecase.FiltersList,
     options?: iBaseRepository.Options
   ): Promise<Array<Item>> {
-
     type TypeFilter = Filter<ItemEntity>;
-    
-    let where: TypeFilter = {company_id: companyId};
 
-    const appendWrere = (cont:TypeFilter) => append(where, cont)
+    let where: TypeFilter = { company_id: companyId };
+
+    const appendWrere = (cont: TypeFilter) => append(where, cont);
 
     if (filters) {
       if (filters.id) {
-        where = appendWrere({id: filters.id as any})
+        where = appendWrere({ id: filters.id as any });
       }
 
-      if(filters.type){
-        where = appendWrere({ type : filters.type })
+      if (filters.type) {
+        where = appendWrere({ type: filters.type });
       }
 
       if (filters.text) {
-        where = appendWrere({ $text : { $search : filters.text}})
+        where = appendWrere({ $text: { $search: filters.text } });
       }
     }
 
@@ -77,7 +76,10 @@ export class InventoryRepository implements iInventoryRepository {
         _id: 0,
       },
       session: options?.session?.get(),
-    }).skip(Number(filters.offset) ?? 0).limit(Number(filters.limit) ?? 20).toArray();
+    })
+      .skip(Number(filters.offset) ?? 0)
+      .limit(Number(filters.limit) ?? 20)
+      .toArray();
   }
 
   async update<Item extends ItemEntity = ItemEntity>(
@@ -85,16 +87,20 @@ export class InventoryRepository implements iInventoryRepository {
     item: Partial<Item>,
     options?: iBaseRepository.Options
   ): Promise<boolean> {
-    const result = await this.Colletion.updateOne({
-      company_id,
-      id: item.id
-    }, {
-      $set: {
-        ...item,
-        updated_at: new Date()
-      }
-    }, { session: options?.session?.get() })
+    const result = await this.Colletion.updateOne(
+      {
+        company_id,
+        id: item.id,
+      },
+      {
+        $set: {
+          ...item,
+          updated_at: new Date(),
+        },
+      },
+      { session: options?.session?.get() }
+    );
 
-    return !!result.modifiedCount
+    return !!result.modifiedCount;
   }
 }

@@ -12,19 +12,19 @@ export namespace iInputProductUsecase {
   export type Input = {
     company_id: string;
     items: Array<ProductIncomig>;
-  }
+  };
 
   export abstract class ProductIncomig implements Partial<ProductEntity> {
-      public name: string;
-      public description?: string;
-      public sale_price: number;
-      public buy_price?: number;
-      public quantity: number;
+    public name: string;
+    public description?: string;
+    public sale_price: number;
+    public buy_price?: number;
+    public quantity: number;
   }
 
   export type ResultOperation = {
-    isError : boolean;
+    isError: boolean;
     message: string;
-  }
+  };
   export type Output = Array<ResultOperation>;
 }

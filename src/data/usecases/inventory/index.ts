@@ -1,3 +1,3 @@
 export * from './InputProduct.data';
 export * from './OutputProduct.data';
-export * from './ListInventory.data'
+export * from './ListInventory.data';

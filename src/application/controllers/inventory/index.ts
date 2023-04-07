@@ -1,2 +1,2 @@
 export * from './RegisterItem.controller';
-export * from './ListInventory.controller'
+export * from './ListInventory.controller';

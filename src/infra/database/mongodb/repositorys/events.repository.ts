@@ -118,7 +118,10 @@ export class EventsRepository implements iEventRepository {
         _id: 0,
       },
       session: options?.session?.get(),
-    }).skip(Number(filters.offset) ?? 0).limit(filters.limit ?? 20).toArray();
+    })
+      .skip(Number(filters.offset) ?? 0)
+      .limit(filters.limit ?? 20)
+      .toArray();
   }
 
   generateId(): string {

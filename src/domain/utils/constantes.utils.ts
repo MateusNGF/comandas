@@ -1,3 +1,5 @@
-import { ItemEntity } from "../entities";
+import { ItemEntity } from '../entities';
 
-export const PermitededItemInventoryList : Array<ItemEntity.TypeItens> = ['product']
+export const PermitededItemInventoryList: Array<ItemEntity.TypeItens> = [
+  'product',
+];

@@ -16,11 +16,11 @@ export abstract class iInventoryRepository extends iBaseRepository<ItemEntity> {
     companyId: string,
     filters?: iListInventoryUsecase.FiltersList,
     options?: iBaseRepository.Options
-  ): Promise<Array<Item>>
- 
+  ): Promise<Array<Item>>;
+
   abstract update<Item extends ItemEntity = ItemEntity>(
-    companyId: string, 
-    item : Partial<Item>, 
+    companyId: string,
+    item: Partial<Item>,
     options?: iBaseRepository.Options
-  ): Promise<boolean>
+  ): Promise<boolean>;
 }

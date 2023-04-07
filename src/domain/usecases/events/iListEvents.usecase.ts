@@ -16,9 +16,9 @@ export namespace iListEventsUsecase {
   };
   export type Output = Array<EventEntity>;
 
-  export type Filters = BaseFilterForEntities & BaseFilterEntityEventEntity
+  export type Filters = BaseFilterForEntities & BaseFilterEntityEventEntity;
 
-  abstract class BaseFilterEntityEventEntity implements Partial<EventEntity>{
+  abstract class BaseFilterEntityEventEntity implements Partial<EventEntity> {
     public start_date?: Date;
     public end_date?: Date;
   }
