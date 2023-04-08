@@ -1,5 +1,6 @@
-import { iHashAdapter } from '@/src/infra/cryptography/contracts';
-import { Auth } from '../../../domain/entities';
+import { iUsecase } from 'src/domain/contracts';
+import { iHashAdapter } from '../../../../src/infra/cryptography/contracts';
+import { AuthenticateEntity } from '../../../domain/entities';
 import { BadRequestError, UnauthorizedError } from '../../../domain/errors';
 import {
   iCreateTokenForCompany,
@@ -16,22 +17,34 @@ export class HasAuthenticationRecordCompanyData
     private readonly hashAdapter: iHashAdapter
   ) {}
   async exec(
-    input: iHasAuthenticationRecordCompany.input
+    input: iHasAuthenticationRecordCompany.input,
+    options?: iUsecase.Options
   ): Promise<iHasAuthenticationRecordCompany.output> {
-    const foundedAuth: Auth =
-      await this.authenticationRepository.getAuthByCredentials({
-        email: input?.email,
-        cnpj: input?.cnpj,
-      });
+    const foundedAuth: AuthenticateEntity =
+      await this.authenticationRepository.getAuthByCredentials(
+        {
+          email: input?.email,
+          cnpj: input?.cnpj,
+        },
+        options
+      );
 
     if (input.password) {
-      return this.validAuthForLogin(input as Auth, foundedAuth);
+      return this.validAuthForLogin(
+        input as AuthenticateEntity,
+        foundedAuth,
+        options
+      );
     } else {
       return this.validAuthExist(foundedAuth) as any;
     }
   }
 
-  private async validAuthForLogin(incomingAuth: Auth, foundedAuth: Auth) {
+  private async validAuthForLogin(
+    incomingAuth: AuthenticateEntity,
+    foundedAuth: AuthenticateEntity,
+    options: iUsecase.Options
+  ) {
     if (!foundedAuth) throw new BadRequestError('Account not found.');
 
     const accessReleased = await this.hashAdapter.compare(
@@ -41,14 +54,17 @@ export class HasAuthenticationRecordCompanyData
 
     if (!accessReleased) throw new UnauthorizedError();
 
-    const { token } = await this.createTokenForCompany.exec({
-      companyId: foundedAuth.associeteded_id,
-    });
+    const { token } = await this.createTokenForCompany.exec(
+      {
+        companyId: foundedAuth.associeteded_id,
+      },
+      options
+    );
 
     return { token };
   }
 
-  private async validAuthExist(foundedAuth: Auth) {
+  private async validAuthExist(foundedAuth: AuthenticateEntity) {
     if (foundedAuth)
       throw new UnauthorizedError(
         'This CNPJ or Email has record, try change your passwoord.'

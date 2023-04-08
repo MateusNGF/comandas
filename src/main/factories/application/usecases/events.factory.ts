@@ -8,9 +8,10 @@ import {
   iCreateEvent,
   iListEvents,
 } from '../../../../../src/domain/usecases/events';
-import { makeCompanyRepository, makeEventRepository } from '../../infra/database/mongo.factory';
-
-
+import {
+  makeCompanyRepository,
+  makeEventRepository,
+} from '../../infra/database/mongo.factory';
 
 export const makeUsecaseCreateEvent = (): iCreateEvent => {
   return new CreateEventData(makeCompanyRepository(), makeEventRepository());

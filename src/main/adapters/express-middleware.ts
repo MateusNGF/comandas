@@ -1,4 +1,4 @@
-import { iMiddleware } from '@/src/application/contracts/iMiddleware';
+import { iMiddleware } from '../../../src/application/contracts/iMiddleware';
 import { NextFunction, Request, Response } from 'express';
 
 export const adaptExpressMiddleware =

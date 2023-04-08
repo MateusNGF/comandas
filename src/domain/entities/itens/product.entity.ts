@@ -1,5 +1,4 @@
 import { ObjectManager } from '../../utils';
-import { iEntity } from '.';
 import { ItemCompany } from './item.entity';
 
 export class Product extends ItemCompany {
@@ -7,9 +6,8 @@ export class Product extends ItemCompany {
   public readonly quantity?: number = 0;
 
   constructor(product: Product) {
-    product.type = 'product'
-    super(product)
+    product.type = 'product';
+    super(product);
     ObjectManager.assing(this, product);
   }
 }
-

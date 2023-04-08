@@ -12,10 +12,6 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "baseUrl": ".",
-    "paths": {
-      "@/*" : ["*"],
-      "@tests/*": ["tests/*"]
-    },
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },

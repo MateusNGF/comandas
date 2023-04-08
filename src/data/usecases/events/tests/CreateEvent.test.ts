@@ -1,4 +1,4 @@
-import { Company, Event } from '@/src/domain/entities';
+import { CompanyEntity, EventEntity } from '../../../../../src/domain/entities';
 import {
   MissingParamError,
   UnauthorizedError,
@@ -17,8 +17,8 @@ describe('Creation Event', () => {
   let companyRepositorySpy: MockProxy<iCompanyRepository>;
   let eventRepositorySpy: MockProxy<iEventRepository>;
 
-  let fakeCompany: Company;
-  let fakeEvent: Event;
+  let fakeCompany: CompanyEntity;
+  let fakeEvent: EventEntity;
   let fakeBody: iCreateEvent.input;
 
   beforeAll(() => {

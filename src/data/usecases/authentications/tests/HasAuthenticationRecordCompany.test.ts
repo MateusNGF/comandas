@@ -1,4 +1,4 @@
-import { Auth } from '../../../../../src/domain/entities';
+import { AuthenticateEntity } from '../../../../../src/domain/entities';
 import {
   BadRequestError,
   UnauthorizedError,
@@ -10,7 +10,7 @@ import {
 import { iAuthenticationRepository } from '../../../../../src/infra/database/contracts/repositorys';
 import { mock, MockProxy } from 'jest-mock-extended';
 import { HasAuthenticationRecordCompanyData } from '../HasAuthenticationRecordCompany.data';
-import { iHashAdapter } from '@/src/infra/cryptography/contracts';
+import { iHashAdapter } from '../../../../../src/infra/cryptography/contracts';
 
 describe('Has Authentication record for company', () => {
   let sut: iHasAuthenticationRecordCompany;
@@ -18,7 +18,7 @@ describe('Has Authentication record for company', () => {
   let createTokenForCompany: MockProxy<iCreateTokenForCompany>;
   let hashAdapter: MockProxy<iHashAdapter>;
 
-  let fakeValidDataAuth: Auth;
+  let fakeValidDataAuth: AuthenticateEntity;
   let fakeInputCredentials: iHasAuthenticationRecordCompany.input;
 
   beforeAll(() => {

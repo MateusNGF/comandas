@@ -1,3 +1,4 @@
+import { iUsecase } from 'src/domain/contracts';
 import { BadRequestError } from '../../../../src/domain/errors';
 import { iSendEmailWithTokenAuthenticate } from '../../../../src/domain/usecases/authentications';
 import { iTokenAdapter } from '../../../../src/infra/cryptography/contracts';
@@ -14,17 +15,21 @@ export class SendEmailWithTokenAuthenticateData
   ) {}
   async exec(
     input: iSendEmailWithTokenAuthenticate.input,
-    options?: iSendEmailWithTokenAuthenticate.options
+    configuration?: iSendEmailWithTokenAuthenticate.Configuration,
+    options?: iUsecase.Options
   ): Promise<Boolean> {
-    const auth = await this.authenticateRepository.getAuthByCredentials({
-      email: input.email,
-    });
+    const auth = await this.authenticateRepository.getAuthByCredentials(
+      {
+        email: input.email,
+      },
+      options
+    );
     if (!auth) throw new BadRequestError('Account not found.');
 
     const token =
       await this.tokenAdapter.sing<iSendEmailWithTokenAuthenticate.payloadToken>(
         { authId: auth.id },
-        options
+        configuration
       );
 
     const bodyEmail: iMailProvider.ContentEmail = {

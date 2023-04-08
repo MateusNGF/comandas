@@ -1,9 +1,20 @@
-import { Company } from '@/src/domain/entities/company.entity';
+import { CompanyEntity } from '../../../../../src/domain/entities/company.entity';
 import { iBaseRepository } from './iBaseRepository';
 
-export interface iCompanyRepository extends iBaseRepository<Company> {
-  findByCNPJ(cnpj: string): Promise<Company>;
-  findByEmail(cnpj: string): Promise<Company>;
-  register(company: Company): Promise<{ _id: string }>;
-  generateId(): string;
+export abstract class iCompanyRepository extends iBaseRepository<CompanyEntity> {
+  abstract findByCNPJ(
+    cnpj: string,
+    options?: iBaseRepository.Options
+  ): Promise<CompanyEntity>;
+  abstract findByEmail(
+    cnpj: string,
+    options?: iBaseRepository.Options
+  ): Promise<CompanyEntity>;
+  abstract register(
+    company: CompanyEntity,
+    options?: iBaseRepository.Options
+  ): Promise<{ _id: string }>;
+  abstract generateId(): string;
 }
+
+export namespace iCompanyRepository {}

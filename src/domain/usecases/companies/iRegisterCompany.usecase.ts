@@ -1,14 +1,15 @@
 import { iUsecase } from '../../contracts';
-import { Company } from '../../entities';
+import { CompanyEntity } from '../../entities';
 
 export abstract class iRegisterCompany implements iUsecase {
   abstract exec(
-    input: iRegisterCompany.input
+    input: iRegisterCompany.input,
+    options?: iUsecase.Options
   ): Promise<iRegisterCompany.output>;
 }
 
 export namespace iRegisterCompany {
-  export type input = Company & { password: string };
+  export type input = CompanyEntity & { password: string };
 
   export type output = {
     token: string;

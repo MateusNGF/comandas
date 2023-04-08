@@ -1,5 +1,4 @@
 import { ObjectManager } from '../../utils';
-import { iEntity } from '.';
 import { ItemCompany } from './item.entity';
 
 export class Service extends ItemCompany {
@@ -10,4 +9,3 @@ export class Service extends ItemCompany {
     ObjectManager.assing(this, service);
   }
 }
-

@@ -1,4 +1,4 @@
-import { Event } from '@/src/domain/entities';
+import { EventEntity } from '../../../../src/domain/entities';
 import { ObjectManager } from '../../../../src/domain/utils';
 import { iCreateEvent } from '../../../domain/usecases/events';
 import { iController } from '../../contracts';
@@ -13,7 +13,7 @@ export class CreateEventController extends iController {
       const { companyId } = request.headers.decodedTokenCompany;
       const event = request.body;
 
-      ObjectManager.hasKeys<Event>(
+      ObjectManager.hasKeys<EventEntity>(
         ['name', 'description', 'start_date', 'end_date'],
         event
       );

@@ -12,9 +12,10 @@ import { CreateTokenForCompany as CreateTokenForCompanyData } from '../../../../
 import { SendEmailWithTokenAuthenticateData } from '../../../../../src/data/usecases/authentications/SendEmailWithTokenAuthenticate.data';
 import { makeMailProvider } from '../../infra/mail';
 import { UpdateAuthenticateData } from '../../../../../src/data/usecases/authentications/UpdateAuthenticate.data';
-import { makeAuthenticationRepository, makeCompanyRepository } from '../../infra/database/mongo.factory';
-
-
+import {
+  makeAuthenticationRepository,
+  makeCompanyRepository,
+} from '../../infra/database/mongo.factory';
 
 export function makeUsecaseHasAuthenticationRecordCompany(): iHasAuthenticationRecordCompany {
   return new HasAuthenticationRecordCompanyData(

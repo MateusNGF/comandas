@@ -1,8 +1,7 @@
 import { ObjectManager } from '../utils';
 import { iEntity } from './itens';
 
-export class Company extends iEntity {
-
+export class CompanyEntity extends iEntity {
   public readonly name_fantasy: string = null;
   public readonly email: string = null;
   public readonly cnpj: string = null;
@@ -11,7 +10,7 @@ export class Company extends iEntity {
   public readonly currency?: string = null;
   public readonly logo_url?: string = null;
 
-  constructor(company: Company) {
+  constructor(company: CompanyEntity) {
     super(company);
     ObjectManager.assing(this, company);
   }

@@ -1,4 +1,5 @@
-import { Auth } from '../../../domain/entities';
+import { iUsecase } from 'src/domain/contracts';
+import { AuthenticateEntity } from '../../../domain/entities';
 import {
   iCreateAuthenticateForCompanyUsecase,
   iHasAuthenticationRecordCompany,
@@ -14,14 +15,18 @@ export class CreateAuthenticateForCompanyData
   ) {}
 
   async exec(
-    input: iCreateAuthenticateForCompanyUsecase.input
+    input: iCreateAuthenticateForCompanyUsecase.input,
+    options: iUsecase.Options
   ): Promise<iCreateAuthenticateForCompanyUsecase.output> {
-    await this.hasAuthenticationRecordCompanyUsecase.exec({
-      email: input?.email,
-      cnpj: input?.cnpj,
-    });
+    await this.hasAuthenticationRecordCompanyUsecase.exec(
+      {
+        email: input?.email,
+        cnpj: input?.cnpj,
+      },
+      options
+    );
 
-    const authForRecord = new Auth({
+    const authForRecord = new AuthenticateEntity({
       associeteded_id: input.associeteded_id,
       email: input?.email,
       cnpj: input?.cnpj,
@@ -29,7 +34,8 @@ export class CreateAuthenticateForCompanyData
     });
 
     const authRecored = await this.authenticationRepository.create(
-      authForRecord
+      authForRecord,
+      options
     );
 
     return {

@@ -1,4 +1,4 @@
-import { Auth } from '../../../../domain/entities';
+import { AuthenticateEntity } from '../../../../domain/entities';
 import { UnauthorizedError } from '../../../../domain/errors';
 import {
   iCreateAuthenticateForCompanyUsecase,
@@ -14,7 +14,7 @@ describe('Create Authentication for company', () => {
   let hasAuthenticationRecordCompanyUsecaseMock: MockProxy<iHasAuthenticationRecordCompany>;
   let authenticationRepositoryMock: MockProxy<iAuthenticationRepository>;
 
-  let fakeValidDataAuth: Auth;
+  let fakeValidDataAuth: AuthenticateEntity;
   let fakeInputCredentials: iCreateAuthenticateForCompanyUsecase.input;
 
   const unauthorizedErrorInHasRecordAuth = new UnauthorizedError(
@@ -72,7 +72,6 @@ describe('Create Authentication for company', () => {
   });
 
   it('Should return auth_id when record sucess create auth.', async () => {
-    const tokenMockado = { token: 'token_mockado' };
 
     hasAuthenticationRecordCompanyUsecaseMock.exec.mockResolvedValue(undefined);
 
