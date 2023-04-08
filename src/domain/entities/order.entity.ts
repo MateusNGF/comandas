@@ -5,6 +5,7 @@ import { ItemEntity } from './itens/item.entity';
 export class OrderEntity extends iEntity {
   public readonly company_id: string = null;
   public readonly event_id?: string = null;
+  public readonly customer_cpf?: string = null;
   public readonly itens: Array<OrderEntity.ItemOrder> = [];
 
   constructor(order: OrderEntity) {
