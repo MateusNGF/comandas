@@ -1,4 +1,3 @@
-import { ObjectManager } from '../../../domain/utils';
 import { iArchivateEvent } from '../../../domain/usecases/events';
 import { iEventRepository } from '../../../infra/database/contracts/repositorys';
 import { iUsecase } from 'src/domain/contracts';

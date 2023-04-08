@@ -11,7 +11,7 @@ export interface iDateProvider {
   addDays(days: number): iDateProvider;
   subtractDays(days: number): iDateProvider;
 
-  tz(timezone: iDateProvider.Timezone): Date;
+  tz(timezone: iDateProvider.Timezone): string;
 }
 
 export namespace iDateProvider {

@@ -1,47 +1,55 @@
 import { EventEntity } from '../../../../../src/domain/entities';
 import { Collection, ObjectId, Filter } from 'mongodb';
 import { iEventRepository } from '../../contracts/repositorys/iEventRepository';
-import { iListEvents } from '../../../../../src/domain/usecases/events';
+import { iListEventsUsecase } from '../../../../../src/domain/usecases/events';
 import { DateProvider } from '../../../../../src/infra/date/DateProvider.date';
 import { iBaseRepository } from '../../contracts/repositorys';
 
 export class EventsRepository implements iEventRepository {
   constructor(private readonly Colletion: Collection<EventEntity>) {}
+
   findById(
     _id: string,
     options?: iBaseRepository.Options
   ): Promise<EventEntity> {
     return this.Colletion.findOne(
       { id: _id },
-      { session: options?.session?.get() }
+      {
+        projection: {
+          _id: 0,
+        },
+        session: options?.session?.get(),
+      }
     );
   }
 
   async register(
     event: EventEntity,
     options?: iBaseRepository.Options
-  ): Promise<{ _id: any }> {
-    const eventWithId = new EventEntity({
-      ...event,
-      id: new ObjectId().toHexString(),
-    });
+  ): Promise<{ id: any }> {
+    const id = event.id ? event.id : this.generateId();
 
-    const response = await this.Colletion.insertOne(eventWithId, {
-      session: options?.session?.get(),
-    });
+    const response = await this.Colletion.insertOne(
+      {
+        ...event,
+        id,
+      },
+      { session: options?.session?.get() }
+    );
+
     if (response.insertedId) {
-      return { _id: response.insertedId };
+      return { id };
     }
   }
 
   async archive(
-    eventId: string,
+    event_id: string,
     company_id: string,
     options?: iBaseRepository.Options
   ): Promise<boolean> {
     const response = await this.Colletion.updateOne(
-      { id: new ObjectId(eventId), company_id },
-      { $set: { archived_date: new Date() } },
+      { id: event_id, company_id },
+      { $set: { archived_date: new Date(), updated_at: new Date() } },
       { session: options?.session?.get() }
     );
     if (response.matchedCount) {
@@ -50,13 +58,18 @@ export class EventsRepository implements iEventRepository {
   }
 
   async unarchive(
-    eventId: string,
+    event_id: string,
     company_id: string,
     options?: iBaseRepository.Options
   ): Promise<boolean> {
     const response = await this.Colletion.updateOne(
-      { id: new ObjectId(eventId), company_id },
-      { $set: { archived_date: null } },
+      { id: event_id, company_id },
+      {
+        $set: {
+          archived_date: null,
+          updated_at: new Date(),
+        },
+      },
       { session: options?.session?.get() }
     );
     if (response.matchedCount) {
@@ -66,7 +79,7 @@ export class EventsRepository implements iEventRepository {
 
   list(
     companyId: string,
-    filters?: iListEvents.Filters,
+    filters?: iListEventsUsecase.Filters,
     options?: iBaseRepository.Options
   ): Promise<EventEntity[]> {
     let where: Filter<EventEntity> = {
@@ -74,21 +87,21 @@ export class EventsRepository implements iEventRepository {
     };
 
     if (filters) {
-      if (filters.eventId) {
+      if (filters.id) {
         where = {
-          id: filters.eventId as any,
+          id: filters.id as any,
           ...where,
         };
       }
 
-      if (filters.startDate && filters.endDate) {
+      if (filters.start_date && filters.end_date) {
         where = {
           ...where,
           start_date: {
-            $gte: DateProvider(filters.startDate).toPrimitive(),
+            $gte: DateProvider(filters.start_date).toPrimitive(),
           },
           end_date: {
-            $lte: DateProvider(filters.endDate).toPrimitive(),
+            $lte: DateProvider(filters.end_date).toPrimitive(),
           },
         };
       }
@@ -100,8 +113,18 @@ export class EventsRepository implements iEventRepository {
         };
       }
     }
-    return this.Colletion.find(where, {
+    return this.Colletion.find<EventEntity>(where, {
+      projection: {
+        _id: 0,
+      },
       session: options?.session?.get(),
-    }).toArray();
+    })
+      .skip(Number(filters.offset) ?? 0)
+      .limit(filters.limit ?? 20)
+      .toArray();
+  }
+
+  generateId(): string {
+    return new ObjectId().toHexString();
   }
 }

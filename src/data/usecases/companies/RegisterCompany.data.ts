@@ -17,9 +17,7 @@ export class RegisterCompanyData extends iRegisterCompany {
     super();
   }
 
-  async exec(
-    input: iRegisterCompany.input
-  ): Promise<iRegisterCompany.output> {
+  async exec(input: iRegisterCompany.input): Promise<iRegisterCompany.output> {
     const session = this.sessionDatabase;
 
     session.startSession();
@@ -32,7 +30,7 @@ export class RegisterCompanyData extends iRegisterCompany {
         id: this.companyRepository.generateId(),
       });
 
-      const requestResult = await Promise.all([
+      await Promise.all([
         this.createAuthenticationForCompany.exec(
           {
             associeteded_id: company.id,
@@ -52,17 +50,18 @@ export class RegisterCompanyData extends iRegisterCompany {
           },
           { session }
         ),
-        this.createTokenForCompany.exec(
-          {
-            companyId: company.id,
-          },
-          { session }
-        ),
       ]);
+
+      const createToken = await this.createTokenForCompany.exec(
+        {
+          companyId: company.id,
+        },
+        { session }
+      );
 
       await session.commitTransaction();
       return {
-        token: requestResult[2].token,
+        token: createToken.token,
       };
     } catch (error) {
       await session.rollbackTransaction();

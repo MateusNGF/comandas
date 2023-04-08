@@ -7,7 +7,7 @@
   "license": "ISC",
   "keywords": [],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --diagnostics -p tsconfig.json",
     "start": "node -r dotenv/config dist/src/main/server.js",
     "start:dev": "npm run lint && ts-node-dev -r dotenv/config src/main/server.ts",
     "test:functional": "jest --projects ./tests --runInBand",

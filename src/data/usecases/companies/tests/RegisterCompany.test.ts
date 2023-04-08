@@ -8,12 +8,14 @@ import {
   iCreateAuthenticateForCompanyUsecase,
   iCreateTokenForCompany,
 } from '../../../../domain/usecases/authentications';
+import { iDatabase } from 'src/infra/database/contracts';
 
 describe('Registration Company', () => {
   let sut: iRegisterCompany;
 
   let repositorySpy: MockProxy<iCompanyRepository>;
 
+  let sessionDatabase: MockProxy<iDatabase.iSession>;
   let createTokenForCompany: MockProxy<iCreateTokenForCompany>;
   let createAuthenticationForCompany: MockProxy<iCreateAuthenticateForCompanyUsecase>;
 
@@ -30,10 +32,14 @@ describe('Registration Company', () => {
     repositorySpy = mock();
     createTokenForCompany = mock();
     createAuthenticationForCompany = mock();
+    sessionDatabase = mock();
   });
 
   beforeEach(() => {
+    sessionDatabase.startSession.mockReturnValue(sessionDatabase);
+
     sut = new RegisterCompanyData(
+      sessionDatabase,
       repositorySpy,
       createAuthenticationForCompany,
       createTokenForCompany

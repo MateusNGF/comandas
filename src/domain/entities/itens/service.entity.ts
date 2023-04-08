@@ -1,10 +1,9 @@
 import { ObjectManager } from '../../utils';
-import { ItemCompany } from './item.entity';
+import { ItemEntity } from './item.entity';
 
-export class Service extends ItemCompany {
-  constructor(service: Service) {
+export class ServiceEntity extends ItemEntity {
+  constructor(service: ServiceEntity) {
     service.type = 'service';
-
     super(service);
     ObjectManager.assing(this, service);
   }

@@ -1,20 +1,14 @@
 import { iUsecase } from '../../contracts';
 import { EventEntity } from '../../entities/event.entity';
 
-export abstract class iCreateEvent implements iUsecase {
+export abstract class iCreateEventUsecase implements iUsecase {
   abstract exec(
-    input: iCreateEvent.input,
+    input: iCreateEventUsecase.Input,
     options?: iUsecase.Options
-  ): Promise<iCreateEvent.output>;
+  ): Promise<iCreateEventUsecase.Output>;
 }
 
-export namespace iCreateEvent {
-  export type input = {
-    companyId: string;
-    event: EventEntity;
-  };
-  export type output = {
-    _id: string;
-    created_at: Date;
-  };
+export namespace iCreateEventUsecase {
+  export type Input = EventEntity;
+  export type Output = EventEntity;
 }

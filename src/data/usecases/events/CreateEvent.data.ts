@@ -1,8 +1,5 @@
-import {
-  BadRequestError,
-  MissingParamError,
-} from '../../../../src/domain/errors';
-import { iCreateEvent } from '../../../../src/domain/usecases/events';
+import { BadRequestError } from '../../../../src/domain/errors';
+import { iCreateEventUsecase } from '../../../../src/domain/usecases/events';
 
 import {
   iCompanyRepository,
@@ -10,49 +7,57 @@ import {
 } from '../../../../src/infra/database/contracts/repositorys';
 import { EventEntity } from '../../../domain/entities';
 import { DateProvider } from '../../../../src/infra/date/DateProvider.date';
-import { iUsecase } from 'src/domain/contracts';
+import { iDatabase } from 'src/infra/database/contracts';
 
-export class CreateEventData implements iCreateEvent {
+export class CreateEventData implements iCreateEventUsecase {
   constructor(
+    private readonly sessionDatabase: iDatabase.iSession,
     private readonly companyRepository: iCompanyRepository,
     private readonly eventRepository: iEventRepository
   ) {}
   async exec(
-    input: iCreateEvent.input,
-    options: iUsecase.Options
-  ): Promise<iCreateEvent.output> {
-    const event = input.event;
+    input: iCreateEventUsecase.Input
+  ): Promise<iCreateEventUsecase.Output> {
+    const session = this.sessionDatabase.startSession();
 
-    if (!input.companyId) throw new MissingParamError('companyId');
-    if (!input.event) throw new MissingParamError('event');
+    try {
+      session.initTransaction();
 
-    const company = await this.companyRepository.findById(
-      input.companyId,
-      options
-    );
-    if (!company) throw new BadRequestError('Company not found.');
+      const event = input;
 
-    if (DateProvider(event.start_date).isAfter(event.end_date)) {
-      throw new BadRequestError(
-        'The start date cannot be equal to or after the end date of the event.'
-      );
-    }
+      if (DateProvider(event.start_date).isAfter(event.end_date)) {
+        throw new BadRequestError(
+          'The start date cannot be equal to or after the end date of the event.'
+        );
+      }
 
-    const newEvent = new EventEntity({
-      company_id: input.companyId,
-      name: event.name,
-      start_date: DateProvider(event.start_date).tz(company?.timezone),
-      end_date: DateProvider(event.end_date).tz(company?.timezone),
-      description: event?.description,
-    });
+      const company = await this.companyRepository.findById(event.company_id, {
+        session,
+      });
+      if (!company) throw new BadRequestError('Company not found.');
 
-    const createdEvent = await this.eventRepository.register(newEvent, options);
+      const newEvent = new EventEntity({
+        id: this.eventRepository.generateId(),
+        company_id: event.company_id,
+        name: event.name,
+        start_date: new Date(event.start_date),
+        end_date: new Date(event.end_date),
+        description: event?.description,
+      });
 
-    if (createdEvent) {
-      return {
-        _id: createdEvent._id,
-        created_at: event.created_at,
-      };
+      const creatededEvent = await this.eventRepository.register(newEvent, {
+        session,
+      });
+      if (!creatededEvent?.id)
+        throw new BadRequestError('Failed create event, try latey.');
+
+      await session.commitTransaction();
+      return newEvent;
+    } catch (error) {
+      await session.rollbackTransaction();
+      throw error;
+    } finally {
+      await session.endSession();
     }
   }
 }

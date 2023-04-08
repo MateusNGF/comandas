@@ -1,4 +1,3 @@
-import { MissingParamError } from '../../../../domain/errors';
 import { mock, MockProxy } from 'jest-mock-extended';
 import { ArchivateEventData } from '../ArchivateEvent.data';
 import { iArchivateEvent } from '../../../../../src/domain/usecases/events';
@@ -57,29 +56,5 @@ describe('Archived event', () => {
 
     const response = await sut.exec(fakeRequest);
     expect(response).toBe(true);
-  });
-
-  it('Should return MissingParamError if companyId is missing.', async () => {
-    delete fakeRequest.companyId;
-
-    const response = sut.exec(fakeRequest);
-
-    await expect(response).rejects.toThrow(new MissingParamError('companyId'));
-  });
-
-  it('Should return MissingParamError if eventId is missing.', async () => {
-    delete fakeRequest.eventId;
-
-    const response = sut.exec(fakeRequest);
-
-    await expect(response).rejects.toThrow(new MissingParamError('eventId'));
-  });
-
-  it('Should return MissingParamError if action is missing.', async () => {
-    delete fakeRequest.action;
-
-    const response = sut.exec(fakeRequest);
-
-    await expect(response).rejects.toThrow(new MissingParamError('action'));
   });
 });

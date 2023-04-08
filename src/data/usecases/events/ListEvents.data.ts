@@ -1,16 +1,17 @@
 import { iUsecase } from 'src/domain/contracts';
-import { InternalError } from '../../../../src/domain/errors';
-import { iListEvents } from '../../../../src/domain/usecases/events';
+import { BadRequestError } from '../../../../src/domain/errors';
+import { iListEventsUsecase } from '../../../../src/domain/usecases/events';
 import { iEventRepository } from '../../../../src/infra/database/contracts/repositorys';
 
-export class ListEvents implements iListEvents {
+export class ListEventsData implements iListEventsUsecase {
   constructor(private readonly eventRepository: iEventRepository) {}
   async exec(
-    input: iListEvents.Input,
+    input: iListEventsUsecase.Input,
     options: iUsecase.Options
-  ): Promise<iListEvents.Output> {
+  ): Promise<iListEventsUsecase.Output> {
     const { companyId, filters } = input;
-    if (!companyId) throw new InternalError('CompanyId no sent.');
+
+    if (!companyId) throw new BadRequestError('Missing company id');
 
     const events = await this.eventRepository.list(companyId, filters, options);
 

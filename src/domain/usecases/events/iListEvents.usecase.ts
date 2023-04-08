@@ -1,24 +1,25 @@
 import { iUsecase } from '../../contracts';
 import { EventEntity } from '../../entities';
-import { BaseFilterForListing } from '../../types';
+import { BaseFilterForEntities } from '../../types';
 
-export abstract class iListEvents implements iUsecase {
+export abstract class iListEventsUsecase implements iUsecase {
   abstract exec(
-    input: iListEvents.Input,
+    input: iListEventsUsecase.Input,
     options?: iUsecase.Options
-  ): Promise<iListEvents.Output>;
+  ): Promise<iListEventsUsecase.Output>;
 }
 
-export namespace iListEvents {
+export namespace iListEventsUsecase {
   export type Input = {
     companyId: string;
-    filters?: iListEvents.Filters;
+    filters?: iListEventsUsecase.Filters;
   };
   export type Output = Array<EventEntity>;
 
-  export type Filters = BaseFilterForListing & {
-    startDate?: string | Date;
-    endDate?: string | Date;
-    eventId?: string;
-  };
+  export type Filters = BaseFilterForEntities & BaseFilterEntityEventEntity;
+
+  abstract class BaseFilterEntityEventEntity implements Partial<EventEntity> {
+    public start_date?: Date;
+    public end_date?: Date;
+  }
 }

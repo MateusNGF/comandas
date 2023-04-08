@@ -1,12 +1,13 @@
+import { iEntity } from '../contracts/iEntity';
 import { ObjectManager } from '../utils';
-import { iEntity } from './itens';
 
 export class EventEntity extends iEntity {
   public readonly name: string = null;
-  public readonly company_id?: string = null;
-  public readonly description?: string = null;
+  public readonly company_id: string = null;
   public readonly start_date: Date = null;
   public readonly end_date: Date = null;
+  
+  public readonly description?: string = null;
 
   constructor(event: EventEntity) {
     super(event);

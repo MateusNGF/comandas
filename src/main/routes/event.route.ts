@@ -11,7 +11,7 @@ import { makeMiddlewareAuthentication } from '../factories/application/middlewar
 
 export default (router: Router): void => {
   router.post(
-    '/create',
+    '/',
     adaptExpressMiddleware(makeMiddlewareAuthentication()),
     adaptExpressRoute(makeCreationEventController())
   );

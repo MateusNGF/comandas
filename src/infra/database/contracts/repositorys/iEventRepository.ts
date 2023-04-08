@@ -1,15 +1,15 @@
 import { EventEntity } from '../../../../../src/domain/entities/event.entity';
-import { iListEvents } from '../../../../../src/domain/usecases/events';
+import { iListEventsUsecase } from '../../../../../src/domain/usecases/events';
 import { iBaseRepository } from './iBaseRepository';
 
 export interface iEventRepository extends iBaseRepository<EventEntity> {
   register(
     event: EventEntity,
     options?: iBaseRepository.Options
-  ): Promise<{ _id: any }>;
+  ): Promise<{ id: any }>;
   list(
     companyId: string,
-    filters?: iListEvents.Filters,
+    filters?: iListEventsUsecase.Filters,
     options?: iBaseRepository.Options
   ): Promise<Array<EventEntity>>;
   archive(

@@ -7,8 +7,8 @@ import {
 } from '../factories/application/controllers/companies.factory';
 
 export default (router: Router): void => {
-  router.post('/register', adaptExpressRoute(makeRegisterCompanyController()));
-  router.get('/access', adaptExpressRoute(makeAccessCompanyController()));
+  router.post('/', adaptExpressRoute(makeRegisterCompanyController()));
+  router.get('/', adaptExpressRoute(makeAccessCompanyController()));
 
   router.post(
     '/reset-password/:step',
