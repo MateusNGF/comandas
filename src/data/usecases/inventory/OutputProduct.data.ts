@@ -42,7 +42,7 @@ export class OutputProductData implements iOutputProductUsecase {
     const output: iOutputProductUsecase.Output = [];
     const promises = [];
 
-    if (!items.length) return [];
+    if (!items || !items.length) return [];
 
     for (let i = 0; i < items.length; i++) {
       const productOut = items[i];
@@ -71,6 +71,7 @@ export class OutputProductData implements iOutputProductUsecase {
         { id: productDB.id, quantity: quantityUpdated },
         options
       );
+
       output.push({
         id: productDB.id,
         name: productDB.name,
@@ -78,11 +79,11 @@ export class OutputProductData implements iOutputProductUsecase {
         sale_price: productDB.sale_price,
         quantity: productOut.quantity,
       });
+      
       promises.push(query);
     }
 
     const result: Array<boolean> = await Promise.all(promises);
-    console.log(result);
     result.forEach((updatedProduct, index) => {
       if (!updatedProduct)
         throw new BadRequestError(`Product ${output[index].name} not updated.`);

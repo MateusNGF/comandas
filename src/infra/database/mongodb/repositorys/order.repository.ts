@@ -26,6 +26,23 @@ export class OrderRepository implements iOrderRepository {
   ): Promise<OrderEntity> {
     return this.Colletion.findOne({ id }, { session: options?.session?.get() });
   }
+
+  async update(order: OrderEntity, options?: iBaseRepository.Options): Promise<OrderEntity> {
+    const orderUpdeted = await this.Colletion.findOneAndUpdate(
+      { id: order.id },
+      {
+        $set: {
+          ...order,
+          updated_at: new Date(),
+        },
+      },
+      { session: options?.session?.get() }
+    );
+    
+    if (!orderUpdeted.ok) return null
+    else return orderUpdeted.value;
+  }
+
   generateId(): string {
     return new ObjectId().toHexString();
   }

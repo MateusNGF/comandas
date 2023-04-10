@@ -4,6 +4,7 @@ import { adaptExpressRoute } from '../adapters/express-route';
 import {
   makeCreateOrderController,
   makeListOrdersController,
+  makeProductsInOrder,
 } from '../factories/application/controllers';
 import { makeMiddlewareAuthentication } from '../factories/application/middlewares/authentication.middleware.factory';
 
@@ -25,4 +26,10 @@ export default (router: Router) => {
     adaptExpressMiddleware(makeMiddlewareAuthentication()),
     adaptExpressRoute(makeListOrdersController())
   );
+
+
+  router.patch(
+    '/products/:action/:orderId', 
+    adaptExpressMiddleware(makeMiddlewareAuthentication()), 
+    adaptExpressRoute(makeProductsInOrder()));
 };

@@ -19,7 +19,7 @@ export class CustomerPFEntity extends CustomerEntity {
     public readonly cpf: string;
 
     constructor(customerPF: CustomerPFEntity) {
-        let customer : CustomerPFEntity = { ...customerPF, type: 'PF' };
+        const customer : CustomerPFEntity = { ...customerPF, type: 'PF' };
         super(customer)
         ObjectManager.assing(this, customer);
     }
@@ -30,7 +30,7 @@ export class CustomerPJEntity extends CustomerEntity {
     public readonly cnpj: string;
 
     constructor(customerPJ: CustomerPJEntity) {
-        let customer : CustomerPJEntity = { ...customerPJ, type: 'PJ' };
+        const customer : CustomerPJEntity = { ...customerPJ, type: 'PJ' };
         super(customer)
         ObjectManager.assing(this, customer);
     }
