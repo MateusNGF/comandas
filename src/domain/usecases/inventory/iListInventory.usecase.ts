@@ -1,6 +1,6 @@
 import { iUsecase } from 'src/domain/contracts';
 import { ItemEntity, ProductEntity } from 'src/domain/entities';
-import { BaseFilterForEntities } from 'src/domain/types';
+import { BaseFilterForEntities } from 'src/utils/types';
 
 export abstract class iListInventoryUsecase implements iUsecase {
   abstract exec(

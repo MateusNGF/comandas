@@ -2,7 +2,7 @@ import { UnauthorizedError } from '../../domain/errors';
 import { iTokenAdapter } from '../../infra/cryptography/contracts';
 import { HttpRequest, HttpResponse } from '../helpers/http';
 import { iMiddleware } from '../contracts/iMiddleware';
-import { PayloadToken } from '../../../src/domain/types';
+import { PayloadToken } from '../../utils/types';
 
 export class AuthenticationMiddleware extends iMiddleware {
   constructor(private readonly tokenAdapter: iTokenAdapter) {

@@ -2,7 +2,7 @@ import {
   EmptyParamError,
   MissingParamError,
   UnexpectedParamError,
-} from '../errors/validation.error';
+} from '../domain/errors/validation.error';
 
 export class ObjectManager extends Object {
   /**

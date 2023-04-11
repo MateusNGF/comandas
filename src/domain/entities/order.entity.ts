@@ -1,5 +1,5 @@
 import { iEntity } from '../../domain/contracts/iEntity';
-import { ObjectManager } from '../utils';
+import { ObjectManager } from '../../utils';
 import { ItemEntity } from './itens/item.entity';
 
 export class OrderEntity extends iEntity {

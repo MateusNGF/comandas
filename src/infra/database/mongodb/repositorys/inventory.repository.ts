@@ -1,7 +1,7 @@
 import { Collection, Filter, ObjectId } from 'mongodb';
 import { ItemEntity } from '../../../../domain/entities';
 import { iListInventoryUsecase } from '../../../../domain/usecases/inventory/iListInventory.usecase';
-import { append } from '../../../../domain/utils';
+import { append } from '../../../../utils';
 import {
   iBaseRepository,
   iInventoryRepository,

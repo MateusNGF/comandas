@@ -7,7 +7,7 @@ import {
 } from '../../../domain/entities';
 import { BadRequestError } from '../../../domain/errors';
 import { iInputProductUsecase } from '../../../domain/usecases/inventory';
-import { ObjectManager } from '../../../domain/utils';
+import { ObjectManager } from '../../../utils';
 
 export class RegisterItemController extends iController {
   constructor(private readonly inputProductUsecase: iInputProductUsecase) {

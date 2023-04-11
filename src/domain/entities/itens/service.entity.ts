@@ -1,4 +1,4 @@
-import { ObjectManager } from '../../utils';
+import { ObjectManager } from '../../../utils';
 import { ItemEntity } from './item.entity';
 
 export class ServiceEntity extends ItemEntity {

@@ -1,4 +1,4 @@
-import { ObjectManager } from '../utils';
+import { ObjectManager } from '../../utils';
 
 export abstract class iEntity {
   public readonly id?: any = null;

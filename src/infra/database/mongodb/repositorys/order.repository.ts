@@ -1,6 +1,6 @@
 import { Collection, Filter, ObjectId } from 'mongodb';
 import { iListEventsUsecase } from '../../../../domain/usecases/events';
-import { append } from '../../../../domain/utils';
+import { append } from '../../../../utils';
 import { OrderEntity } from '../../../../domain/entities';
 import { iBaseRepository, iOrderRepository } from '../../contracts/repositorys';
 

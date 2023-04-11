@@ -1,7 +1,7 @@
 import { BadRequestError } from "../../../domain/errors";
 import { iController } from "../../../application/contracts";
 import { HttpRequest, HttpResponse } from "../../../application/helpers/http";
-import { HTTP_STATUS } from "../../../domain/types/Http.status";
+import { HTTP_STATUS } from "../../../utils/types/Http.status";
 import { iInputProductInOrderUsecase } from "../../../domain/usecases/orders/iInputProductInOrder.usecase";
 
 

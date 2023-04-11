@@ -1,5 +1,5 @@
 import { iEntity } from "../contracts/iEntity";
-import { ObjectManager } from "../utils";
+import { ObjectManager } from "../../utils";
 
 export abstract class CustomerEntity extends iEntity {
     public readonly id: string = null;

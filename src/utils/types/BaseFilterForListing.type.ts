@@ -1,4 +1,4 @@
-import { iEntity } from '../contracts/iEntity';
+import { iEntity } from '../../domain/contracts/iEntity';
 
 export type BaseFilterForListing = {
   text?: string;
