@@ -1,6 +1,6 @@
 import { BadRequestError } from '../../../domain/errors';
 import { EventEntity } from '../../../../src/domain/entities';
-import { ObjectManager } from '../../../../src/domain/utils';
+import { ObjectManager } from '../../../utils';
 import { iCreateEventUsecase } from '../../../domain/usecases/events';
 import { iController } from '../../contracts';
 import { HttpRequest, HttpResponse } from '../../helpers/http';

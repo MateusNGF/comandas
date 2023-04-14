@@ -1,4 +1,4 @@
-import { ObjectManager } from '../../../domain/utils';
+import { ObjectManager } from '../../../utils';
 import { iRegisterCompany } from '../../../domain/usecases/companies';
 import { iController } from '../../contracts';
 import { HttpRequest, HttpResponse } from '../../helpers/http';

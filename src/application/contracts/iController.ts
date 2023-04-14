@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from '../../../src/domain/types/Http.status';
+import { HTTP_STATUS } from '../../utils/types/Http.status';
 import { HTTP_ERROR } from '../../../src/domain/errors';
 import { HttpRequest, HttpResponse } from '../helpers/http';
 

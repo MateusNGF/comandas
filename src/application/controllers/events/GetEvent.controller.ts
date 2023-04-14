@@ -1,5 +1,5 @@
 import { BadRequestError } from '../../../../src/domain/errors';
-import { HTTP_STATUS } from '../../../../src/domain/types/Http.status';
+import { HTTP_STATUS } from '../../../utils/types/Http.status';
 import { iListEventsUsecase } from '../../../../src/domain/usecases/events';
 import { iController } from '../../contracts';
 import { HttpRequest, HttpResponse } from '../../helpers/http';

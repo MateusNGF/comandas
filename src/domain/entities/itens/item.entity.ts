@@ -1,5 +1,5 @@
 import { iEntity } from '../../contracts/iEntity';
-import { ObjectManager } from '../../utils';
+import { ObjectManager } from '../../../utils';
 
 export abstract class ItemEntity extends iEntity {
   public type?: ItemEntity.TypeItens = 'product';

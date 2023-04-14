@@ -1,4 +1,4 @@
-import { ObjectManager } from '../../utils';
+import { ObjectManager } from '../../../utils';
 import { ItemEntity } from './item.entity';
 
 export class ProductEntity extends ItemEntity {
@@ -22,6 +22,7 @@ export namespace ProductEntity {
 export abstract class ProductOutputReference implements Partial<ProductEntity> {
   public id: any;
   public quantity: number;
+  public discount?: number;
 }
 
 export abstract class ProductOutputRecord implements Partial<ProductEntity> {

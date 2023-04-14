@@ -1,4 +1,4 @@
-import { PayloadToken } from '../../../../src/domain/types';
+import { PayloadToken } from '../../../utils/types';
 import { InternalError } from '../../../../src/domain/errors';
 import { iCreateTokenForCompany } from '../../../../src/domain/usecases/authentications';
 import { iTokenAdapter } from '../../../../src/infra/cryptography/contracts';

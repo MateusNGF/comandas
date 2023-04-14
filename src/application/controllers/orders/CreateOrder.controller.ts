@@ -2,9 +2,9 @@ import { BadRequestError } from '../../../domain/errors';
 import { iController } from '../../../application/contracts';
 import { HttpRequest, HttpResponse } from '../../../application/helpers/http';
 import { ProductOutputReference } from '../../../domain/entities';
-import { HTTP_STATUS } from '../../../domain/types/Http.status';
+import { HTTP_STATUS } from '../../../utils/types/Http.status';
 import { iCreateOrderUsecase } from '../../../domain/usecases/orders';
-import { ObjectManager } from '../../../domain/utils';
+import { ObjectManager } from '../../../utils';
 
 export class CreateOrderController extends iController {
   constructor(private readonly createOrderUsecase: iCreateOrderUsecase) {

@@ -1,7 +1,7 @@
-import { append } from '../../../domain/utils';
+import { append } from '../../../utils';
 import { iController } from '../../../application/contracts';
 import { HttpRequest, HttpResponse } from '../../../application/helpers/http';
-import { HTTP_STATUS } from '../../../domain/types/Http.status';
+import { HTTP_STATUS } from '../../../utils/types/Http.status';
 import { iListOrderUsecase } from '../../../domain/usecases/orders';
 
 export class ListOrderController extends iController {

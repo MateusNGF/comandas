@@ -2,7 +2,7 @@ import { UnauthorizedError } from '../../../domain/errors';
 import { iAccessCompany } from '../../../../src/domain/usecases/companies';
 import { iController } from '../../contracts';
 import { HttpRequest, HttpResponse } from '../../helpers/http';
-import { ObjectManager } from '../../../../src/domain/utils';
+import { ObjectManager } from '../../../utils';
 
 export class AccessCompanyController extends iController {
   constructor(private readonly accessCompanyUsecase: iAccessCompany) {

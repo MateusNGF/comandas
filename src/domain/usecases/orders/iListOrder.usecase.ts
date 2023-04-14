@@ -1,6 +1,6 @@
 import { iUsecase } from '../../..//domain/contracts';
 import { OrderEntity } from '../../..//domain/entities';
-import { BaseFilterForEntities } from '../../..//domain/types';
+import { BaseFilterForEntities } from '../../../utils/types';
 
 export abstract class iListOrderUsecase implements iUsecase {
   abstract exec(

@@ -12,8 +12,12 @@
     - [X] Implementar casos de usos para Comandas.
     - [x] Implementar associação de evento a uma order.
 
+[C3] 1.3
+    - [] Implementar sistema de adicionar item a comanda existente.
+    - [] Implementar sistema de remover item da comanda existente.
+    - [] Implementar sistema de listar itens da comanda existente.
 
-[C3Analisy] 1.3
+[C5Analisy] 1.3
     - [] *Implementar sistema de análise de vendas por evento.
     - [] Implementar sistema de análise de vendas por cliente.
     - [] Implementar sistema de análise de vendas por produto.

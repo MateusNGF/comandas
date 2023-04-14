@@ -1,4 +1,4 @@
-import { PayloadToken } from '../../domain/types';
+import { PayloadToken } from '../../utils/types';
 
 export type HttpRequest = {
   body?: any;

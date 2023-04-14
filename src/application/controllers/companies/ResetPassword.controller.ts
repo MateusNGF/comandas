@@ -3,8 +3,8 @@ import {
   iUpdadeAuthenticate,
 } from '../../../../src/domain/usecases/authentications';
 import { BadRequestError } from '../../../../src/domain/errors';
-import { HTTP_STATUS } from '../../../../src/domain/types/Http.status';
-import { ObjectManager } from '../../../../src/domain/utils';
+import { HTTP_STATUS } from '../../../utils/types/Http.status';
+import { ObjectManager } from '../../../utils';
 import { iTokenAdapter } from '../../../../src/infra/cryptography/contracts';
 import { iController } from '../../contracts';
 import { HttpRequest, HttpResponse } from '../../helpers/http';

@@ -1,6 +1,6 @@
 import { iUsecase } from '../../contracts';
 import { EventEntity } from '../../entities';
-import { BaseFilterForEntities } from '../../types';
+import { BaseFilterForEntities } from '../../../utils/types';
 
 export abstract class iListEventsUsecase implements iUsecase {
   abstract exec(

@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from '../types/Http.status';
+import { HTTP_STATUS } from '../../utils/types/Http.status';
 import { CUSTOM_ERROR } from './custom.error';
 
 export abstract class HTTP_ERROR extends CUSTOM_ERROR {

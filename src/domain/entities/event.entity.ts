@@ -1,5 +1,5 @@
 import { iEntity } from '../contracts/iEntity';
-import { ObjectManager } from '../utils';
+import { ObjectManager } from '../../utils';
 
 export class EventEntity extends iEntity {
   public readonly name: string = null;

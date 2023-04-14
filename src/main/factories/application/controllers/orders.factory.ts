@@ -2,9 +2,11 @@ import { iController } from '../../../../application/contracts';
 import {
   CreateOrderController,
   ListOrderController,
+  ProductInOder,
 } from '../../../../application/controllers';
 import {
   makeCreateOrderUsecase,
+  makeInputProductInOrder,
   makeListOrdersUsecase,
 } from '../usecases/orders.factory';
 
@@ -19,3 +21,10 @@ export const makeListOrdersController = (): iController => {
 
   return new ListOrderController(usecase);
 };
+
+
+export const makeProductsInOrder = () : iController => {
+  return new ProductInOder(
+    makeInputProductInOrder()
+  )
+}
